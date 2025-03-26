@@ -1,0 +1,45 @@
+name: "Issue Template"
+description: "Use this template to create issues"
+title: "<type>: <title>"
+labels: []
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Issue Title and Label Format
+        <!-- Please follow this format for the title and select the corresponding label:
+             Title format: <type>: <title>
+             Label options: feat | fix | docs | style | refactor | perf | test | chore
+        -->
+        - **Title Format Example:** `feat: Add user authentication`
+        - **Label:** Please make sure the label matches the type used in the title (e.g., if title starts with `feat:`, select the `feat` label).
+          - Label options: feat | fix | docs | style | refactor | perf | test | chore
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "Briefly describe the issue"
+      placeholder: "Provide a concise description of the issue"
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: "Goal"
+      description: "What is the desired outcome of resolving this issue?"
+      placeholder: "Describe the goal or expected result"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: "Additional Info"
+      description: "Include any other relevant details, context, or screenshots"
+      placeholder: "Additional context, code snippets, or screenshots. If not required fill with 'N/A'"
+    validations:
+      required: false
