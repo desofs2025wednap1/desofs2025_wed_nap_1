@@ -9,6 +9,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 @Getter
 @Setter
@@ -64,6 +65,67 @@ public class User {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+
+    public User() {
+        // default constructor for JPA
+    }
+
+    public User(String email, String password, String firstName, String lastName,
+                String city, String address, String phoneNumber, String postIndex,
+                String activationCode, String passwordResetCode, boolean active,
+                AuthProvider provider, Set<Role> roles) {
+
+        validateEmail(email);
+        validatePhoneNumber(phoneNumber);
+        validatePostIndex(postIndex);
+
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.postIndex = postIndex;
+        this.activationCode = activationCode;
+        this.passwordResetCode = passwordResetCode;
+        this.active = active;
+        this.provider = provider;
+        this.roles = roles;
+    }
+
+    private void validateEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            throw new IllegalArgumentException("Email must not be blank.");
+        }
+        String emailRegex = "^[\\w-.]+@[\\w-]+\\.[a-z]{2,}$";
+        if (!Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE).matcher(email).matches()) {
+            throw new IllegalArgumentException("Email format is invalid.");
+        }
+    }
+
+    private void validatePhoneNumber(String phoneNumber) {
+        if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
+            // Simple validation: digits, +, -, spaces allowed
+            String phoneRegex = "^[+\\d\\s-]{7,15}$";
+            if (!Pattern.compile(phoneRegex).matcher(phoneNumber).matches()) {
+                throw new IllegalArgumentException("Phone number format is invalid.");
+            }
+        }
+    }
+
+    private void validatePostIndex(String postIndex) {
+        if (postIndex != null && !postIndex.trim().isEmpty()) {
+            // Simple postal code validation - customize as needed
+            if (postIndex.length() > 10) {
+                throw new IllegalArgumentException("Post index is too long.");
+            }
+        }
+    }
+
+
+
 
     @Override
     public boolean equals(Object o) {

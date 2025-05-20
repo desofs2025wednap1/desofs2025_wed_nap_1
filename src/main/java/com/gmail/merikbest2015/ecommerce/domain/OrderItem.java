@@ -29,6 +29,42 @@ public class OrderItem {
     @OneToOne
     private Perfume perfume;
 
+
+    public OrderItem() {
+
+    }
+
+    public OrderItem(Long amount, Long quantity, Perfume perfume) {
+        validateAmount(amount);
+        validateQuantity(quantity);
+        validatePerfume(perfume);
+
+        this.amount = amount;
+        this.quantity = quantity;
+        this.perfume = perfume;
+    }
+
+
+
+    // Getters and setters if needed...
+
+    private void validateAmount(Long amount) {
+        if (amount == null || amount < 0) {
+            throw new IllegalArgumentException("Amount must be non-null and non-negative.");
+        }
+    }
+
+    private void validateQuantity(Long quantity) {
+        if (quantity == null || quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be non-null and positive.");
+        }
+    }
+
+    private void validatePerfume(Perfume perfume) {
+        if (perfume == null) {
+            throw new IllegalArgumentException("Perfume must not be null.");
+        }
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
