@@ -1,5 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
 import com.gmail.merikbest2015.ecommerce.dto.perfume.PerfumeRequest;
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -22,11 +24,15 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.*;
 import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.*;
 import static com.gmail.merikbest2015.ecommerce.util.TestConstants.*;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -41,7 +47,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(value = {"/sql/create-orders-after.sql", "/sql/create-perfumes-after.sql", "/sql/create-user-after.sql"},
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class AdminControllerTest {
-
+    @MockBean
+    private AmazonS3 amazonS3;
     @Autowired
     private MockMvc mockMvc;
 
@@ -55,7 +62,9 @@ public class AdminControllerTest {
     private PerfumeRequest perfumeRequest;
 
     @Before
-    public void init() {
+    public void init() throws MalformedURLException {
+        URL fakeUrl = new URL("https://fake-s3-url.com/fake-image.jpg");
+        when(amazonS3.getUrl(anyString(), anyString())).thenReturn(fakeUrl);
         graphQLRequest = new GraphQLRequest();
         perfumeRequest = new PerfumeRequest();
         perfumeRequest.setPerfumer(PERFUMER_CHANEL);

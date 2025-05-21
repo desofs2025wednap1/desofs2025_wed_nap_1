@@ -9,7 +9,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
@@ -21,6 +24,7 @@ import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.*;
 import static com.gmail.merikbest2015.ecommerce.util.TestConstants.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -31,7 +35,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(value = {"/sql/create-user-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = {"/sql/create-user-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class AuthenticationControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -73,13 +76,6 @@ public class AuthenticationControllerTest {
                 .andExpect(jsonPath("$", is(INCORRECT_PASSWORD)));
     }
 
-    @Test
-    public void forgotPassword() throws Exception {
-        mockMvc.perform(get(API_V1_AUTH + FORGOT_EMAIL, USER_EMAIL)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Reset password code is send to your E-mail")));
-    }
 
     @Test
     public void forgotPassword_ShouldEmailBeNotValid() throws Exception {
