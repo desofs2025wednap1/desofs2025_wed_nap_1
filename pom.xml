@@ -217,11 +217,39 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
+                <configuration>
+                    <skipTests>${skip.unit.tests}</skipTests>
+                    <includes>
+                        <include>**/domain/*Test.java</include>
+                        <include>**/mapper/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skipITs>${skip.integration.tests}</skipITs>
+                    <includes>
+                        <include>**/controller/*Test.java</include>
+                        <include>**/service/Impl/*Test.java</include>
+                    </includes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.4</version>
+                <version>0.8.10</version>
                 <executions>
                     <execution>
                         <goals>
@@ -239,5 +267,24 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>unitTest</id>
+            <activation>
+                <activeByDefault>true</activeByDefault> <!-- optional, default profile -->
+            </activation>
+            <properties>
+                <skip.unit.tests>false</skip.unit.tests>
+                <skip.integration.tests>true</skip.integration.tests>
+            </properties>
+        </profile>
 
+        <profile>
+            <id>integrationTest</id>
+            <properties>
+                <skip.unit.tests>true</skip.unit.tests>
+                <skip.integration.tests>false</skip.integration.tests>
+            </properties>
+        </profile>
+    </profiles>
 </project>
