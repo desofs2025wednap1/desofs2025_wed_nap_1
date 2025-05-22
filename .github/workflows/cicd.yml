@@ -22,7 +22,7 @@ jobs:
 
       - name: Cache Maven packages
         id: cache-maven
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -53,7 +53,7 @@ jobs:
         run: mvn clean test -PunitTest --batch-mode --fail-at-end
 
       - name: Upload unit test reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: unit-test-reports
           path: target/surefire-reports/
@@ -108,7 +108,7 @@ jobs:
         run: mvn verify -PintegrationTest --batch-mode --fail-at-end
 
       - name: Upload integration test reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: integration-test-reports
           path: target/surefire-reports/
@@ -134,7 +134,6 @@ jobs:
         with:
           name: java-package
           path: target/*.jar
-
       # Optional: deploy to Docker locally (if needed)
     #  - name: Build Docker image
    #     run: docker build -t dsoft-ecommerce-spring .
