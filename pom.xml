@@ -221,7 +221,6 @@
                     <skipTests>${skip.unit.tests}</skipTests>
                     <includes>
                         <include>**/domain/*Test.java</include>
-                        <include>**/mapper/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>
@@ -243,6 +242,7 @@
                     <includes>
                         <include>**/controller/*Test.java</include>
                         <include>**/service/Impl/*Test.java</include>
+                        <include>**/mapper/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>
