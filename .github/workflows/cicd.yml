@@ -13,6 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -20,12 +28,13 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Run tests with Maven
-        run: mvn clean test -PunitTest
+      - name: Run unit tests
+        run: mvn clean test -PunitTest --batch-mode --fail-at-end
 
   integration-tests:
     needs: unit-tests
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:15
@@ -39,14 +48,25 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
+
     steps:
       - uses: actions/checkout@v4
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
       - name: Wait for Postgres to be ready and create test DB
         run: |
           until pg_isready -h localhost -p 5432 -U postgres; do
@@ -56,12 +76,13 @@ jobs:
           psql -h localhost -U postgres -c "CREATE DATABASE perfumetest;" -d postgres
         env:
           PGPASSWORD: root
+
       - name: Run integration tests
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/perfumetest
           SPRING_DATASOURCE_USERNAME: postgres
           SPRING_DATASOURCE_PASSWORD: root
-        run: mvn verify -PintegrationTest
+        run: mvn verify -PintegrationTest --batch-mode --fail-at-end
 
   package:
     needs: [unit-tests, integration-tests]
@@ -70,6 +91,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -77,8 +106,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build the package
-        run: mvn clean package "-Dskip.unit.tests=true" "-Dskip.integration.tests=true"
+      - name: Build the package without tests
+        run: mvn clean package "-Dskip.unit.tests=true" "-Dskip.integration.tests=true" --batch-mode --fail-at-end
 
       # Optional: deploy to Docker locally (if needed)
     #  - name: Build Docker image
