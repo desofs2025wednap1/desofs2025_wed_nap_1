@@ -154,7 +154,7 @@ jobs:
         run: |
           echo "Waiting for REST API to be ready on port 8080..."
           for i in {1..30}; do
-            if curl -s http://localhost:8080/actuator/health | grep -q '"status":"UP"'; then
+            if curl -s http://localhost:8080/ | grep -q '"status":"UP"'; then
               echo "Application is up!"
               exit 0
             else
@@ -164,6 +164,10 @@ jobs:
           done
           echo "Application did not start in time"
           exit 1
+
+      - name: Show Docker logs
+        if: failure()
+        run: docker compose logs
 
       - name: Stop and remove Docker Compose services
         if: always()
