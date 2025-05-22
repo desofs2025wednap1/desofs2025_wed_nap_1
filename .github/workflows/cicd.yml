@@ -130,18 +130,35 @@ jobs:
         run: mvn clean package "-Dskip.unit.tests=true" "-Dskip.integration.tests=true" --batch-mode --fail-at-end
 
       - name: Upload package artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: java-package
           path: target/*.jar
-      # Optional: deploy to Docker locally (if needed)
-    #  - name: Build Docker image
-   #     run: docker build -t dsoft-ecommerce-spring .
 
-      # Optional: run the app container (if needed)
-   #   - name: Run app container locally
-   #     run: docker run -d --network host dsoft-ecommerce-spring
+  deploy:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-   # - name: Update dependency graph
-   #   uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+      - name: Start services with Docker Compose
+        run: docker compose up -d --build
+
+      - name: Wait for application to be ready
+        run: |
+          echo "Waiting for REST API to be ready on port 8080..."
+          for i in {1..30}; do
+            if curl -s http://localhost:8080/actuator/health | grep -q '"status":"UP"'; then
+              echo "Application is up!"
+              exit 0
+            else
+              echo "Waiting..."
+              sleep 5
+            fi
+          done
+          echo "Application did not start in time"
+          exit 1
+
+      - name: Stop and remove Docker Compose services
+        if: always()
+        run: docker compose down
