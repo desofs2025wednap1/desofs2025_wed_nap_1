@@ -6,13 +6,14 @@ services:
     container_name: postgres-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: perfume
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
     ports:
       - "5432:5432"
     networks:
       - test-network
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   rest-ecommerce:
     image: dsoft-ecommerce-spring

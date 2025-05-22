@@ -15,7 +15,6 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_DB: perfume
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: root
         options: >-
@@ -35,16 +34,19 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Wait for Postgres to be ready
+      - name: Wait for Postgres to be ready and create test DB
         run: |
           until pg_isready -h localhost -p 5432 -U postgres; do
             echo "Waiting for DB..."
             sleep 2
           done
+          psql -h localhost -U postgres -c "CREATE DATABASE perfumetest;" -d postgres
+        env:
+          PGPASSWORD: root
 
       - name: Run tests with Maven
         env:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/perfume
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/perfumetest
           SPRING_DATASOURCE_USERNAME: postgres
           SPRING_DATASOURCE_PASSWORD: root
         run: mvn clean verify
@@ -56,11 +58,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker images with Compose
         run: docker-compose -f docker-compose.yml build
+
+  docker-run:
+    needs: docker-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Run app with Compose
         run: docker-compose -f docker-compose.yml up -d

@@ -1,0 +1,2 @@
+CREATE DATABASE perfume;
+CREATE DATABASE perfumetest;
