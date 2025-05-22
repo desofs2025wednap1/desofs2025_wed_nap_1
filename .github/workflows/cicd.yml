@@ -141,6 +141,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Download packaged JAR from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: java-package
+          path: target
+
       - name: Start services with Docker Compose
         run: docker compose up -d --build
 
