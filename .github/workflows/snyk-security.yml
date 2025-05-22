@@ -16,14 +16,16 @@ jobs:
       security-events: write
       actions: read
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'  # or 11, depending on your project
+          java-version: '17' # change to 11 if your project uses Java 11
 
       - name: Build project with Maven
         run: mvn clean install -DskipTests
@@ -34,21 +36,27 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Snyk Code test (SAST)
-        run: snyk code test --sarif > snyk-code.sarif || true
-
-      - name: Snyk Open Source monitor (Maven)
-        run: snyk monitor --file=pom.xml --project-name=maven-project || true
-
-      - name: Snyk IaC test
-        run: snyk iac test --report || true
-
-      - name: Build Docker image
-        run: docker build -t your/image-to-test .
-
-      - name: Snyk Container monitor
-        run: snyk container monitor your/image-to-test --file=Dockerfile || true
+        run: snyk code test --sarif > snyk-code.sarif
+        continue-on-error: false
 
       - name: Upload SARIF to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk-code.sarif
+
+      - name: Snyk Open Source monitor (Maven)
+        run: snyk monitor --file=pom.xml --project-name=maven-project
+        continue-on-error: false
+
+      - name: Snyk Infrastructure as Code (IaC) test
+        run: snyk iac test --report
+        continue-on-error: false
+
+      - name: Build Docker image
+        run: docker build -t your/image-to-test .
+        continue-on-error: false
+
+      - name: Snyk Container monitor
+        run: snyk container monitor your/image-to-test --file=Dockerfile
+        continue-on-error: false
+
