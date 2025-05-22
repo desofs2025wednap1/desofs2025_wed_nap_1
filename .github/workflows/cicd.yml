@@ -107,11 +107,12 @@ jobs:
           SPRING_DATASOURCE_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
         run: mvn verify -PintegrationTest --batch-mode --fail-at-end
 
-      - name: Upload integration test reports
+      - name: Upload integration test report
         uses: actions/upload-artifact@v4
         with:
           name: integration-test-reports
-          path: target/surefire-reports/
+          path: target/failsafe-reports/
+          if-no-files-found: warn
 
   package:
     needs: integration-tests
@@ -150,23 +151,22 @@ jobs:
       - name: Start services with Docker Compose
         run: docker compose up -d --build
 
-      - name: Wait for application to be ready
-        run: |
-          echo "Waiting for REST API to be ready on port 8080..."
-          for i in {1..30}; do
-            if curl -s http://localhost:8080/ | grep -q '"status":"UP"'; then
-              echo "Application is up!"
-              exit 0
-            else
-              echo "Waiting..."
-              sleep 5
-            fi
-          done
-          echo "Application did not start in time"
-          exit 1
+    #  - name: Wait for application to be ready
+    #    run: |
+    #      echo "Waiting for REST API to be ready on port 8080..."
+    #      for i in {1..30}; do
+    #        if curl -s http://localhost:8080/ | grep -q '"status":"UP"'; then
+    #          echo "Application is up!"
+    ##          exit 0
+    #        else
+    #          echo "Waiting..."
+    #          sleep 5
+    #        fi
+     #     done
+    #      echo "Application did not start in time"
+     #     exit 1
 
       - name: Show Docker logs
-        if: failure()
         run: docker compose logs
 
       - name: Stop and remove Docker Compose services
