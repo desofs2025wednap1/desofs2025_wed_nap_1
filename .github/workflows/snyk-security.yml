@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: snyk-report-SCA
-          path: snyk-code.sarif
+          path: snyk-oss.sarif
 
       # --- Static Code Analysis (Snyk Code) ---
       - name: Snyk Code test (SAST)
@@ -79,4 +79,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: snyk-report-IaC
-          path: snyk-code.sarif
+          path: snyk-iac.sarif
