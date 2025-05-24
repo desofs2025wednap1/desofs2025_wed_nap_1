@@ -67,7 +67,7 @@ jobs:
 
       # --- Infrastructure-as-Code Scan ---
       - name: Snyk IaC test
-        run: snyk iac test --sarif-file-output=snyk-iac.sarif
+        run: DEBUG=* snyk iac test --sarif-file-output=snyk-iac.sarif
         continue-on-error: true
 
       - name: Upload Snyk IaC SARIF results
