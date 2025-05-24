@@ -28,14 +28,14 @@ jobs:
         env:
             SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      - name: Listar arquivos do projeto
-        run: ls -R
-
       - name: Verificar permissões dos arquivos
         run: |
           ls -l
           if [ -f ./mvnm ]; then ls -l ./mvnw; fi
           ls -l pom.xml
+
+      - name: Corrigir permissão do mvnw
+        run: chmod +x ./mvnw
 
       # --- Open Source Dependency Scanning (Maven) ---
       - name: Snyk Open Source test (Maven)
