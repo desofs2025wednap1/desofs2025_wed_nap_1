@@ -31,9 +31,15 @@ jobs:
       - name: Listar arquivos do projeto
         run: ls -R
 
+      - name: Verificar permissões dos arquivos
+        run: |
+          ls -l
+          if [ -f ./mvnm ]; then ls -l ./mvnw; fi
+          ls -l pom.xml
+
       # --- Open Source Dependency Scanning (Maven) ---
       - name: Snyk Open Source test (Maven)
-        run: DEBUG=* snyk test --sarif-file-output=snyk-oss.sarif
+        run: DEBUG=* snyk test --all-projects --sarif-file-output=snyk-oss.sarif
         continue-on-error: false
 
       - name: Upload Snyk OSS SARIF results
