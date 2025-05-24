@@ -33,7 +33,7 @@ jobs:
 
       # --- Open Source Dependency Scanning (Maven) ---
       - name: Snyk Open Source test (Maven)
-        run: DEBUG=* snyk test --all-projects --sarif-file-output=snyk-oss.sarif
+        run: DEBUG=* snyk test --sarif-file-output=snyk-oss.sarif
         continue-on-error: false
 
       - name: Upload Snyk OSS SARIF results
