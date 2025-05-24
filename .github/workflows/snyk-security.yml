@@ -64,3 +64,13 @@ jobs:
         with:
           name: snyk-report-SAST
           path: snyk-code.sarif
+
+      - name: Commit SARIF files to repository
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add snyk-oss.sarif snyk-code.sarif
+          git commit -m "Add SARIF reports [skip ci]" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
