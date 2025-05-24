@@ -35,41 +35,43 @@ jobs:
 
       # --- Open Source Dependency Scanning (Maven) ---
       - name: Snyk Open Source test (Maven)
-        run: snyk test --all-projects --sarif-file-output=snyk-oss.sarif
+        run: snyk test --all-projects --sarif-file-output=snyk-SCA.sarif
         continue-on-error: true
 
       - name: Upload Snyk OSS SARIF results
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: snyk-oss.sarif
+          sarif_file: snyk-SCA.sarif
 
       - name: Upload SCA report as artifact
         uses: actions/upload-artifact@v4
         with:
           name: snyk-report-SCA
-          path: snyk-oss.sarif
+          path: snyk-SCA.sarif
 
       # --- Static Code Analysis (Snyk Code) ---
       - name: Snyk Code test (SAST)
-        run: snyk code test --sarif-file-output=snyk-code.sarif
+        run: snyk code test --sarif-file-output=snyk-SAST.sarif
         continue-on-error: true
 
       - name: Upload Snyk Code SARIF results
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: snyk-code.sarif
+          sarif_file: snyk-SAST.sarif
 
       - name: Upload SAST report as artifact
         uses: actions/upload-artifact@v4
         with:
           name: snyk-report-SAST
-          path: snyk-code.sarif
+          path: snyk-SAST.sarif
 
       - name: Commit SARIF files to repository
         run: |
+          mv snyk-SCA.sarif securityReports/snyk-SCA.sarif || true
+          mv snyk-SAST.sarif securityReports/snyk-SAST.sarif || true
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add snyk-oss.sarif snyk-code.sarif
+          git add securityReports/snyk-SCA.sarif securityReports/snyk-SAST.sarif
           git commit -m "Add SARIF reports [skip ci]" || echo "No changes to commit"
           git push
         env:
