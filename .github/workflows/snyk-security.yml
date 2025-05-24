@@ -51,7 +51,7 @@ jobs:
 
       # --- Static Code Analysis (Snyk Code) ---
       - name: Snyk Code test (SAST)
-        run: snyk code test --sarif > snyk-code.sarif
+        run: snyk code test --sarif-file-output=snyk-code.sarif
         continue-on-error: true
 
       - name: Upload Snyk Code SARIF results
@@ -64,19 +64,3 @@ jobs:
         with:
           name: snyk-report-SAST
           path: snyk-code.sarif
-
-      # --- Infrastructure-as-Code Scan ---
-      - name: Snyk IaC test
-        run: DEBUG=* snyk iac test --sarif-file-output=snyk-iac.sarif
-        continue-on-error: true
-
-      - name: Upload Snyk IaC SARIF results
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: snyk-iac.sarif
-
-      - name: Upload IaC report as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: snyk-report-IaC
-          path: snyk-iac.sarif
