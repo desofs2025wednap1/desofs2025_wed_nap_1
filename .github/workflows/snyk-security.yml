@@ -28,10 +28,13 @@ jobs:
         env:
             SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+      - name: Listar arquivos do projeto
+        run: ls -R
+
       # --- Open Source Dependency Scanning (Maven) ---
       - name: Snyk Open Source test (Maven)
-        run: snyk test --all-projects --sarif-file-output=snyk-oss.sarif
-        continue-on-error: true
+        run: DEBUG=* snyk test --all-projects --sarif-file-output=snyk-oss.sarif
+        continue-on-error: false
 
       - name: Upload Snyk OSS SARIF results
         uses: github/codeql-action/upload-sarif@v3
@@ -41,7 +44,7 @@ jobs:
       # --- Static Code Analysis (Snyk Code) ---
       - name: Snyk Code test (SAST)
         run: snyk code test --sarif > snyk-code.sarif
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Upload Snyk Code SARIF results
         uses: github/codeql-action/upload-sarif@v3
@@ -51,7 +54,7 @@ jobs:
       # --- Infrastructure-as-Code Scan ---
       - name: Snyk IaC test
         run: snyk iac test --sarif-file-output=snyk-iac.sarif
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Upload Snyk IaC SARIF results
         uses: github/codeql-action/upload-sarif@v3
