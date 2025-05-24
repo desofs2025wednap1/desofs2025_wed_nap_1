@@ -9,6 +9,8 @@ permissions:
 jobs:
   snyk-security-scan:
     runs-on: ubuntu-latest
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -27,12 +29,6 @@ jobs:
         uses: snyk/actions/setup@master
         env:
             SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      - name: Verificar permissões dos arquivos
-        run: |
-          ls -l
-          if [ -f ./mvnm ]; then ls -l ./mvnw; fi
-          ls -l pom.xml
 
       - name: Corrigir permissão do mvnw
         run: chmod +x ./mvnw
