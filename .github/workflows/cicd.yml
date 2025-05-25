@@ -184,7 +184,7 @@ jobs:
           run: |
             echo "Waiting for app at http://localhost:8080..."
             for i in {1..30}; do
-              if curl -s http://localhost:8080/ | grep -q "UP"; then
+              if curl -s http://localhost:8080/actuator/health | grep -q '"status":"UP"'; then
                 echo "App is ready!"
                 exit 0
               else
