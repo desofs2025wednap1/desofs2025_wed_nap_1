@@ -184,9 +184,10 @@ jobs:
 
       - name: Run OWASP ZAP Baseline Scan
         run: |
+          mkdir -p securityReports
           docker run --network host \
             -v ${{ github.workspace }}/securityReports:/zap/wrk \
-            owasp/zap2docker-stable:latest zap-baseline.py \
+             ghcr.io/zaproxy/zap-baseline:latest zap-baseline.py \
             -t http://localhost:8080 \
             -r zap-report.html \
             -x zap-report.xml \
