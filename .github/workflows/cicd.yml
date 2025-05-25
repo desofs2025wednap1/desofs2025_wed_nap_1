@@ -152,21 +152,6 @@ jobs:
       - name: Start services with Docker Compose
         run: docker compose up -d --build
 
-    #  - name: Wait for application to be ready
-    #    run: |
-    #      echo "Waiting for REST API to be ready on port 8080..."
-    #      for i in {1..30}; do
-    #        if curl -s http://localhost:8080/ | grep -q '"status":"UP"'; then
-    #          echo "Application is up!"
-    ##          exit 0
-    #        else
-    #          echo "Waiting..."
-    #          sleep 5
-    #        fi
-     #     done
-    #      echo "Application did not start in time"
-     #     exit 1
-
       - name: Wait for app to be ready
         run: |
           echo "Waiting for app at http://localhost:8080..."
@@ -188,24 +173,23 @@ jobs:
           target: 'http://localhost:8080'
           fail_action: false
           artifact_name: zap-report
-          cmd_options: '-r zap-report.html -x zap-report.xml -J zap-report.json -w zap-report.md'
 
       - name: Upload ZAP HTML report
         uses: actions/upload-artifact@v4
         with:
           name: zap-report-html
-          path: zap-report.html
+          path: zap-report.html # This should now exist as per artifact_name
 
       - name: Upload ZAP JSON report
         uses: actions/upload-artifact@v4
         with:
           name: zap-report-json
-          path: zap-DAST.json
+          path: zap-report.json # This should now exist as per artifact_name
 
       - name: Upload SARIF to Security
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: zap-DAST.json
+          sarif_file: zap-report.json # Changed from zap-DAST.json to zap-report.json
 
       - name: Stop and remove Docker services
         if: always()
