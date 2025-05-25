@@ -177,6 +177,9 @@ jobs:
       - name: Show Docker logs
         run: docker compose logs
 
+      - name: Check container processes
+        run: docker exec rest-ecommerce ps aux
+
       - name: Wait for app to be ready
         run: |
           echo "Waiting for app at http://localhost:8080..."
