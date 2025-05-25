@@ -10,7 +10,7 @@
           "version": "1.1297.1",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
-            "artifactsScanned": 247
+            "artifactsScanned": 253
           },
           "rules": [
             {
@@ -1887,6 +1887,28 @@
               }
             },
             {
+              "id": "SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-5441321",
+              "shortDescription": {
+                "text": "High severity - Access Restriction Bypass vulnerability in org.springframework.boot:spring-boot-actuator-autoconfigure"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-20873) org.springframework.boot:spring-boot-actuator-autoconfigure@2.3.6.RELEASE"
+              },
+              "help": {
+                "text": "",
+                "markdown": "* Package Manager: maven\n* Vulnerable module: org.springframework.boot:spring-boot-actuator-autoconfigure\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-actuator@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-actuator@2.3.6.RELEASE › org.springframework.boot:spring-boot-actuator-autoconfigure@2.3.6.RELEASE\n# Overview\n\nAffected versions of this package are vulnerable to Access Restriction Bypass due to improper implementation of wildcard pattern matching.\r\n\r\nAn application **is vulnerable** when *all* of the following are true:\r\n\r\n1) Users have code that can handle requests matching `/cloudfoundryapplication/**`. Typically, this will be if there is a catch-all request mapping which matches `/**`\r\n\r\n2) The application is deployed to Cloud Foundry.\r\n\r\n**Note:** Applications using Spring Cloud Config Server can handle requests to `/cloudfoundryapplication/**` by default and can be vulnerable if deployed to Cloud Foundry.\r\n\r\nAn application **is not vulnerable** if *any* of the following is true:\r\n\r\n1) The application is not deployed to Cloud Foundry\r\n\r\n2) Users have disabled Cloud Foundry actuator endpoints with `management.cloudfoundry.enabled` set to `false`\r\n\r\n3) The application does not have handler mappings that can handle requests to `/cloudfoundryapplication/**`\r\n\r\n# Workaround\r\n\r\nUsers who are unable to upgrade to the fixed version can disable Cloud Foundry actuator endpoints by setting `management.cloudfoundry.enabled` to `false`.\n# Remediation\nUpgrade `org.springframework.boot:spring-boot-actuator-autoconfigure` to version 2.5.15, 2.6.15, 2.7.11, 3.0.6 or higher.\n# References\n- [Advisory](https://spring.io/security/cve-2023-20873)\n- [GitHub Commit](https://github.com/spring-projects/spring-boot/commit/307f3c339912466e78fcdac648fff95a4edea573)\n- [GitHub Commit](https://github.com/spring-projects/spring-boot/commit/3522714c13b47af03bf42e7f2d5994af568cb1a7)\n- [GitHub Issue](https://github.com/spring-projects/spring-boot/issues/35085)\n- [GitHub Release](https://github.com/spring-projects/spring-boot/releases/tag/v2.7.11)\n"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-284",
+                  "maven"
+                ],
+                "cvssv3_baseScore": 8.1,
+                "security-severity": "8.1"
+              }
+            },
+            {
               "id": "SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-5564390",
               "shortDescription": {
                 "text": "High severity - Denial of Service (DoS) vulnerability in org.springframework.boot:spring-boot-autoconfigure"
@@ -1906,6 +1928,28 @@
                 ],
                 "cvssv3_baseScore": 7.5,
                 "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-6226862",
+              "shortDescription": {
+                "text": "Medium severity - Denial of Service (DoS) vulnerability in org.springframework.boot:spring-boot-actuator"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-34055) org.springframework.boot:spring-boot-actuator@2.3.6.RELEASE"
+              },
+              "help": {
+                "text": "",
+                "markdown": "* Package Manager: maven\n* Vulnerable module: org.springframework.boot:spring-boot-actuator\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-actuator@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-actuator@2.3.6.RELEASE › org.springframework.boot:spring-boot-actuator-autoconfigure@2.3.6.RELEASE › org.springframework.boot:spring-boot-actuator@2.3.6.RELEASE\n# Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) via HTTP requests, when both of these conditions are true:\r\n\r\n- Spring MVC or Spring WebFlux is in use.\r\n\r\n- `org.springframework.boot:spring-boot-actuator` is on the classpath.\r\n\r\n# Workaround\r\n\r\nThis vulnerability can be avoided by disabling web metrics: `management.metrics.enable.http.server.requests=false`\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `org.springframework.boot:spring-boot-actuator` to version 2.7.18, 3.0.13, 3.1.6 or higher.\n# References\n- [GitHub Commit](https://github.com/spring-projects/spring-boot/commit/5490e73922b37a7f0bdde43eb318cb1038b45d60)\n- [Vulnerability Advisory](https://spring.io/security/cve-2023-34055)\n"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-400",
+                  "maven"
+                ],
+                "cvssv3_baseScore": 5.3,
+                "security-severity": "5.3"
               }
             },
             {
@@ -6283,6 +6327,54 @@
           ]
         },
         {
+          "ruleId": "SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-5441321",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable org.springframework.boot:spring-boot-actuator-autoconfigure package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "org.springframework.boot:spring-boot-actuator-autoconfigure@2.3.6.RELEASE"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-actuator@2.5.15"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "org.springframework.boot:spring-boot-starter-actuator@2.5.15"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
           "ruleId": "SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-5564390",
           "level": "error",
           "message": {
@@ -6322,6 +6414,54 @@
                       },
                       "insertedContent": {
                         "text": "org.springframework.boot:spring-boot-devtools@2.5.15"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-JAVA-ORGSPRINGFRAMEWORKBOOT-6226862",
+          "level": "warning",
+          "message": {
+            "text": "This file introduces a vulnerable org.springframework.boot:spring-boot-actuator package with a medium severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "org.springframework.boot:spring-boot-actuator@2.3.6.RELEASE"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-actuator@2.7.18"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "org.springframework.boot:spring-boot-starter-actuator@2.7.18"
                       }
                     }
                   ]
