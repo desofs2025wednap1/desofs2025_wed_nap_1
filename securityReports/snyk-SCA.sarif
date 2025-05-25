@@ -499,38 +499,16 @@
               }
             },
             {
-              "id": "SNYK-JAVA-IOSPRINGFOX-1075064",
-              "shortDescription": {
-                "text": "Medium severity - Relative Path Overwrite (RPO) vulnerability in io.springfox:springfox-swagger-ui"
-              },
-              "fullDescription": {
-                "text": "(CVE-2019-17495) io.springfox:springfox-swagger-ui@2.9.2"
-              },
-              "help": {
-                "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: io.springfox:springfox-swagger-ui\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT and io.springfox:springfox-swagger-ui@2.9.2\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › io.springfox:springfox-swagger-ui@2.9.2\n# Overview\n[io.springfox:springfox-swagger-ui](https://github.com/springfox/springfox) is an Automated JSON API documentation for API's built with Spring\n\nAffected versions of this package are vulnerable to Relative Path Overwrite (RPO). Attackers are able to use the Relative Path Overwrite (RPO) technique to perform CSS-based input field value exfiltration, such as exfiltration of a CSRF token value i.e. allows the embedding of untrusted JSON data from remote servers, using `<style>@import` within the JSON data.\n# Remediation\nUpgrade `io.springfox:springfox-swagger-ui` to version 2.10.0 or higher.\n# References\n- [GitHub Commit #2](https://github.com/springfox/springfox/commit/26f72f0d16b166e12c20255a4ee907dc10685cf8#diff-97232cc54495752f2b1fbafb152d5d04e19e8e4b3ede08c67e1966233c9a19e1)\n- [GitHub PR](https://github.com/swagger-api/swagger-ui/pull/5616)\n- [GitHub Release](https://github.com/swagger-api/swagger-ui/releases/tag/v3.23.11)\n- [POC by crazykid95](https://github.com/tarantula-team/CSS-injection-in-Swagger-UI)\n"
-              },
-              "properties": {
-                "tags": [
-                  "security",
-                  "CWE-94",
-                  "maven"
-                ],
-                "cvssv3_baseScore": 6.5,
-                "security-severity": "6.5"
-              }
-            },
-            {
               "id": "SNYK-JAVA-IOSPRINGFOX-3018911",
               "shortDescription": {
                 "text": "Medium severity - Cross-site Scripting (XSS) vulnerability in io.springfox:springfox-swagger-ui"
               },
               "fullDescription": {
-                "text": "io.springfox:springfox-swagger-ui@2.9.2"
+                "text": "io.springfox:springfox-swagger-ui@2.10.0"
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: io.springfox:springfox-swagger-ui\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT and io.springfox:springfox-swagger-ui@2.9.2\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › io.springfox:springfox-swagger-ui@2.9.2\n# Overview\n[io.springfox:springfox-swagger-ui](https://github.com/springfox/springfox) is an Automated JSON API documentation for API's built with Spring\n\nAffected versions of this package are vulnerable to Cross-site Scripting (XSS). This is due to a bypass of a previous [XSS vulnerability](https://security.snyk.io/vuln/SNYK-JS-DOMPURIFY-1035544).\n# Details\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser’s Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they’ve been correctly escaped in the application code and in this way the attempted attack is diverted.\n \nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware. \n\n## Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser.| \n|**DOM-based**|Client|The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n## Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n## How to prevent\nThis section describes the top best practices designed to specifically protect your code: \n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches. \n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents. \n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.\n\n# Remediation\nThere is no fixed version for `io.springfox:springfox-swagger-ui`.\n# References\n- [Blog](https://www.vidocsecurity.com/blog/hacking-swagger-ui-from-xss-to-account-takeovers/)\n- [Github Commit](https://github.com/cure53/DOMPurify/commit/0c2edeaef6aefe6cbf5c51a0164235e6953afa16)\n- [Github Releases](https://github.com/cure53/DOMPurify/releases/tag/2.2.3)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: io.springfox:springfox-swagger-ui\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT and io.springfox:springfox-swagger-ui@2.10.0\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › io.springfox:springfox-swagger-ui@2.10.0\n# Overview\n[io.springfox:springfox-swagger-ui](https://github.com/springfox/springfox) is an Automated JSON API documentation for API's built with Spring\n\nAffected versions of this package are vulnerable to Cross-site Scripting (XSS). This is due to a bypass of a previous [XSS vulnerability](https://security.snyk.io/vuln/SNYK-JS-DOMPURIFY-1035544).\n# Details\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser’s Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they’ve been correctly escaped in the application code and in this way the attempted attack is diverted.\n \nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware. \n\n## Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser.| \n|**DOM-based**|Client|The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n## Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n## How to prevent\nThis section describes the top best practices designed to specifically protect your code: \n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches. \n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents. \n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.\n\n# Remediation\nThere is no fixed version for `io.springfox:springfox-swagger-ui`.\n# References\n- [Blog](https://www.vidocsecurity.com/blog/hacking-swagger-ui-from-xss-to-account-takeovers/)\n- [Github Commit](https://github.com/cure53/DOMPurify/commit/0c2edeaef6aefe6cbf5c51a0164235e6953afa16)\n- [Github Releases](https://github.com/cure53/DOMPurify/releases/tag/2.2.3)\n"
               },
               "properties": {
                 "tags": [
@@ -2195,28 +2173,6 @@
               }
             },
             {
-              "id": "SNYK-JAVA-ORGTHYMELEAF-1915389",
-              "shortDescription": {
-                "text": "High severity - Remote Code Execution vulnerability in org.thymeleaf:thymeleaf-spring5"
-              },
-              "fullDescription": {
-                "text": "(CVE-2021-43466) org.thymeleaf:thymeleaf-spring5@3.0.11.RELEASE"
-              },
-              "help": {
-                "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: org.thymeleaf:thymeleaf-spring5\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT and org.thymeleaf:thymeleaf-spring5@3.0.11.RELEASE\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.thymeleaf:thymeleaf-spring5@3.0.11.RELEASE\n# Overview\n\nAffected versions of this package are vulnerable to Remote Code Execution when `thymeleaf` is combined with specific scenarios in template. An attacker can inject malicious input through the `render` function in `AjaxThymeleafView.java`, leading to remote code execution.\n# Remediation\nUpgrade `org.thymeleaf:thymeleaf-spring5` to version 3.0.13.RELEASE or higher.\n# References\n- [GitHub Commit](https://github.com/thymeleaf/thymeleaf-spring/commit/8add4fd8b8840241a5e50598e8f202d77215ea52)\n- [Github Issue](https://github.com/thymeleaf/thymeleaf-spring/issues/263)\n"
-              },
-              "properties": {
-                "tags": [
-                  "security",
-                  "CWE-94",
-                  "maven"
-                ],
-                "cvssv3_baseScore": 8.1,
-                "security-severity": "8.1"
-              }
-            },
-            {
               "id": "SNYK-JAVA-ORGTHYMELEAF-5811866",
               "shortDescription": {
                 "text": "Critical severity - Sandbox Bypass vulnerability in org.thymeleaf:thymeleaf"
@@ -3331,54 +3287,6 @@
           ]
         },
         {
-          "ruleId": "SNYK-JAVA-IOSPRINGFOX-1075064",
-          "level": "warning",
-          "message": {
-            "text": "This file introduces a vulnerable io.springfox:springfox-swagger-ui package with a medium severity vulnerability."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "pom.xml"
-                },
-                "region": {
-                  "startLine": 1
-                }
-              },
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "io.springfox:springfox-swagger-ui@2.9.2"
-                }
-              ]
-            }
-          ],
-          "fixes": [
-            {
-              "description": {
-                "text": "Upgrade to io.springfox:springfox-swagger-ui@2.10.0"
-              },
-              "artifactChanges": [
-                {
-                  "artifactLocation": {
-                    "uri": "pom.xml"
-                  },
-                  "replacements": [
-                    {
-                      "deletedRegion": {
-                        "startLine": 1
-                      },
-                      "insertedContent": {
-                        "text": "io.springfox:springfox-swagger-ui@2.10.0"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
           "ruleId": "SNYK-JAVA-IOSPRINGFOX-3018911",
           "level": "warning",
           "message": {
@@ -3396,7 +3304,7 @@
               },
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "io.springfox:springfox-swagger-ui@2.9.2"
+                  "fullyQualifiedName": "io.springfox:springfox-swagger-ui@2.10.0"
                 }
               ]
             }
@@ -6946,54 +6854,6 @@
                       },
                       "insertedContent": {
                         "text": "org.springframework.security:spring-security-taglibs@5.7.14"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "ruleId": "SNYK-JAVA-ORGTHYMELEAF-1915389",
-          "level": "error",
-          "message": {
-            "text": "This file introduces a vulnerable org.thymeleaf:thymeleaf-spring5 package with a high severity vulnerability."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "pom.xml"
-                },
-                "region": {
-                  "startLine": 1
-                }
-              },
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "org.thymeleaf:thymeleaf-spring5@3.0.11.RELEASE"
-                }
-              ]
-            }
-          ],
-          "fixes": [
-            {
-              "description": {
-                "text": "Upgrade to org.thymeleaf:thymeleaf-spring5@3.0.13.RELEASE"
-              },
-              "artifactChanges": [
-                {
-                  "artifactLocation": {
-                    "uri": "pom.xml"
-                  },
-                  "replacements": [
-                    {
-                      "deletedRegion": {
-                        "startLine": 1
-                      },
-                      "insertedContent": {
-                        "text": "org.thymeleaf:thymeleaf-spring5@3.0.13.RELEASE"
                       }
                     }
                   ]
