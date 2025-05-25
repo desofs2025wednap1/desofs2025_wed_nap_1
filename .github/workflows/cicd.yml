@@ -188,7 +188,7 @@ jobs:
           target: 'http://localhost:8080'
           fail_action: false
           artifact_name: zap-report
-          cmd_options: '-r zap-report.html -x zap-report.html --format sarif -o zap-DAST.sarif'
+          cmd_options: '-r zap-report.html -x zap-report.xml -J zap-report.json -w zap-report.md'
 
       - name: Upload ZAP HTML report
         uses: actions/upload-artifact@v4
@@ -196,16 +196,16 @@ jobs:
           name: zap-report-html
           path: securityReports/zap-report.html
 
-      - name: Upload ZAP SARIF report
+      - name: Upload ZAP JSON report
         uses: actions/upload-artifact@v4
         with:
-          name: zap-report-sarif
-          path: securityReports/zap-DAST.sarif
+          name: zap-report-json
+          path: securityReports/zap-DAST.json
 
       - name: Upload SARIF to Security
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: securityReports/zap-DAST.sarif
+          sarif_file: securityReports/zap-DAST.json
 
       - name: Stop and remove Docker services
         if: always()
