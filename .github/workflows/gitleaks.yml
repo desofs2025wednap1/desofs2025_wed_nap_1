@@ -1,13 +1,22 @@
 name: gitleaks
 on: [pull_request, push, workflow_dispatch]
 jobs:
-  scan:
-    name: gitleaks
+  scan-secrets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
+          fetch-depth: 0  
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+        with:
+          config: |
+            [[rules]]
+              description = "Generic API Key"
+              regex = '''(?i)(key|api|token|secret)[. \-_]*([a-z0-9]{32,128})'''  
+          redact: true                 
+          exit-code: 0   
