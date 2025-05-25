@@ -7,6 +7,10 @@ on:
     branches: ["master"]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  issues: write
+
 env:
   POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
   POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
