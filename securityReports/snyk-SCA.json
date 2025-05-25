@@ -3468,143 +3468,6 @@
       "version": "8.19"
     },
     {
-      "id": "SNYK-JAVA-IOSPRINGFOX-1075064",
-      "title": "Relative Path Overwrite (RPO)",
-      "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N/E:P",
-      "credit": [
-        "crazykid95"
-      ],
-      "semver": {
-        "vulnerable": [
-          "[,2.10.0)"
-        ]
-      },
-      "exploit": "Proof of Concept",
-      "fixedIn": [
-        "2.10.0"
-      ],
-      "patches": [],
-      "insights": {
-        "triageAdvice": null
-      },
-      "language": "java",
-      "severity": "medium",
-      "cvssScore": 6.5,
-      "functions": [],
-      "malicious": false,
-      "isDisputed": false,
-      "moduleName": "io.springfox:springfox-swagger-ui",
-      "references": [
-        {
-          "url": "https://github.com/springfox/springfox/commit/26f72f0d16b166e12c20255a4ee907dc10685cf8%23diff-97232cc54495752f2b1fbafb152d5d04e19e8e4b3ede08c67e1966233c9a19e1",
-          "title": "GitHub Commit #2"
-        },
-        {
-          "url": "https://github.com/swagger-api/swagger-ui/pull/5616",
-          "title": "GitHub PR"
-        },
-        {
-          "url": "https://github.com/swagger-api/swagger-ui/releases/tag/v3.23.11",
-          "title": "GitHub Release"
-        },
-        {
-          "url": "https://github.com/tarantula-team/CSS-injection-in-Swagger-UI",
-          "title": "POC by crazykid95"
-        }
-      ],
-      "cvssDetails": [
-        {
-          "assigner": "NVD",
-          "severity": "critical",
-          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-          "cvssV3BaseScore": 9.8,
-          "modificationTime": "2024-03-11T09:47:58.600753Z"
-        }
-      ],
-      "cvssSources": [
-        {
-          "type": "primary",
-          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N/E:P",
-          "assigner": "Snyk",
-          "severity": "medium",
-          "baseScore": 6.5,
-          "cvssVersion": "3.1",
-          "modificationTime": "2024-03-06T14:02:14.833169Z"
-        },
-        {
-          "type": "secondary",
-          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-          "assigner": "NVD",
-          "severity": "critical",
-          "baseScore": 9.8,
-          "cvssVersion": "3.1",
-          "modificationTime": "2024-03-11T09:47:58.600753Z"
-        }
-      ],
-      "description": "## Overview\n[io.springfox:springfox-swagger-ui](https://github.com/springfox/springfox) is an Automated JSON API documentation for API's built with Spring\n\nAffected versions of this package are vulnerable to Relative Path Overwrite (RPO). Attackers are able to use the Relative Path Overwrite (RPO) technique to perform CSS-based input field value exfiltration, such as exfiltration of a CSRF token value i.e. allows the embedding of untrusted JSON data from remote servers, using `<style>@import` within the JSON data.\n## Remediation\nUpgrade `io.springfox:springfox-swagger-ui` to version 2.10.0 or higher.\n## References\n- [GitHub Commit #2](https://github.com/springfox/springfox/commit/26f72f0d16b166e12c20255a4ee907dc10685cf8#diff-97232cc54495752f2b1fbafb152d5d04e19e8e4b3ede08c67e1966233c9a19e1)\n- [GitHub PR](https://github.com/swagger-api/swagger-ui/pull/5616)\n- [GitHub Release](https://github.com/swagger-api/swagger-ui/releases/tag/v3.23.11)\n- [POC by crazykid95](https://github.com/tarantula-team/CSS-injection-in-Swagger-UI)\n",
-      "epssDetails": {
-        "percentile": "0.93838",
-        "probability": "0.13709",
-        "modelVersion": "v2025.03.14"
-      },
-      "identifiers": {
-        "CVE": [
-          "CVE-2019-17495"
-        ],
-        "CWE": [
-          "CWE-94"
-        ],
-        "GHSA": [
-          "GHSA-c427-hjc3-wrfw"
-        ]
-      },
-      "packageName": "io.springfox:springfox-swagger-ui",
-      "proprietary": false,
-      "creationTime": "2021-02-16T14:01:38.458624Z",
-      "functions_new": [],
-      "alternativeIds": [],
-      "disclosureTime": "2019-10-10T22:15:00Z",
-      "exploitDetails": {
-        "sources": [
-          "Snyk"
-        ],
-        "maturityLevels": [
-          {
-            "type": "secondary",
-            "level": "Proof of Concept",
-            "format": "CVSSv3"
-          },
-          {
-            "type": "primary",
-            "level": "Proof of Concept",
-            "format": "CVSSv4"
-          }
-        ]
-      },
-      "packageManager": "maven",
-      "mavenModuleName": {
-        "groupId": "io.springfox",
-        "artifactId": "springfox-swagger-ui"
-      },
-      "publicationTime": "2019-10-11T13:21:30Z",
-      "severityBasedOn": "CVSS",
-      "modificationTime": "2024-03-11T09:47:58.600753Z",
-      "socialTrendAlert": false,
-      "severityWithCritical": "medium",
-      "from": [
-        "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "io.springfox:springfox-swagger-ui@2.9.2"
-      ],
-      "upgradePath": [
-        false,
-        "io.springfox:springfox-swagger-ui@2.10.0"
-      ],
-      "isUpgradable": true,
-      "isPatchable": false,
-      "name": "io.springfox:springfox-swagger-ui",
-      "version": "2.9.2"
-    },
-    {
       "id": "SNYK-JAVA-IOSPRINGFOX-3018911",
       "title": "Cross-site Scripting (XSS)",
       "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N/E:P",
@@ -3701,13 +3564,13 @@
       "severityWithCritical": "medium",
       "from": [
         "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "io.springfox:springfox-swagger-ui@2.9.2"
+        "io.springfox:springfox-swagger-ui@2.10.0"
       ],
       "upgradePath": [],
       "isUpgradable": false,
       "isPatchable": false,
       "name": "io.springfox:springfox-swagger-ui",
-      "version": "2.9.2"
+      "version": "2.10.0"
     },
     {
       "id": "SNYK-JAVA-NETMINIDEV-1078499",
@@ -16204,133 +16067,6 @@
       "version": "5.3.5.RELEASE"
     },
     {
-      "id": "SNYK-JAVA-ORGTHYMELEAF-1915389",
-      "title": "Remote Code Execution",
-      "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
-      "credit": [
-        "Unknown"
-      ],
-      "semver": {
-        "vulnerable": [
-          "[,3.0.13.RELEASE)"
-        ]
-      },
-      "exploit": "Not Defined",
-      "fixedIn": [
-        "3.0.13.RELEASE"
-      ],
-      "patches": [],
-      "insights": {
-        "triageAdvice": null
-      },
-      "language": "java",
-      "severity": "high",
-      "cvssScore": 8.1,
-      "functions": [],
-      "malicious": false,
-      "isDisputed": false,
-      "moduleName": "org.thymeleaf:thymeleaf-spring5",
-      "references": [
-        {
-          "url": "https://github.com/thymeleaf/thymeleaf-spring/commit/8add4fd8b8840241a5e50598e8f202d77215ea52",
-          "title": "GitHub Commit"
-        },
-        {
-          "url": "https://github.com/thymeleaf/thymeleaf-spring/issues/263",
-          "title": "Github Issue"
-        }
-      ],
-      "cvssDetails": [
-        {
-          "assigner": "NVD",
-          "severity": "critical",
-          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-          "cvssV3BaseScore": 9.8,
-          "modificationTime": "2024-03-11T09:51:29.660316Z"
-        }
-      ],
-      "cvssSources": [
-        {
-          "type": "primary",
-          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
-          "assigner": "Snyk",
-          "severity": "high",
-          "baseScore": 8.1,
-          "cvssVersion": "3.1",
-          "modificationTime": "2024-03-06T14:05:16.821634Z"
-        },
-        {
-          "type": "secondary",
-          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-          "assigner": "NVD",
-          "severity": "critical",
-          "baseScore": 9.8,
-          "cvssVersion": "3.1",
-          "modificationTime": "2024-03-11T09:51:29.660316Z"
-        }
-      ],
-      "description": "## Overview\n\nAffected versions of this package are vulnerable to Remote Code Execution when `thymeleaf` is combined with specific scenarios in template. An attacker can inject malicious input through the `render` function in `AjaxThymeleafView.java`, leading to remote code execution.\n## Remediation\nUpgrade `org.thymeleaf:thymeleaf-spring5` to version 3.0.13.RELEASE or higher.\n## References\n- [GitHub Commit](https://github.com/thymeleaf/thymeleaf-spring/commit/8add4fd8b8840241a5e50598e8f202d77215ea52)\n- [Github Issue](https://github.com/thymeleaf/thymeleaf-spring/issues/263)\n",
-      "epssDetails": {
-        "percentile": "0.88499",
-        "probability": "0.04468",
-        "modelVersion": "v2025.03.14"
-      },
-      "identifiers": {
-        "CVE": [
-          "CVE-2021-43466"
-        ],
-        "CWE": [
-          "CWE-94"
-        ],
-        "GHSA": [
-          "GHSA-qcj6-jqrg-4wp2"
-        ]
-      },
-      "packageName": "org.thymeleaf:thymeleaf-spring5",
-      "proprietary": false,
-      "creationTime": "2021-11-11T13:10:12.553632Z",
-      "functions_new": [],
-      "alternativeIds": [],
-      "disclosureTime": "2021-11-10T19:52:33Z",
-      "exploitDetails": {
-        "sources": [],
-        "maturityLevels": [
-          {
-            "type": "secondary",
-            "level": "Not Defined",
-            "format": "CVSSv3"
-          },
-          {
-            "type": "primary",
-            "level": "Not Defined",
-            "format": "CVSSv4"
-          }
-        ]
-      },
-      "packageManager": "maven",
-      "mavenModuleName": {
-        "groupId": "org.thymeleaf",
-        "artifactId": "thymeleaf-spring5"
-      },
-      "publicationTime": "2021-11-11T17:41:23Z",
-      "severityBasedOn": "CVSS",
-      "modificationTime": "2024-03-11T09:51:29.660316Z",
-      "socialTrendAlert": false,
-      "severityWithCritical": "high",
-      "from": [
-        "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "org.thymeleaf:thymeleaf-spring5@3.0.11.RELEASE"
-      ],
-      "upgradePath": [
-        false,
-        "org.thymeleaf:thymeleaf-spring5@3.0.13.RELEASE"
-      ],
-      "isUpgradable": true,
-      "isPatchable": false,
-      "name": "org.thymeleaf:thymeleaf-spring5",
-      "version": "3.0.11.RELEASE"
-    },
-    {
       "id": "SNYK-JAVA-ORGTHYMELEAF-5811866",
       "title": "Sandbox Bypass",
       "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H/E:P",
@@ -16445,7 +16181,7 @@
       "severityWithCritical": "critical",
       "from": [
         "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "org.thymeleaf:thymeleaf@3.0.11.RELEASE"
+        "org.thymeleaf:thymeleaf@3.0.15.RELEASE"
       ],
       "upgradePath": [
         false,
@@ -16454,7 +16190,7 @@
       "isUpgradable": true,
       "isPatchable": false,
       "name": "org.thymeleaf:thymeleaf",
-      "version": "3.0.11.RELEASE"
+      "version": "3.0.15.RELEASE"
     },
     {
       "id": "SNYK-JAVA-ORGYAML-2806360",
@@ -17880,7 +17616,7 @@
     "disregardFilesystemIgnores": false,
     "autoApproveIgnores": false
   },
-  "summary": "111 vulnerable dependency paths",
+  "summary": "109 vulnerable dependency paths",
   "remediation": {
     "unresolved": [
       {
@@ -18941,7 +18677,7 @@
         "packagePopularityRank": 99,
         "from": [
           "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "io.springfox:springfox-swagger-ui@2.9.2"
+          "io.springfox:springfox-swagger-ui@2.10.0"
         ],
         "upgradePath": [],
         "isUpgradable": false,
@@ -18949,7 +18685,7 @@
         "isPinnable": false,
         "isRuntime": false,
         "name": "io.springfox:springfox-swagger-ui",
-        "version": "2.9.2",
+        "version": "2.10.0",
         "severityWithCritical": "medium"
       },
       {
@@ -19282,15 +19018,6 @@
           "SNYK-JAVA-COMFASTERXMLJACKSONCORE-3038426"
         ]
       },
-      "io.springfox:springfox-swagger-ui@2.9.2": {
-        "upgradeTo": "io.springfox:springfox-swagger-ui@2.10.0",
-        "upgrades": [
-          "io.springfox:springfox-swagger-ui@2.9.2"
-        ],
-        "vulns": [
-          "SNYK-JAVA-IOSPRINGFOX-1075064"
-        ]
-      },
       "org.hibernate.validator:hibernate-validator@6.1.6.Final": {
         "upgradeTo": "org.hibernate.validator:hibernate-validator@6.2.0.Final",
         "upgrades": [
@@ -19552,22 +19279,13 @@
           "SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1078232"
         ]
       },
-      "org.thymeleaf:thymeleaf@3.0.11.RELEASE": {
+      "org.thymeleaf:thymeleaf@3.0.15.RELEASE": {
         "upgradeTo": "org.thymeleaf:thymeleaf@3.1.2.RELEASE",
         "upgrades": [
-          "org.thymeleaf:thymeleaf@3.0.11.RELEASE"
+          "org.thymeleaf:thymeleaf@3.0.15.RELEASE"
         ],
         "vulns": [
           "SNYK-JAVA-ORGTHYMELEAF-5811866"
-        ]
-      },
-      "org.thymeleaf:thymeleaf-spring5@3.0.11.RELEASE": {
-        "upgradeTo": "org.thymeleaf:thymeleaf-spring5@3.0.13.RELEASE",
-        "upgrades": [
-          "org.thymeleaf:thymeleaf-spring5@3.0.11.RELEASE"
-        ],
-        "vulns": [
-          "SNYK-JAVA-ORGTHYMELEAF-1915389"
         ]
       }
     },
@@ -19580,7 +19298,7 @@
     "ignore": [],
     "patch": []
   },
-  "uniqueCount": 111,
+  "uniqueCount": 109,
   "projectName": "com.gmail.merikbest2015:ecommerce",
   "displayTargetFile": "pom.xml",
   "hasUnknownVersions": false,
