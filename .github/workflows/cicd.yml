@@ -171,7 +171,7 @@ jobs:
         run: docker ps -a
 
       - name: Show Docker logs
-        run: docker compose logs rest-ecommerce
+        run: docker logs rest-ecommerce
 
 #      - name: Stop and remove Docker Compose services
 #        if: always()
