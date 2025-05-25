@@ -167,6 +167,9 @@ jobs:
     #      echo "Application did not start in time"
      #     exit 1
 
+      - name: List Docker containers
+        run: docker ps -a
+
       - name: Show Docker logs
         run: docker compose logs rest-ecommerce
 
