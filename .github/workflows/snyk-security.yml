@@ -7,10 +7,10 @@ permissions:
   security-events: write
 
 jobs:
-  setup:
+  SCA:
     runs-on: ubuntu-latest
-    outputs:
-      java-version: ${{ steps.set-java.outputs.java-version }}
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,14 +33,6 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-
-
-  snyk-sca:
-    needs: setup
-    runs-on: ubuntu-latest
-    env:
-      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-    steps:
       - name: Snyk Open Source test (Maven)
         run: snyk test --all-projects --sarif-file-output=snyk-SCA.sarif
         continue-on-error: true
@@ -58,12 +50,32 @@ jobs:
 
 
 
-  snyk-sast:
-    needs: setup
+  SAST:
     runs-on: ubuntu-latest
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        id: set-java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven (skip tests)
+        run: mvn clean install -DskipTests
+
+      - name: Corrigir permissão do mvnw
+        run: chmod +x ./mvnw
+
+      - name: Set up Snyk CLI
+        uses: snyk/actions/setup@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
       - name: Snyk Code test (SAST)
         run: snyk code test --sarif-file-output=snyk-SAST.sarif
         continue-on-error: true
@@ -83,7 +95,7 @@ jobs:
 
 
   commit-sarif:
-    needs: [ snyk-sca, snyk-sast ]
+    needs: [ SCA, SAST ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -114,72 +126,3 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#  snyk-security-scan:
-#    runs-on: ubuntu-latest
-#    env:
-#      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#
-#      - name: Set up Java
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: 'temurin'
-#          java-version: '17'
-#
-#      - name: Build with Maven (skip tests)
-#        run: mvn clean install -DskipTests
-#
-#      - name: Set up Snyk CLI
-#        uses: snyk/actions/setup@master
-#        env:
-#            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-#
-#      - name: Corrigir permissão do mvnw
-#        run: chmod +x ./mvnw
-#
-#      # --- Open Source Dependency Scanning (Maven) ---
-#      - name: Snyk Open Source test (Maven)
-#        run: snyk test --all-projects --sarif-file-output=snyk-SCA.sarif
-#        continue-on-error: true
-#
-#      - name: Upload Snyk OSS SARIF results
-#        uses: github/codeql-action/upload-sarif@v3
-#        with:
-#          sarif_file: snyk-SCA.sarif
-#
-#      - name: Upload SCA report as artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: snyk-report-SCA
-#          path: snyk-SCA.sarif
-#
-#      # --- Static Code Analysis (Snyk Code) ---
-#      - name: Snyk Code test (SAST)
-#        run: snyk code test --sarif-file-output=snyk-SAST.sarif
-#        continue-on-error: true
-#
-#      - name: Upload Snyk Code SARIF results
-#        uses: github/codeql-action/upload-sarif@v3
-#        with:
-#          sarif_file: snyk-SAST.sarif
-#
-#      - name: Upload SAST report as artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: snyk-report-SAST
-#          path: snyk-SAST.sarif
-#
-#      - name: Commit SARIF files to repository
-#        run: |
-#          mv snyk-SCA.sarif securityReports/snyk-SCA.sarif || true
-#          mv snyk-SAST.sarif securityReports/snyk-SAST.sarif || true
-#          git config --global user.name "github-actions[bot]"
-#          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-#          git add securityReports/snyk-SCA.sarif securityReports/snyk-SAST.sarif
-#          git commit -m "Add SARIF reports [skip ci]" || echo "No changes to commit"
-#          git push
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
