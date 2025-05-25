@@ -7,10 +7,10 @@ permissions:
   security-events: write
 
 jobs:
-  setup:
+  SCA:
     runs-on: ubuntu-latest
-    outputs:
-      java-version: ${{ steps.set-java.outputs.java-version }}
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,19 +28,6 @@ jobs:
       - name: Corrigir permissão do mvnw
         run: chmod +x ./mvnw
 
-      - name: Set up Snyk CLI
-        uses: snyk/actions/setup@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-
-
-  SCA:
-    needs: setup
-    runs-on: ubuntu-latest
-    env:
-      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-    steps:
       - name: Set up Snyk CLI
         uses: snyk/actions/setup@master
         env:
@@ -64,11 +51,26 @@ jobs:
 
 
   SAST:
-    needs: setup
     runs-on: ubuntu-latest
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        id: set-java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven (skip tests)
+        run: mvn clean install -DskipTests
+
+      - name: Corrigir permissão do mvnw
+        run: chmod +x ./mvnw
+
       - name: Set up Snyk CLI
         uses: snyk/actions/setup@master
         env:
