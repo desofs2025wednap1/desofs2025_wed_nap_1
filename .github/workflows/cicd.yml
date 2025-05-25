@@ -167,65 +167,52 @@ jobs:
     #      echo "Application did not start in time"
      #     exit 1
 
-      - name: List Docker containers
-        run: docker ps -a
-
       - name: Show Docker logs
-        run: docker logs rest-ecommerce
+        run: docker compose logs
 
-#      - name: Stop and remove Docker Compose services
-#        if: always()
-#        run: docker compose down
+      - name: Wait for app to be ready
+        run: |
+          echo "Waiting for app at http://localhost:8080..."
+          for i in {1..30}; do
+            if curl -s http://localhost:8080/actuator/health | grep -q '"status":"UP"'; then
+              echo "App is ready!"
+              exit 0
+            else
+              echo "Waiting..."
+              sleep 5
+            fi
+          done
+          echo "App did not start in time"
+          exit 1
 
+      - name: Run OWASP ZAP Baseline Scan
+        run: |
+          docker run --network host \
+            -v ${{ github.workspace }}/securityReports:/zap/wrk \
+            owasp/zap2docker-stable zap-baseline.py \
+            -t http://localhost:8080 \
+            -r zap-report.html \
+            -x zap-report.xml \
+            --hook=/zap/wrk \
+            --format sarif -o zap-DAST.sarif || true
 
+      - name: Upload ZAP HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report-html
+          path: securityReports/zap-report.html
 
-  dast-scan:
-      needs: deploy
-      runs-on: ubuntu-latest
-      steps:
-        - name: Wait for app to be ready
-          run: |
-            echo "Waiting for app at http://localhost:8080..."
-            for i in {1..30}; do
-              if curl -s http://localhost:8080/actuator/health | grep -q '"status":"UP"'; then
-                echo "App is ready!"
-                exit 0
-              else
-                echo "Waiting..."
-                sleep 5
-              fi
-            done
-            echo "App did not start in time"
-            exit 1
+      - name: Upload ZAP SARIF report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report-sarif
+          path: securityReports/zap-DAST.sarif
 
-        - name: Run OWASP ZAP Baseline Scan
-          run: |
-            docker run --network host \
-              -v ${{ github.workspace }}/securityReports:/zap/wrk \
-              owasp/zap2docker-stable zap-baseline.py \
-              -t http://localhost:8080 \
-              -r zap-report.html \
-              -x zap-report.xml \
-              --hook=/zap/wrk \
-              --format sarif -o zap-DAST.sarif || true
+      - name: Upload SARIF to Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: securityReports/zap-DAST.sarif
 
-        - name: Upload ZAP HTML report
-          uses: actions/upload-artifact@v4
-          with:
-            name: zap-report-html
-            path: securityReports/zap-report.html
-
-        - name: Upload ZAP SARIF report
-          uses: actions/upload-artifact@v4
-          with:
-            name: zap-report-sarif
-            path: securityReports/zap-DAST.sarif
-
-        - name: Upload SARIF to Security
-          uses: github/codeql-action/upload-sarif@v3
-          with:
-            sarif_file: securityReports/zap-DAST.sarif
-
-        - name: Stop and remove Docker services
-          if: always()
-          run: docker compose down || true
+      - name: Stop and remove Docker services
+        if: always()
+        run: docker compose down || true
