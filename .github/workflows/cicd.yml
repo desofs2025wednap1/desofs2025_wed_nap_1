@@ -168,7 +168,7 @@ jobs:
      #     exit 1
 
       - name: Show Docker logs
-        run: docker compose logs
+        run: docker compose logs rest-ecommerce
 
 #      - name: Stop and remove Docker Compose services
 #        if: always()
