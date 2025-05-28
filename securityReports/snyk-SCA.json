@@ -373,7 +373,7 @@
       ],
       "description": "## Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') via the `logback receiver` component. An attacker can mount a denial-of-service attack by sending poisoned data.\r\n\r\n**Note:**\r\n\r\nSuccessful exploitation requires the logback-receiver component being enabled and also reachable by the attacker.\n## Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.13, 1.3.14, 1.4.14 or higher.\n## References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/7018a3609c7bcc9dc7bf5903509901a986e5f578)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/c612b2fa3caf6eef3c75f1cd5859438451d0fd6f)\n- [Release Notes](https://logback.qos.ch/news.html#1.2.13)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.14)\n",
       "epssDetails": {
-        "percentile": "0.54481",
+        "percentile": "0.54516",
         "probability": "0.00321",
         "modelVersion": "v2025.03.14"
       },
@@ -995,7 +995,7 @@
       ],
       "description": "## Overview\n[ch.qos.logback:logback-classic](https://mvnrepository.com/artifact/ch.qos.logback/logback-classic) is a reliable, generic, fast and flexible logging library for Java.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') via the `logback receiver` component. An attacker can mount a denial-of-service attack by sending poisoned data.\r\n\r\n**Note:**\r\n\r\nSuccessful exploitation requires the logback-receiver component being enabled and also reachable by the attacker.\n## Remediation\nUpgrade `ch.qos.logback:logback-classic` to version 1.2.13, 1.3.14, 1.4.14 or higher.\n## References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/7018a3609c7bcc9dc7bf5903509901a986e5f578)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/c612b2fa3caf6eef3c75f1cd5859438451d0fd6f)\n- [Release Notes](https://logback.qos.ch/news.html#1.2.13)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.14)\n",
       "epssDetails": {
-        "percentile": "0.54481",
+        "percentile": "0.54516",
         "probability": "0.00321",
         "modelVersion": "v2025.03.14"
       },
@@ -4557,7 +4557,7 @@
       ],
       "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Remote Code Execution (RCE). The fix for CVE-2020-9484 was incomplete. When using Apache Tomcat with a configuration edge case that was highly unlikely to be used, the Tomcat instance was still vulnerable to CVE-2020-9494. Note that both the previously published prerequisites for CVE-2020-9484 and the previously published mitigations for CVE-2020-9484 also apply to this issue.\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 10.0.2, 9.0.43, 8.5.63, 7.0.108 or higher.\n## References\n- [Apache Security Advisory](https://lists.apache.org/thread.html/rfe62fbf9d4c314f166fe8c668e50e5d9dd882a99447f26f0367474bf%40%3Cannounce.tomcat.apache.org%3E)\n",
       "epssDetails": {
-        "percentile": "0.88632",
+        "percentile": "0.88704",
         "probability": "0.04622",
         "modelVersion": "v2025.03.14"
       },
@@ -6594,8 +6594,8 @@
       ],
       "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the implementation of the HTTP/2 protocol. An attacker can cause a denial of service (including via DDoS) by rapidly resetting many streams through request cancellation.\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 8.5.94, 9.0.81, 10.1.14, 11.0.0-M12 or higher.\n## References\n- [Github Commit](https://github.com/helidon-io/helidon/commit/58f43670086e530750c7cb74b0bec92bf5189c79)\n- [Github Commit](https://github.com/pgjones/hypercorn/commit/7c39c68b61012a3c30979176080861c8b00fb229)\n- [GitHub Commit](https://github.com/akka/akka-http/commit/1f29fe6a8567c57dfe848a21ae883304cce5646d)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/76bb4bfbfeae827dce896f650655bbf6e251ed49)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/9cdfe25bad707f34b3e5da2994f3f1952a163c3e)\n- [GitHub Commit](https://github.com/eclipse/jetty.project/commit/dbb94514dc9d3fb21fe92080f57c314e7e06a148)\n- [GitHub Commit](https://github.com/gravitational/teleport/commit/15f34f927a45130408eb16ed09af5620270d4d1f)\n- [GitHub Commit](https://github.com/h2o/h2o/commit/28fe15117b909588bf14269a0e1c6ec4548579fe)\n- [GitHub Commit](https://github.com/kubernetes/apimachinery/commit/be9188050914374ee8128239e5a2e5998d7897f5)\n- [GitHub Commit](https://github.com/netty/netty/commit/58f75f665aa81a8cbcf6ffa74820042a285c5e61)\n- [GitHub Commit](https://github.com/nghttp2/nghttp2/commit/72b4af6143681f528f1d237b21a9a7aee1738832)\n- [GitHub Commit](https://github.com/operator-framework/operator-lifecycle-manager/commit/9ec03f07f942dc9cef736957fa152e39157d6e13)\n- [Snyk Blog](https://snyk.io/blog/find-fix-http-2-rapid-reset-zero-day-vulnerability-cve-2023-44487/)\n- [Vulnerability Discovery](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/)\n- [Vulnerability Explanation](https://cloud.google.com/blog/products/identity-security/how-it-works-the-novel-http2-rapid-reset-ddos-attack)\n- [CISA - Known Exploited Vulnerabilities](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)\n- [PoC in GitHub](https://github.com/studiogangster/CVE-2023-44487)\n",
       "epssDetails": {
-        "percentile": "0.99999",
-        "probability": "0.94502",
+        "percentile": "0.99991",
+        "probability": "0.94460",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -7992,7 +7992,7 @@
       ],
       "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Uncaught Exception due to the custom Jakarta Authentication `ServerAuthContext` component which may throw an exception during the authentication process without setting an HTTP status to indicate failure. An attacker can gain unauthorized access by exploiting this unchecked error condition.\r\n\r\n**Note:**\r\n\r\nThis is only exploitable if Tomcat is configured to use a custom Jakarta Authentication\r\n`ServerAuthContext` component that behaves in this way. According to the maintainers, no such cases are known.\n## PoC\n```python\r\nimport requests\r\n\r\n# Target server configuration\r\nTARGET_URL = \"http://example.com/login\"  # Replace with your target's authentication URL\r\nTEST_HEADERS = {\r\n    \"Content-Type\": \"application/json\"\r\n}\r\nTEST_PAYLOAD = {\r\n    \"username\": \"test_user\",  # Sample username\r\n    \"password\": \"invalid_password\"  # Invalid password for testing\r\n}\r\n\r\ndef check_cve_2024_52316(target_url):\r\n    \"\"\"\r\n    Test for CVE-2024-52316 vulnerability by sending crafted authentication requests.\r\n\r\n    Args:\r\n        target_url (str): The URL of the authentication endpoint to test.\r\n    \"\"\"\r\n    try:\r\n        print(f\"[*] Sending test request to {target_url}\")\r\n        # Send a POST request with the test payload\r\n        response = requests.post(target_url, json=TEST_PAYLOAD, headers=TEST_HEADERS, timeout=5)\r\n        \r\n        # Analyze the server's response\r\n        if response.status_code in [401, 403]:\r\n            print(f\"[SAFE] The server returned an expected HTTP status code: {response.status_code}\")\r\n        elif response.status_code == 200:\r\n            print(f\"[VULNERABLE] Potential CVE-2024-52316 detected! Server returned status code: {response.status_code}\")\r\n        else:\r\n            print(f\"[INFO] Unexpected HTTP status code: {response.status_code}\")\r\n            print(\"Response content:\", response.text)\r\n    except requests.exceptions.RequestException as e:\r\n        print(f\"[ERROR] Failed to connect to the target: {e}\")\r\n\r\nif __name__ == \"__main__\":\r\n    print(\"[START] CVE-2024-52316 Detection Script\")\r\n    check_cve_2024_52316(TARGET_URL)\r\n```\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 9.0.96, 10.1.31, 11.0.0 or higher.\n## References\n- [Apache Advisory](https://lists.apache.org/thread/lopzlqh91jj9n334g02om08sbysdb928)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/6d097a66746635df6880fe7662a792156b0eca14)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/7532f9dc4a8c37ec958f79dc82c4924a6c539223)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/acc2f01395f895980f5d8a64573fcc1bade13369)\n- [PoC](http://github.com/TAM-K592/CVE-2024-52316)\n",
       "epssDetails": {
-        "percentile": "0.66864",
+        "percentile": "0.66927",
         "probability": "0.00554",
         "modelVersion": "v2025.03.14"
       },
@@ -9305,7 +9305,7 @@
       ],
       "description": "## Overview\n[org.hibernate.validator:hibernate-validator](https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator) is a Hibernate Validator Engine Relocation Artifact.\n\nAffected versions of this package are vulnerable to Cross-site Scripting (XSS) due to the `isValid` method in the `org.hibernate.validator.internal.constraintvalidators.hv.SafeHtmlValidator` class, which can be bypassed by omitting the tag ending in a less-than character. Browsers may render invalid HTML, allowing for the injection of arbitrary HTML content or the execution of scripts in the context of the user's browser session by crafting malicious input.\n## Remediation\nUpgrade `org.hibernate.validator:hibernate-validator` to version 6.2.0 or higher.\n## References\n- [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=1809444)\n",
       "epssDetails": {
-        "percentile": "0.08317",
+        "percentile": "0.08271",
         "probability": "0.00034",
         "modelVersion": "v2025.03.14"
       },
@@ -10243,7 +10243,7 @@
       ],
       "description": "## Overview\n[org.postgresql:postgresql](https://mvnrepository.com/artifact/org.postgresql/postgresql) is a Java JDBC 4.2 (JRE 8+) driver for PostgreSQL database.\n\nAffected versions of this package are vulnerable to Information Exposure in the pgjdbc driver, which writes to the operating system's shared temp directory when the InputStream to either `PreparedStatement.setText(int, InputStream)` or `PreparedStatemet.setBytea(int, InputStream)` is larger than 2K. The temporary file is readable by other users. This is the default system behavior on Unix systems but not on MacOS.\r\n\r\n**NOTE:** This vulnerability is only fixed for JDK 1.7. Systems using JDK 1.6 or below can work around the vulnerability by setting the environment variable `java.io.tmpdir` to a non-world-readable location.\n## Remediation\nUpgrade `org.postgresql:postgresql` to version 42.2.27, 42.3.8, 42.4.3, 42.5.1 or higher.\n## References\n- [GitHub Commit](https://github.com/pgjdbc/pgjdbc/commit/34855cffb9079edf95cf77930f3e3b73f6a1b139)\n- [GitHub Commit](https://github.com/pgjdbc/pgjdbc/commit/9008dc9aade6dbfe4efafcd6872ebc55f4699cf5)\n- [GitHub Commit](https://github.com/pgjdbc/pgjdbc/commit/91b8c2ca600f82d2ec47c3fb54ca2036b000e320)\n- [GitHub Commit](https://github.com/pgjdbc/pgjdbc/commit/e73c6b6b53ff11bc0bd06c44130a880d3bf77c55)\n",
       "epssDetails": {
-        "percentile": "0.09333",
+        "percentile": "0.09298",
         "probability": "0.00036",
         "modelVersion": "v2025.03.14"
       },
@@ -11223,8 +11223,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-web](https://github.com/spring-projects/spring-framework) is a package that provides a comprehensive programming and configuration model for modern Java-based enterprise applications - on any kind of deployment platform.\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity due to `String.toLowerCase()` having some Locale dependent exceptions that could potentially result in fields not protected as expected.\r\n\r\n**Note:**\r\n\r\nThe fix for [CVE-2022-22968](https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-2689634) made `disallowedFields` patterns in `DataBinder` case insensitive.\r\n\r\nThis vulnerability was also fixed in commercial versions 5.3.41 and 6.0.25.\n## Remediation\nUpgrade `org.springframework:spring-web` to version 6.1.14 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/23656aebc6c7d0f9faff1080981eb4d55eff296c)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38820)\n",
       "epssDetails": {
-        "percentile": "0.12834",
-        "probability": "0.00043",
+        "percentile": "0.10840",
+        "probability": "0.00039",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -11367,7 +11367,7 @@
       ],
       "description": "## Overview\n[org.springframework:spring-core](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-core%22) is a core package within the spring-framework that contains multiple classes and utilities.\n\nAffected versions of this package are vulnerable to Improper Output Neutralization for Logs when a user provides malicious input, causing insertion of additional log entries.\n## Remediation\nUpgrade `org.springframework:spring-core` to version 5.3.12, 5.2.18 or higher.\n## References\n- [Github Commit](https://github.com/spring-projects/spring-framework/commit/346b75580267dc5d8d257be198d5841ce4e1add5)\n- [Pivotal Security Advisory](https://pivotal.io/security/cve-2021-22096)\n",
       "epssDetails": {
-        "percentile": "0.44965",
+        "percentile": "0.45022",
         "probability": "0.00221",
         "modelVersion": "v2025.03.14"
       },
@@ -11507,7 +11507,7 @@
       ],
       "description": "## Overview\n[org.springframework:spring-core](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-core%22) is a core package within the spring-framework that contains multiple classes and utilities.\n\nAffected versions of this package are vulnerable to Improper Input Validation when a user provides malicious input, causing insertion of additional log entries.\n## Remediation\nUpgrade `org.springframework:spring-core` to version 5.2.19.RELEASE, 5.3.14 or higher.\n## References\n- [Pivotal Security Advisory](https://pivotal.io/security/cve-2021-22060)\n",
       "epssDetails": {
-        "percentile": "0.43711",
+        "percentile": "0.43843",
         "probability": "0.00210",
         "modelVersion": "v2025.03.14"
       },
@@ -11642,8 +11642,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-core](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-core%22) is a core package within the spring-framework that contains multiple classes and utilities.\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity due to `String.toLowerCase()` having some Locale dependent exceptions that could potentially result in fields not protected as expected.\r\n\r\n**Note:**\r\n\r\nThe fix for [CVE-2022-22968](https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-2689634) made `disallowedFields` patterns in `DataBinder` case insensitive.\r\n\r\nThis vulnerability was also fixed in commercial versions 5.3.41 and 6.0.25.\n## Remediation\nUpgrade `org.springframework:spring-core` to version 6.1.14 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/23656aebc6c7d0f9faff1080981eb4d55eff296c)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38820)\n",
       "epssDetails": {
-        "percentile": "0.12834",
-        "probability": "0.00043",
+        "percentile": "0.10840",
+        "probability": "0.00039",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -11790,7 +11790,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) by providing a specially crafted SpEL expression, that might result in an `OutOfMemoryError`.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `org.springframework:spring-expression` to version 5.2.20.RELEASE, 5.3.17 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/83ac65915871067c39a4fb255e0d484c785c0c11)\n- [GitHub Issue](https://github.com/spring-projects/spring-framework/issues/28145)\n- [Pivotal Security Advisory](https://pivotal.io/security/cve-2022-22950)\n",
       "epssDetails": {
-        "percentile": "0.88575",
+        "percentile": "0.88602",
         "probability": "0.04547",
         "modelVersion": "v2025.03.14"
       },
@@ -11944,7 +11944,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via a crafted `SpEL` expression.\n## Remediation\nUpgrade `org.springframework:spring-expression` to version 5.2.23.RELEASE, 5.3.26, 6.0.7 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/430fc25acad2e85cbdddcd52b64481691f03ebd1)\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/52c93b1c4b24d70de233a958e60e7c5822bd274f)\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/935c29e3ddba5b19951e54f6685c70ed45d9cbe5)\n- [Vulnerability Advisory](https://spring.io/security/cve-2023-20861)\n",
       "epssDetails": {
-        "percentile": "0.55405",
+        "percentile": "0.55530",
         "probability": "0.00333",
         "modelVersion": "v2025.03.14"
       },
@@ -12278,8 +12278,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-beans](https://www.baeldung.com/spring-bean) is a package that is the basis for Spring Framework's IoC container. The BeanFactory interface provides an advanced configuration mechanism capable of managing any type of object.\n\nAffected versions of this package are vulnerable to Remote Code Execution via manipulation of `ClassLoader` that is achievable with a POST HTTP request. This could allow an attacker to execute a webshell on a victim's application (TomCat), or download arbitrary files from the server (Payara/Glassfish).\r\n\r\n**Note:** \r\n* Current public exploits require victim applications to be built with JRE version 9 (or above) and to be deployed on either Tomcat, Payara, or Glassfish. \r\n\r\n* However, we have confirmed that it is technically possible for additional exploits to work under additional application configurations as well. \r\n\r\n* As such, while we recommend users prioritize first remediating against the configuration described above, for full protection, we also recommend upgrading all vulnerable versions to the fixed `spring-beans` version regardless of the application configuration.\r\n\r\n### Update Log \r\n* **31/03/2022 -** Severity was raised from 8.1 to 9.8\r\n* **08/04/2022 -** Advisory was updated to reflect that Snyk's security research team was able to author a working PoC of this vulnerability against applications that are deployed on Payara (which is based on Glassfish). \r\n\r\n\r\n## PoC\r\n```java\r\n1/ docker run -p 8888:8080 --rm --interactive --tty --name vm1 tomcat:9.0\r\n2/ ./mvnw install\r\n3/ docker cp target/handling-form-submission-complete.war vm1:/usr/local/tomcat/webapps\r\n4/ curl -X POST \\\r\n  -H \"pre:<%\" \\\r\n  -H \"post:;%>\" \\\r\n  -F 'class.module.classLoader.resources.context.parent.pipeline.first.pattern=%{pre}iSystem.out.println(123)%{post}i' \\\r\n  -F 'class.module.classLoader.resources.context.parent.pipeline.first.suffix=.jsp' \\\r\n  -F 'class.module.classLoader.resources.context.parent.pipeline.first.directory=webapps/handling-form-submission-complete' \\\r\n  -F 'class.module.classLoader.resources.context.parent.pipeline.first.prefix=rce' \\\r\n  -F 'class.module.classLoader.resources.context.parent.pipeline.first.fileDateFormat=' \\\r\n  http://localhost:8888/handling-form-submission-complete/greeting\r\n5/ curl http://localhost:8888/handling-form-submission-complete/rce.jsp\r\n```\n## Remediation\nUpgrade `org.springframework:spring-beans` to version 5.2.20, 5.3.18 or higher.\n## References\n- [CyberKendra Post](https://www.cyberkendra.com/2022/03/springshell-rce-0-day-vulnerability.html)\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/002546b3e4b8d791ea6acccb81eb3168f51abb15)\n- [LunaSec Blog](https://www.lunasec.io/docs/blog/spring-rce-vulnerabilities/)\n- [Payara Blogpost](https://blog.payara.fish/payara-and-spring4shell)\n- [Payara PoC](https://github.com/CalumHutton/CVE-2022-22965-PoC_Payara)\n- [Snyk Blog - Technical Breakdown](https://snyk.io/blog/spring4shell-zero-day-rce-spring-framework-explained/)\n- [Snyk PoC](https://github.com/Kirill89/CVE-2022-22965-PoC)\n- [Spring Security Announcement](https://spring.io/blog/2022/03/31/spring-framework-rce-early-announcement)\n- [Spring Tomcat Mitigation Advice](https://spring.io/blog/2022/04/01/spring-framework-rce-mitigation-alternative)\n- [CISA - Known Exploited Vulnerabilities](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)\n- [Nuclei Templates](https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2022/CVE-2022-22965.yaml)\n- [PoC in GitHub](https://github.com/wjl110/CVE-2022-22965_Spring_Core_RCE)\n",
       "epssDetails": {
-        "percentile": "0.99993",
-        "probability": "0.94464",
+        "percentile": "0.99992",
+        "probability": "0.94460",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -12334,7 +12334,7 @@
       },
       "publicationTime": "2022-03-30T22:32:44Z",
       "severityBasedOn": "CVSS",
-      "modificationTime": "2025-05-22T08:52:26.245284Z",
+      "modificationTime": "2025-05-28T05:00:40.050280Z",
       "socialTrendAlert": false,
       "severityWithCritical": "critical",
       "from": [
@@ -12442,8 +12442,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-beans](https://www.baeldung.com/spring-bean) is a package that is the basis for Spring Framework's IoC container. The BeanFactory interface provides an advanced configuration mechanism capable of managing any type of object.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) if it relies on data binding to set a `MultipartFile` or `javax.servlet.Part` to a field in a model object.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `org.springframework:spring-beans` to version 5.2.22.RELEASE, 5.3.20 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/50177b1ad3485bd44239b1756f6c14607476fcf2)\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/83186b689f11f5e6efe7ccc08fdeb92f66fcd583)\n- [Tanzu vmware](https://tanzu.vmware.com/security/cve-2022-22970)\n",
       "epssDetails": {
-        "percentile": "0.48146",
-        "probability": "0.00248",
+        "percentile": "0.47774",
+        "probability": "0.00243",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -12735,8 +12735,8 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity due to `String.toLowerCase()` having some Locale dependent exceptions that could potentially result in fields not protected as expected.\r\n\r\n**Note:**\r\n\r\nThe fix for [CVE-2022-22968](https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-2689634) made `disallowedFields` patterns in `DataBinder` case insensitive.\r\n\r\nThis vulnerability was also fixed in commercial versions 5.3.41 and 6.0.25.\n## Remediation\nUpgrade `org.springframework:spring-context` to version 6.1.14 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/23656aebc6c7d0f9faff1080981eb4d55eff296c)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38820)\n",
       "epssDetails": {
-        "percentile": "0.12834",
-        "probability": "0.00043",
+        "percentile": "0.10840",
+        "probability": "0.00039",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -12883,8 +12883,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-messaging](https://springframework.org) is a framework and inversion of control container for the Java platform.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) when the application is used with a `STOMP` over WebSocket endpoint.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `org.springframework:spring-messaging` to version 5.2.22.RELEASE, 5.3.20 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/159a99bbafdd6c01871228113d7042c3f83f360f)\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/dc2947c52df18d5e99cad03383f7d6ba13d031fd)\n- [Tanzu vmware](https://tanzu.vmware.com/security/cve-2022-22971)\n",
       "epssDetails": {
-        "percentile": "0.65274",
-        "probability": "0.00511",
+        "percentile": "0.64851",
+        "probability": "0.00502",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -13159,8 +13159,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-webmvc](https://mvnrepository.com/artifact/org.springframework/spring-webmvc) is a package that provides Model-View-Controller (MVC) architecture and ready components that can be used to develop flexible and loosely coupled web applications.\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity due to `String.toLowerCase()` having some Locale dependent exceptions that could potentially result in fields not protected as expected.\r\n\r\n**Note:**\r\n\r\nThe fix for [CVE-2022-22968](https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-2689634) made `disallowedFields` patterns in `DataBinder` case insensitive.\r\n\r\nThis vulnerability was also fixed in commercial versions 5.3.41 and 6.0.25.\n## Remediation\nUpgrade `org.springframework:spring-webmvc` to version 6.1.14 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/23656aebc6c7d0f9faff1080981eb4d55eff296c)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38820)\n",
       "epssDetails": {
-        "percentile": "0.12834",
-        "probability": "0.00043",
+        "percentile": "0.10840",
+        "probability": "0.00039",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -13560,8 +13560,8 @@
       ],
       "description": "## Overview\n[org.springframework:spring-websocket](https://github.com/spring-projects/spring-framework) is a framework that provides a comprehensive programming and configuration model for modern Java-based enterprise applications - on any kind of deployment platform.\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity due to `String.toLowerCase()` having some Locale dependent exceptions that could potentially result in fields not protected as expected.\r\n\r\n**Note:**\r\n\r\nThe fix for [CVE-2022-22968](https://security.snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-2689634) made `disallowedFields` patterns in `DataBinder` case insensitive.\r\n\r\nThis vulnerability was also fixed in commercial versions 5.3.41 and 6.0.25.\n## Remediation\nUpgrade `org.springframework:spring-websocket` to version 6.1.14 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/23656aebc6c7d0f9faff1080981eb4d55eff296c)\n- [Spring Security Advisory](https://spring.io/security/cve-2024-38820)\n",
       "epssDetails": {
-        "percentile": "0.12834",
-        "probability": "0.00043",
+        "percentile": "0.10840",
+        "probability": "0.00039",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -14961,8 +14961,8 @@
       ],
       "description": "## Overview\n[org.springframework.security:spring-security-web](https://mvnrepository.com/artifact/org.springframework.security/spring-security-web) is a package within Spring Security that provides security services for the Spring IO Platform.\n\nAffected versions of this package are vulnerable to Authorization Bypass via the `RegexRequestMatcher` class,  which can easily be misconfigured to be bypassed on some servlet containers when it is used with `.` in the regular expression.\n## Remediation\nUpgrade `org.springframework.security:spring-security-web` to version 5.4.11, 5.5.7, 5.6.4 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-security/commit/0dcb592b03c229874f5a560c26c39b5941a88b33)\n- [GitHub Fix Commit v5.5.7](https://github.com/spring-projects/spring-security/commit/c6461d61babfcf92febfd0a85785623e53190a8f)\n- [GitHub Fix Commit v5.6.4](https://github.com/spring-projects/spring-security/commit/70863952aeb9733499027714d38821db05654856)\n- [GitHub Issue](https://github.com/spring-projects/spring-security/issues/11234)\n- [PoC](https://github.com/ducluongtran9121/CVE-2022-22978-PoC)\n- [VMware Tanzu Security Advisory](https://tanzu.vmware.com/security/cve-2022-22978)\n",
       "epssDetails": {
-        "percentile": "0.99515",
-        "probability": "0.89564",
+        "percentile": "0.99589",
+        "probability": "0.90718",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -15567,7 +15567,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Privilege Escalation due to allowing a malicious user or attacker to modify a request initiated by the Client (via the browser) to the Authorization Server. This scenario can happen if the Authorization Server responds with an `OAuth2 Access Token` response containing an empty scope list on the subsequent request to the token endpoint when trying to obtain the access token.\r\n\r\n*This vulnerability exposes applications that meet all of the following requirements:*\r\n\r\n1) Act in the role of a Login Client (e.g. `http.oauth2Login()`)\r\n\r\n2) Use one or more authorization rules with authorities mapped from authorized scopes (e.g. `anyRequest().hasAuthority(\"SCOPE_message.write\")`) in the client application\r\n\r\n3) Register an authorization server that responds with empty scopes list (per (RFC 6749, Section 5.1)[https://www.rfc-editor.org/rfc/rfc6749#section-5.1])\r\n\r\n*This vulnerability **does not** expose applications that:*\r\n\r\n1) Act in the role of a Resource Server only (e.g. `http.oauth2ResourceServer()`)\r\n\r\n2) Use authorization rules with authorities not mapped from authorized scopes (e.g. `anyRequest().hasAuthority(\"ROLE_USER\")`) in the client application\n## Remediation\nUpgrade `org.springframework.security:spring-security-oauth2-client` to version 5.4.11, 5.6.9, 5.7.5 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-security/commit/75004587a419a96d18909030b20c6b16b226ecbe)\n- [GitHub Issue](https://github.com/spring-projects/spring-security/issues/12101)\n- [GitHub Release](https://github.com/spring-projects/spring-security/releases/tag/5.7.5)\n- [VMWare Advisory](https://tanzu.vmware.com/security/cve-2022-31690)\n",
       "epssDetails": {
-        "percentile": "0.49807",
+        "percentile": "0.49930",
         "probability": "0.00265",
         "modelVersion": "v2025.03.14"
       },
@@ -16500,7 +16500,7 @@
       ],
       "description": "## Overview\n[org.yaml:snakeyaml](https://code.google.com/p/snakeyaml/source/browse/) is a YAML 1.1 parser and emitter for Java.\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow when parsing crafted untrusted YAML files, which can lead to a denial-of-service.\n## Remediation\nUpgrade `org.yaml:snakeyaml` to version 1.32 or higher.\n## References\n- [Bitbucket Commit](https://bitbucket.org/snakeyaml/snakeyaml/commits/5056a448f09c46250346c338e821386caa751182)\n- [Bitbucket Issue and PoC](https://bitbucket.org/snakeyaml/snakeyaml/issues/531/stackoverflow-oss-fuzz-47081)\n- [Chromium Bugs](https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=47081)\n",
       "epssDetails": {
-        "percentile": "0.38800",
+        "percentile": "0.38911",
         "probability": "0.00167",
         "modelVersion": "v2025.03.14"
       },
@@ -16830,7 +16830,7 @@
       ],
       "description": "## Overview\n[org.yaml:snakeyaml](https://code.google.com/p/snakeyaml/source/browse/) is a YAML 1.1 parser and emitter for Java.\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow when parsing crafted untrusted YAML files, which can lead to a denial-of-service.\n## Remediation\nUpgrade `org.yaml:snakeyaml` to version 1.31 or higher.\n## References\n- [Bitbucket Commit](https://bitbucket.org/snakeyaml/snakeyaml/commits/f3ab4e0f54c37ddb10f00b71d04187bb0ef1799c)\n- [Bitbucket Issue](https://bitbucket.org/snakeyaml/snakeyaml/issues/530/stackoverflow-oss-fuzz-47039)\n- [Chromium Bugs](https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=47039)\n",
       "epssDetails": {
-        "percentile": "0.38252",
+        "percentile": "0.38310",
         "probability": "0.00163",
         "modelVersion": "v2025.03.14"
       },
@@ -17456,8 +17456,8 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via the deserialization of Ion text encoded data or the `IonValue` model processing. An attacker can cause a `StackOverflowError` by crafting malicious Ion data that triggers excessive resource consumption when loaded or processed. This is only exploitable if the application deserializes Ion data from an untrusted source or data that could have been tampered with.\r\n\r\n**Notes:**\r\n\r\nAccording to the [README.md](https://github.com/amazon-ion/ion-java/blob/ebf8f4d933cc85438e1b309bada90ff0d5a76102/README.md?plain=1#L61) file of this package, its domain changed from `software.amazon.ion` to `com.amazon.ion`. Please be aware that this vulnerability affects versions of both domains of this package.\r\n\r\nFor a fix, please check [the advisory on the maintained package](https://security.snyk.io/vuln/SNYK-JAVA-COMAMAZONION-6143590). \r\n\r\n## Workaround \r\n\r\nThis vulnerability can be mitigated by not loading data from untrusted sources or that could have been tampered with.\n## Remediation\nA fix was pushed into the `master` branch but not yet published.\n## References\n- [GitHub Release](https://github.com/amazon-ion/ion-java/releases/tag/v1.10.5)\n",
       "epssDetails": {
-        "percentile": "0.47662",
-        "probability": "0.00243",
+        "percentile": "0.55311",
+        "probability": "0.00330",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
