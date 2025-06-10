@@ -23,12 +23,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.ORDER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
@@ -37,69 +40,100 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getOrderById(Long orderId) {
+        logger.info("Fetching order with id {}", orderId);
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new ApiRequestException(ORDER_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> {
+                    logger.warn("Order not found with id {}", orderId);
+                    return new ApiRequestException(ORDER_NOT_FOUND, HttpStatus.NOT_FOUND);
+                });
     }
 
     @Override
     public List<OrderItem> getOrderItemsByOrderId(Long orderId) {
+        logger.info("Getting order items for order id {}", orderId);
         Order order = getOrderById(orderId);
         return order.getOrderItems();
     }
 
     @Override
     public Page<Order> getAllOrders(Pageable pageable) {
+        logger.info("Fetching all orders with pagination: page {}, size {}", pageable.getPageNumber(), pageable.getPageSize());
         return orderRepository.findAllByOrderByIdAsc(pageable);
     }
 
     @Override
     public Page<Order> getUserOrders(String email, Pageable pageable) {
+        logger.info("Fetching orders for user {}", email);
         return orderRepository.findOrderByEmail(email, pageable);
     }
 
     @Override
     @Transactional
     public Order postOrder(Order order, Map<Long, Long> perfumesId) {
-        List<OrderItem> orderItemList = new ArrayList<>();
+        logger.info("Creating new order for user {}", order.getEmail());
 
+        List<OrderItem> orderItemList = new ArrayList<>();
         for (Map.Entry<Long, Long> entry : perfumesId.entrySet()) {
-            Perfume perfume = perfumeRepository.findById(entry.getKey()).get();
+            Long perfumeId = entry.getKey();
+            Long quantity = entry.getValue();
+
+            Perfume perfume = perfumeRepository.findById(perfumeId)
+                    .orElseThrow(() -> {
+                        logger.warn("Perfume not found with id {}", perfumeId);
+                        return new ApiRequestException("Perfume not found", HttpStatus.NOT_FOUND);
+                    });
+
             OrderItem orderItem = new OrderItem();
             orderItem.setPerfume(perfume);
-            orderItem.setAmount((perfume.getPrice() * entry.getValue()));
-            orderItem.setQuantity(entry.getValue());
+            orderItem.setQuantity(quantity);
+            orderItem.setAmount(perfume.getPrice() * quantity);
+
             orderItemList.add(orderItem);
             orderItemRepository.save(orderItem);
         }
+
         order.getOrderItems().addAll(orderItemList);
         orderRepository.save(order);
 
+        // Send confirmation email
         String subject = "Order #" + order.getId();
         String template = "order-template";
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("order", order);
+
         mailSender.sendMessageHtml(order.getEmail(), subject, template, attributes);
+
+        logger.info("Order {} created successfully for user {}", order.getId(), order.getEmail());
         return order;
     }
 
     @Override
     @Transactional
     public String deleteOrder(Long orderId) {
+        logger.info("Deleting order with id {}", orderId);
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new ApiRequestException(ORDER_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> {
+                    logger.warn("Order not found with id {}", orderId);
+                    return new ApiRequestException(ORDER_NOT_FOUND, HttpStatus.NOT_FOUND);
+                });
         orderRepository.delete(order);
+        logger.info("Order with id {} deleted successfully", orderId);
         return "Order deleted successfully";
     }
 
     @Override
     public DataFetcher<List<Order>> getAllOrdersByQuery() {
-        return dataFetchingEnvironment -> orderRepository.findAllByOrderByIdAsc();
+        return dataFetchingEnvironment -> {
+            logger.info("Fetching all orders via GraphQL query");
+            return orderRepository.findAllByOrderByIdAsc();
+        };
     }
 
     @Override
     public DataFetcher<List<Order>> getUserOrdersByEmailQuery() {
         return dataFetchingEnvironment -> {
             String email = dataFetchingEnvironment.getArgument("email").toString();
+            logger.info("Fetching orders for user {} via GraphQL query", email);
             return orderRepository.findOrderByEmail(email);
         };
     }
