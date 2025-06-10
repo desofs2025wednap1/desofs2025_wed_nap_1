@@ -55,7 +55,7 @@ jobs:
       - name: Secret Scanner
         uses: secret-scanner/action@main
         with:
-          INPUT_SCAN_ARGS: "--output-path secret-scan-report.json --ignore-paths securityReports"
+          detect_secret_additional_args: '--exclude-files "securityReports/.*"' # ADICIONADO - Forma correta de passar argumentos e excluir
         # A ação secret-scanner/action@main geralmente faz upload para o GitHub Security Events automaticamente (SARIF)
 
       # Tentativa de upload do JSON, se o INPUT_SCAN_ARGS o criar previsivelmente
@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: report-secret-scan
-          path: secret-scan-report.json # O nome do arquivo pode variar dependendo da ferramenta interna
+          path: results.sarif # ALTERADO - A ação produz 'results.sarif' que é o JSON neste caso
           if-no-files-found: warn
 
 
@@ -366,8 +366,8 @@ jobs:
       - name: Download Secret Scan Report
         uses: actions/download-artifact@v4
         with:
-          name: report-secret-scan
-          path: staging_reports
+          name: report-secret-scan # Mantém o nome do artefacto
+          path: staging_reports # O ficheiro results.sarif será descarregado para staging_reports/results.sarif
         continue-on-error: true
 
       - name: Download Unit Test Reports
@@ -418,11 +418,11 @@ jobs:
           fi
 
           # Secret Scan (o nome do arquivo pode variar)
-          if [ -f staging_reports/secret-scan-report.json ]; then
-            mv staging_reports/secret-scan-report.json securityReports/report-secret-scan.json
-            echo "Moved Secret Scan report."
+          if [ -f staging_reports/results.sarif ]; then # ALTERADO para procurar results.sarif
+            mv staging_reports/results.sarif securityReports/report-secret-scan.json # ALTERADO para mover e renomear results.sarif
+            echo "Moved Secret Scan report (results.sarif to report-secret-scan.json)."
           else
-            echo "Secret Scan report (secret-scan-report.json) not found in staging_reports."
+            echo "Secret Scan report (results.sarif) not found in staging_reports."
           fi
           
           # Snyk
@@ -497,4 +497,3 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
