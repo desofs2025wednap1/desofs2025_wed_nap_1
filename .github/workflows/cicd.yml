@@ -174,23 +174,19 @@ jobs:
           exit 1
 
       - name: Run Snyk to check Docker image for vulnerabilities
-        uses: snyk/actions/docker@master
+        uses: snyk/actions/docker@0.10.0
         continue-on-error: true # To ensure SARIF upload even if vulnerabilities are found
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: dsoft-ecommerce-spring # Nome da imagem definido no docker-compose.yml
-          args: --file=Dockerfile --sarif-file-output=snyk.sarif
+          args: --file=Dockerfile --sarif-file-output=snyk.sarif --severity-threshold=low
 
       - name: Upload Snyk SARIF to Security
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v2 # Alterado de @v3 para @v2
         with:
           sarif_file: snyk.sarif
-
-      - name: Download artefacts
-        uses: actions/download-artifact@v4
-        with:
-          name: snyk-report-Docker
+          wait-for-processing: true # Mantido para feedback imediato
 
       - name: Stop and remove Docker services
         if: always()
