@@ -174,7 +174,7 @@ jobs:
           exit 1
 
       - name: Run Snyk to check Docker image for vulnerabilities
-        uses: snyk/actions/docker@0.10.0
+        uses: snyk/actions/docker@master
         continue-on-error: true # To ensure SARIF upload even if vulnerabilities are found
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
