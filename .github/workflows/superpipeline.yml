@@ -1,1 +1,501 @@
+name: Super DevSecOps Pipeline
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  workflow_dispatch:
+
+permissions:
+  contents: write # Alterado para write para permitir o commit dos relatórios
+  issues: write
+  actions: write
+  security-events: write
+
+env:
+  POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  PGPASSWORD: ${{ secrets.PGPASSWORD }} # Usado pelo psql
+  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+jobs:
+  gitleaks-scan:
+    name: Gitleaks Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Necessário para o Gitleaks analisar todo o histórico
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }} # Se você tiver uma licença paga
+        with:
+          report_format: json
+          report_path: gitleaks-report.json
+          exit_code: 0 # Não falha o pipeline se encontrar segredos, apenas reporta
+          # O arquivo .gitleaks.toml na raiz será usado automaticamente para exclusões
+
+      - name: Upload Gitleaks report
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-gitleaks
+          path: gitleaks-report.json
+          if-no-files-found: warn
+
+  secret-scanner-scan:
+    name: Secret Scanner
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Configuration
+        uses: actions/checkout@v4
+      - name: Secret Scanner
+        uses: secret-scanner/action@main
+        with:
+          INPUT_SCAN_ARGS: "--output-path secret-scan-report.json --ignore-paths securityReports"
+        # A ação secret-scanner/action@main geralmente faz upload para o GitHub Security Events automaticamente (SARIF)
+
+      # Tentativa de upload do JSON, se o INPUT_SCAN_ARGS o criar previsivelmente
+      - name: Upload Secret Scan JSON report
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-secret-scan
+          path: secret-scan-report.json # O nome do arquivo pode variar dependendo da ferramenta interna
+          if-no-files-found: warn
+
+
+  super-linter-scan:
+    name: Super-Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Atualizado para v4
+
+      - name: Run Super-Linter
+        uses: github/super-linter@v4 # Mantido v4, pode ser atualizado para v5 ou v6 se disponível/desejado
+        env:
+          DEFAULT_BRANCH: master # Ajustado para master conforme branches do workflow
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_EXCLUDE: .*/securityReports/.* # Exclui a pasta securityReports
+
+  setup-java-and-cache:
+    runs-on: ubuntu-latest
+    outputs:
+      cache-hit: ${{ steps.cache-maven.outputs.cache-hit }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Maven packages
+        id: cache-maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('''**/pom.xml''') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+  unit-tests:
+    needs: setup-java-and-cache
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17 and restore cache
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run unit tests
+        run: mvn clean test -PunitTest --batch-mode --fail-at-end
+
+      - name: Upload unit test reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-unit-tests-xml
+          path: target/surefire-reports/
+          if-no-files-found: warn
+
+  integration-tests:
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17 and restore cache
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Wait for Postgres to be ready and create test DB
+        run: |
+          timeout=60
+          elapsed=0
+          until pg_isready -h localhost -p 5432 -U $POSTGRES_USER || [ $elapsed -ge $timeout ]; do
+            echo "Waiting for Postgres to be ready..."
+            sleep 2
+            elapsed=$((elapsed+2))
+          done
+          if [ $elapsed -ge $timeout ]; then
+            echo "Postgres did not start in time"
+            exit 1
+          fi
+          psql -h localhost -U $POSTGRES_USER -c "CREATE DATABASE perfumetest;" -d postgres
+
+      - name: Run integration tests
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/perfumetest
+          SPRING_DATASOURCE_USERNAME: ${{ env.POSTGRES_USER }}
+          SPRING_DATASOURCE_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+        run: mvn verify -PintegrationTest --batch-mode --fail-at-end
+
+      - name: Upload integration test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-integration-tests-xml
+          path: target/failsafe-reports/
+          if-no-files-found: warn
+
+  snyk-sca:
+    name: Snyk SCA Scan
+    runs-on: ubuntu-latest
+    needs: setup-java-and-cache # Snyk precisa do Java/Maven configurado
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven (skip tests)
+        run: mvn clean install -DskipTests # Garante que as dependências estão disponíveis para o Snyk
+
+      - name: Corrigir permissão do mvnw
+        run: chmod +x ./mvnw
+
+      - name: Set up Snyk CLI
+        uses: snyk/actions/setup@master
+        env:
+          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
+
+      - name: Snyk Open Source test (Maven)
+        run: snyk test --all-projects --json-file-output=snyk-SCA.json
+        continue-on-error: true # Não falha o pipeline
+
+      - name: Upload SCA report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-SCA
+          path: snyk-SCA.json
+          if-no-files-found: warn
+
+  snyk-sast:
+    name: Snyk SAST Scan
+    runs-on: ubuntu-latest
+    needs: setup-java-and-cache # Snyk precisa do Java/Maven configurado
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven (skip tests)
+        run: mvn clean install -DskipTests # Pode ser útil para algumas análises SAST do Snyk
+
+      - name: Corrigir permissão do mvnw
+        run: chmod +x ./mvnw
+
+      - name: Set up Snyk CLI
+        uses: snyk/actions/setup@master
+        env:
+          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
+
+      - name: Snyk Code test (SAST)
+        run: snyk code test --all-projects --json-file-output=snyk-SAST.json --exclude=securityReports,target
+        continue-on-error: true # Não falha o pipeline
+
+      - name: Upload SAST report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-SAST
+          path: snyk-SAST.json
+          if-no-files-found: warn
+
+  build-and-package:
+    name: Build and Package
+    needs: integration-tests # Garante que os testes passaram antes de empacotar
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17 and restore cache
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build package without tests
+        run: mvn clean package "-Dskip.unit.tests=true" "-Dskip.integration.tests=true" --batch-mode --fail-at-end
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: java-package
+          path: target/*.jar
+          if-no-files-found: error # Deve haver um JAR
+
+  deploy-and-dast:
+    name: Deploy and DAST Scan
+    needs: build-and-package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download packaged JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: java-package
+          path: target
+
+      - name: Start services with Docker Compose
+        run: docker compose up -d --build
+
+      - name: Wait for app to be ready
+        run: |
+          echo "Waiting for app at http://localhost:8080..."
+          for i in {1..30}; do
+            # Use -f to fail silently, -L to follow redirects, -s for silent, -o /dev/null to discard output
+            if curl -fsLo /dev/null http://localhost:8080/api/v1/perfumes; then
+              echo "App is ready!"
+              exit 0
+            else
+              echo "Waiting ($i/30)..."
+              sleep 5
+            fi
+          done
+          echo "App did not start in time"
+          exit 1
+
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.14.0 # Considere atualizar para versões mais recentes se disponíveis
+        with:
+          target: 'http://localhost:8080'
+          fail_action: false # Não falha o pipeline
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
+          issue_title: ZAP Scan Baseline Report
+          allow_issue_writing: true
+          cmd_options: '-J report-DAST.json -r report-DAST.html'
+
+      - name: Upload ZAP reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-DAST-files
+          path: |
+            *report-DAST*.html
+            *report-DAST*.json
+          if-no-files-found: warn
+
+      - name: Stop and remove Docker services
+        if: always() # Garante que os serviços são parados mesmo se houver falhas
+        run: docker compose down || true
+
+  collect-and-commit-reports:
+    name: Collect and Commit Reports
+    runs-on: ubuntu-latest
+    needs:
+      - gitleaks-scan
+      - secret-scanner-scan # Adicionado, mas o relatório pode não estar disponível ou ser padronizado
+      - unit-tests
+      - integration-tests
+      - snyk-sca
+      - snyk-sast
+      - deploy-and-dast
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create staging and final reports directory
+        run: |
+          mkdir -p staging_reports
+          mkdir -p securityReports/unit-test-reports
+          mkdir -p securityReports/integration-test-reports
+          mkdir -p securityReports/dast-reports
+
+      - name: Download Gitleaks Report
+        uses: actions/download-artifact@v4
+        with:
+          name: report-gitleaks
+          path: staging_reports
+        continue-on-error: true # Permite continuar se o artefato não existir
+
+      - name: Download Secret Scan Report
+        uses: actions/download-artifact@v4
+        with:
+          name: report-secret-scan
+          path: staging_reports
+        continue-on-error: true
+
+      - name: Download Unit Test Reports
+        uses: actions/download-artifact@v4
+        with:
+          name: report-unit-tests-xml
+          path: staging_reports/unit-tests-raw
+        continue-on-error: true
+
+      - name: Download Integration Test Reports
+        uses: actions/download-artifact@v4
+        with:
+          name: report-integration-tests-xml
+          path: staging_reports/integration-tests-raw
+        continue-on-error: true
+
+      - name: Download Snyk SCA Report
+        uses: actions/download-artifact@v4
+        with:
+          name: report-SCA
+          path: staging_reports
+        continue-on-error: true
+
+      - name: Download Snyk SAST Report
+        uses: actions/download-artifact@v4
+        with:
+          name: report-SAST
+          path: staging_reports
+        continue-on-error: true
+
+      - name: Download DAST (ZAP) Reports
+        uses: actions/download-artifact@v4
+        with:
+          name: report-DAST-files
+          path: staging_reports/dast-raw
+        continue-on-error: true
+
+      - name: Organize and rename reports
+        shell: bash # Garante que o shell bash está sendo usado para os comandos
+        run: |
+          echo "Organizing reports..."
+          # Gitleaks
+          if [ -f staging_reports/gitleaks-report.json ]; then
+            mv staging_reports/gitleaks-report.json securityReports/report-gitleaks.json
+            echo "Moved Gitleaks report."
+          else
+            echo "Gitleaks report not found in staging_reports."
+          fi
+
+          # Secret Scan (o nome do arquivo pode variar)
+          if [ -f staging_reports/secret-scan-report.json ]; then
+            mv staging_reports/secret-scan-report.json securityReports/report-secret-scan.json
+            echo "Moved Secret Scan report."
+          else
+            echo "Secret Scan report (secret-scan-report.json) not found in staging_reports."
+          fi
+          
+          # Snyk
+          if [ -f staging_reports/snyk-SCA.json ]; then
+            mv staging_reports/snyk-SCA.json securityReports/report-SCA.json
+            echo "Moved Snyk SCA report."
+          else
+            echo "Snyk SCA report not found in staging_reports."
+          fi
+          if [ -f staging_reports/snyk-SAST.json ]; then
+            mv staging_reports/snyk-SAST.json securityReports/report-SAST.json
+            echo "Moved Snyk SAST report."
+          else
+            echo "Snyk SAST report not found in staging_reports."
+          fi
+          
+          # DAST (ZAP)
+          if [ -d staging_reports/dast-raw ]; then
+            if ls staging_reports/dast-raw/*report-DAST*.json 1> /dev/null 2>&1; then
+              mv staging_reports/dast-raw/*report-DAST*.json securityReports/dast-reports/report-DAST.json
+              echo "Moved ZAP JSON report."
+            else
+              echo "ZAP JSON report not found in staging_reports/dast-raw."
+            fi
+            if ls staging_reports/dast-raw/*report-DAST*.html 1> /dev/null 2>&1; then
+              mv staging_reports/dast-raw/*report-DAST*.html securityReports/dast-reports/report-DAST.html
+              echo "Moved ZAP HTML report."
+            else
+              echo "ZAP HTML report not found in staging_reports/dast-raw."
+            fi
+          else
+            echo "DAST raw reports directory not found."
+          fi
+
+          # Unit Test XMLs
+          if [ -d staging_reports/unit-tests-raw ]; then
+            if [ -n "$(ls -A staging_reports/unit-tests-raw)" ]; then # Verifica se o diretório não está vazio
+              cp -r staging_reports/unit-tests-raw/* securityReports/unit-test-reports/
+              echo "Copied Unit Test reports."
+            else
+              echo "Unit Test reports directory (unit-tests-raw) is empty."
+            fi
+          else
+            echo "Unit Test raw reports directory not found."
+          fi
+
+          # Integration Test XMLs
+          if [ -d staging_reports/integration-tests-raw ]; then
+            if [ -n "$(ls -A staging_reports/integration-tests-raw)" ]; then # Verifica se o diretório não está vazio
+              cp -r staging_reports/integration-tests-raw/* securityReports/integration-test-reports/
+              echo "Copied Integration Test reports."
+            else
+              echo "Integration Test reports directory (integration-tests-raw) is empty."
+            fi
+          else
+            echo "Integration Test raw reports directory not found."
+          fi
+          
+          echo "Listing contents of securityReports:"
+          ls -R securityReports
+
+      - name: Commit reports
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add securityReports/*
+          if git diff --staged --quiet; then
+            echo "No changes to commit in securityReports."
+          else
+            git commit -m "Add/Update security and test reports [skip ci]"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
