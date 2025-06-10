@@ -203,8 +203,8 @@
       ],
       "description": "## Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). An attacker can mount a denial-of-service attack by sending poisoned data. This is only exploitable if logback receiver component is deployed.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.13, 1.3.12, 1.4.12 or higher.\n## References\n- [Changelog](https://logback.qos.ch/news.html#1.3.12)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/9c782b45be4abdafb7e17481e24e7354c2acd1eb)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b8eac23a9de9e05fb6d51160b3f46acd91af9731)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n",
       "epssDetails": {
-        "percentile": "0.58898",
-        "probability": "0.00385",
+        "percentile": "0.69777",
+        "probability": "0.00652",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -506,7 +506,7 @@
       ],
       "description": "## Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Server-side Request Forgery (SSRF) through the `SaxEventRecorder` process. An attacker can forge requests by compromising logback configuration files in XML.\n## Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.3.15, 1.5.13 or higher.\n## References\n- [Additional Information](https://logback.qos.ch/news.html#1.5.13)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/2863a4974a3649b5b00d4a529ee6ff2063470f35)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/5f05041cba4c4ac0a62748c5c527a2da48999f2d)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.15)\n",
       "epssDetails": {
-        "percentile": "0.11019",
+        "percentile": "0.11113",
         "probability": "0.00039",
         "modelVersion": "v2025.03.14"
       },
@@ -1062,7 +1062,11 @@
         }
       ],
       "description": "## Overview\n[com.fasterxml.jackson.core:jackson-core](https://github.com/FasterXML/jackson-core) is a Core Jackson abstractions, basic JSON streaming API implementation\n\nAffected versions of this package are vulnerable to Information Exposure due to the `JsonLocation._appendSourceDesc` method. An attacker can access up to 500 bytes of unintended memory content by exploiting exception messages that incorrectly read from the beginning of a byte array instead of the logical payload start. \r\n\r\n## Workaround \r\nThis vulnerability can be mitigated by disabling exception message exposure to clients to avoid returning parsing exception messages in HTTP responses and/or disabling source inclusion in exceptions to prevent Jackson from embedding any source content in exception messages, avoiding leakage.\n## PoC\n``` java\r\n\r\nbyte[] buffer = new byte[1000];\r\nSystem.arraycopy(\"SECRET\".getBytes(), 0, buffer, 0, 6);\r\nSystem.arraycopy(\"{ \\\"bad\\\": }\".getBytes(), 0, buffer, 700, 10);\r\n\r\nJsonFactory factory = new JsonFactory();\r\nJsonParser parser = factory.createParser(buffer, 700, 20);\r\nparser.nextToken(); // throws exception\r\n\r\n// Exception message will include \"SECRET\"\r\n\r\n```\n## Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-core` to version 2.13.0-rc1 or higher.\n## References\n- [GitHub Commit](https://github.com/FasterXML/jackson-core/commit/a6c297682737dde13337cb7c3020f299518609a8)\n- [GitHub PR](https://github.com/FasterXML/jackson-core/pull/652)\n",
-      "epssDetails": null,
+      "epssDetails": {
+        "percentile": "0.00156",
+        "probability": "0.00004",
+        "modelVersion": "v2025.03.14"
+      },
       "identifiers": {
         "CVE": [
           "CVE-2025-49128"
@@ -2617,7 +2621,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow when processing a deeply recursive GraphQL query. An attacker can send such a query to exhaust stack memory and cause a crash.\n## Remediation\nUpgrade `com.graphql-java:graphql-java` to version 0.0.0-2023-03-20T01-49-44-80e3135, 17.5, 18.4, 19.4, 20.1 or higher.\n## References\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/1f905d8f5a3343da9abe4522fd145de0c319cd4e)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/2bb67d402d9d722e35b45558e1a527dd586f0899)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/8b9617f55876505dd1ac547436a3fd9de60f2d55)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/dcd9cf98e24e0297b61331cc812577c8793565a4)\n- [GitHub PR](https://github.com/graphql-java/graphql-java/pull/3112)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v17.5)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v18.4)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v19.4)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v20.1)\n",
       "epssDetails": {
-        "percentile": "0.27492",
+        "percentile": "0.27516",
         "probability": "0.00093",
         "modelVersion": "v2025.03.14"
       },
@@ -2929,8 +2933,8 @@
       ],
       "description": "## Overview\n[commons-io:commons-io](https://search.maven.org/artifact/commons-io/commons-io) is a The Apache Commons IO library contains utility classes, stream implementations, file filters, file comparators, endian transformation classes, and much more.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption through the `XmlStreamReader` class. An attacker can cause the application to consume excessive CPU resources by sending specially crafted XML content.\n## Remediation\nUpgrade `commons-io:commons-io` to version 2.14.0 or higher.\n## References\n- [Apache Advisory](https://lists.apache.org/thread/6ozr91rr9cj5lm0zyhv30bsp317hk5z1)\n- [GitHub Commit](https://github.com/apache/commons-io/commit/06fde31494c279ad940149e1a3d4944040c73c0d)\n",
       "epssDetails": {
-        "percentile": "0.10665",
-        "probability": "0.00038",
+        "percentile": "0.08971",
+        "probability": "0.00035",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -3194,7 +3198,7 @@
       ],
       "description": "## Overview\n[com.nimbusds:nimbus-jose-jwt](https://connect2id.com/products/nimbus-jose-jwt) is a library for JSON Web Tokens (JWT)\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to a large JWE `p2c` header value (AKA iteration count) for the `PasswordBasedDecrypter` (PBKDF2) class. An attacker can cause resource consumption by specifying an excessively large iteration count.\n## Remediation\nUpgrade `com.nimbusds:nimbus-jose-jwt` to version 9.37.2 or higher.\n## References\n- [Bitbucket Commit](https://bitbucket.org/connect2id/nimbus-jose-jwt/commits/3b3b77e)\n- [Bitbucket Issue](https://bitbucket.org/connect2id/nimbus-jose-jwt/issues/526/)\n",
       "epssDetails": {
-        "percentile": "0.24195",
+        "percentile": "0.24222",
         "probability": "0.00078",
         "modelVersion": "v2025.03.14"
       },
@@ -6555,8 +6559,8 @@
       ],
       "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the implementation of the HTTP/2 protocol. An attacker can cause a denial of service (including via DDoS) by rapidly resetting many streams through request cancellation.\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 8.5.94, 9.0.81, 10.1.14, 11.0.0-M12 or higher.\n## References\n- [Github Commit](https://github.com/helidon-io/helidon/commit/58f43670086e530750c7cb74b0bec92bf5189c79)\n- [Github Commit](https://github.com/pgjones/hypercorn/commit/7c39c68b61012a3c30979176080861c8b00fb229)\n- [GitHub Commit](https://github.com/akka/akka-http/commit/1f29fe6a8567c57dfe848a21ae883304cce5646d)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/76bb4bfbfeae827dce896f650655bbf6e251ed49)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/9cdfe25bad707f34b3e5da2994f3f1952a163c3e)\n- [GitHub Commit](https://github.com/eclipse/jetty.project/commit/dbb94514dc9d3fb21fe92080f57c314e7e06a148)\n- [GitHub Commit](https://github.com/gravitational/teleport/commit/15f34f927a45130408eb16ed09af5620270d4d1f)\n- [GitHub Commit](https://github.com/h2o/h2o/commit/28fe15117b909588bf14269a0e1c6ec4548579fe)\n- [GitHub Commit](https://github.com/kubernetes/apimachinery/commit/be9188050914374ee8128239e5a2e5998d7897f5)\n- [GitHub Commit](https://github.com/netty/netty/commit/58f75f665aa81a8cbcf6ffa74820042a285c5e61)\n- [GitHub Commit](https://github.com/nghttp2/nghttp2/commit/72b4af6143681f528f1d237b21a9a7aee1738832)\n- [GitHub Commit](https://github.com/operator-framework/operator-lifecycle-manager/commit/9ec03f07f942dc9cef736957fa152e39157d6e13)\n- [Snyk Blog](https://snyk.io/blog/find-fix-http-2-rapid-reset-zero-day-vulnerability-cve-2023-44487/)\n- [Vulnerability Discovery](https://blog.cloudflare.com/technical-breakdown-http2-rapid-reset-ddos-attack/)\n- [Vulnerability Explanation](https://cloud.google.com/blog/products/identity-security/how-it-works-the-novel-http2-rapid-reset-ddos-attack)\n- [CISA - Known Exploited Vulnerabilities](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)\n- [PoC in GitHub](https://github.com/studiogangster/CVE-2023-44487)\n",
       "epssDetails": {
-        "percentile": "0.99982",
-        "probability": "0.94433",
+        "percentile": "0.99981",
+        "probability": "0.94430",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -7609,8 +7613,8 @@
       ],
       "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Insufficient Session Expiration due to an infinite timeout being assigned to an open connection improperly, in `http2/Stream.java`. An attacker can force this situation by sending an HTTP/2 stream with excessive headers, causing an out-of-memory error or exhausting `maxConnections`.\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 9.0.90, 10.1.25, 11.0.0-M21 or higher.\n## References\n- [Apache Mailing List](https://lists.apache.org/thread/4kqf0bc9gxymjc2x7v3p7dvplnl77y8l)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-10.html)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-11.html)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-9.html)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/2344a4c0d03e307ba6b8ab6dc8b894cc8bac63f2)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/2afae300c9ac9c0e516e2e9de580847d925365c3)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/9fec9a82887853402833a80b584e3762c7423f5f)\n",
       "epssDetails": {
-        "percentile": "0.94615",
-        "probability": "0.17015",
+        "percentile": "0.95097",
+        "probability": "0.19663",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -8337,8 +8341,8 @@
       ],
       "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Time-of-check Time-of-use (TOCTOU) Race Condition due to imcomplete mitigation advice associated with [CVE-2024-50379](https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-8523184) in the file-handling process with servlet write enabled.\r\n\r\nIn addition to upgrading to the fixed version, users are advised to apply the following mitigations, depending on which version of Java they are using with Tomcat :\r\n\r\n1) running on Java 8 or Java 11: the system property `sun.io.useCanonCaches` must be explicitly set to false (it defaults to true)\r\n\r\n2) running on Java 17: the system property `sun.io.useCanonCaches`, if set, must be set to false (it defaults to false)\r\n\r\n3) running on Java 21 onwards: no further configuration is required (the system property and the problematic cache have been removed)\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 9.0.98, 10.1.34, 11.0.2 or higher.\n## References\n- [Additional Protection](https://github.com/apache/tomcat/commit/0c75cd1e3ac85944fb8ecbcf88cc38e9fa1fe4d5)\n- [Apache Thread](https://lists.apache.org/thread/b2b9qrgjrz1kvo4ym8y2wkfdvwoq6qbp)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-10.html#Fixed_in_Apache_Tomcat_10.1.34)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-11.html#Fixed_in_Apache_Tomcat_11.0.2)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-9.html#Fixed_in_Apache_Tomcat_9.0.98)\n- [Follow-up PR](https://github.com/apache/tomcat/pull/858)\n",
       "epssDetails": {
-        "percentile": "0.89271",
-        "probability": "0.05030",
+        "percentile": "0.92499",
+        "probability": "0.09709",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -9431,7 +9435,7 @@
       ],
       "description": "## Overview\n[org.hibernate.validator:hibernate-validator](https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator) is a Hibernate Validator Engine Relocation Artifact.\n\nAffected versions of this package are vulnerable to Cross-site Scripting (XSS) due to the `isValid` method in the `org.hibernate.validator.internal.constraintvalidators.hv.SafeHtmlValidator` class, which can be bypassed by omitting the tag ending in a less-than character. Browsers may render invalid HTML, allowing for the injection of arbitrary HTML content or the execution of scripts in the context of the user's browser session by crafting malicious input.\n## Remediation\nUpgrade `org.hibernate.validator:hibernate-validator` to version 6.2.0 or higher.\n## References\n- [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=1809444)\n",
       "epssDetails": {
-        "percentile": "0.08125",
+        "percentile": "0.08204",
         "probability": "0.00034",
         "modelVersion": "v2025.03.14"
       },
@@ -12070,7 +12074,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via a crafted `SpEL` expression.\n## Remediation\nUpgrade `org.springframework:spring-expression` to version 5.2.23.RELEASE, 5.3.26, 6.0.7 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/430fc25acad2e85cbdddcd52b64481691f03ebd1)\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/52c93b1c4b24d70de233a958e60e7c5822bd274f)\n- [GitHub Commit](https://github.com/spring-projects/spring-framework/commit/935c29e3ddba5b19951e54f6685c70ed45d9cbe5)\n- [Vulnerability Advisory](https://spring.io/security/cve-2023-20861)\n",
       "epssDetails": {
-        "percentile": "0.55515",
+        "percentile": "0.55484",
         "probability": "0.00333",
         "modelVersion": "v2025.03.14"
       },
@@ -14041,7 +14045,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) if Spring MVC is used together with a reverse proxy cache.\r\n\r\nSpecifically, an application **is vulnerable** if *all of the conditions are true*:\r\n\r\n - The application has Spring MVC auto-configuration enabled. This is the case by default if Spring MVC is on the classpath.\r\n - The application uses Spring Boot's welcome page support, either static or templated.\r\n - The application is deployed behind a proxy which caches 404 responses.\r\n\r\nThe application **is NOT vulnerable** if *any of the following are true*:\r\n\r\n - Spring MVC auto-configuration is disabled. This is true if `WebMvcAutoConfiguration` is explicitly excluded, if Spring MVC is not on the classpath, or if `spring.main.web-application-type` is set to a value other than `SERVLET`.\r\n - The application does not use Spring Boot's welcome page support.\r\n - There is no proxy which caches 404 responses.\r\n\r\n\r\n## Workaround\r\n\r\nUsers who are unable to upgrade should configure the reverse proxy not to cache 404 responses and/or not to cache responses to requests to the root (`/`) of the application.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `org.springframework.boot:spring-boot-autoconfigure` to version 2.5.15, 2.6.15, 2.7.12, 3.0.7 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-boot/commit/418dd1ba5bdad79b55a043000164bfcbda2acd78)\n- [GitHub Issue](https://github.com/spring-projects/spring-boot/issues/35552)\n- [GitHub Release](https://github.com/spring-projects/spring-boot/releases/tag/v2.5.15)\n",
       "epssDetails": {
-        "percentile": "0.50815",
+        "percentile": "0.50779",
         "probability": "0.00276",
         "modelVersion": "v2025.03.14"
       },
@@ -16626,7 +16630,7 @@
       ],
       "description": "## Overview\n[org.yaml:snakeyaml](https://code.google.com/p/snakeyaml/source/browse/) is a YAML 1.1 parser and emitter for Java.\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow when parsing crafted untrusted YAML files, which can lead to a denial-of-service.\n## Remediation\nUpgrade `org.yaml:snakeyaml` to version 1.32 or higher.\n## References\n- [Bitbucket Commit](https://bitbucket.org/snakeyaml/snakeyaml/commits/5056a448f09c46250346c338e821386caa751182)\n- [Bitbucket Issue and PoC](https://bitbucket.org/snakeyaml/snakeyaml/issues/531/stackoverflow-oss-fuzz-47081)\n- [Chromium Bugs](https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=47081)\n",
       "epssDetails": {
-        "percentile": "0.38818",
+        "percentile": "0.38797",
         "probability": "0.00167",
         "modelVersion": "v2025.03.14"
       },
@@ -16956,7 +16960,7 @@
       ],
       "description": "## Overview\n[org.yaml:snakeyaml](https://code.google.com/p/snakeyaml/source/browse/) is a YAML 1.1 parser and emitter for Java.\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow when parsing crafted untrusted YAML files, which can lead to a denial-of-service.\n## Remediation\nUpgrade `org.yaml:snakeyaml` to version 1.31 or higher.\n## References\n- [Bitbucket Commit](https://bitbucket.org/snakeyaml/snakeyaml/commits/f3ab4e0f54c37ddb10f00b71d04187bb0ef1799c)\n- [Bitbucket Issue](https://bitbucket.org/snakeyaml/snakeyaml/issues/530/stackoverflow-oss-fuzz-47039)\n- [Chromium Bugs](https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=47039)\n",
       "epssDetails": {
-        "percentile": "0.38212",
+        "percentile": "0.38196",
         "probability": "0.00163",
         "modelVersion": "v2025.03.14"
       },
@@ -17739,8 +17743,7 @@
   "ignoreSettings": {
     "adminOnly": false,
     "reasonRequired": false,
-    "disregardFilesystemIgnores": false,
-    "autoApproveIgnores": false
+    "disregardFilesystemIgnores": false
   },
   "summary": "110 vulnerable dependency paths",
   "remediation": {
@@ -17951,8 +17954,8 @@
         ],
         "description": "## Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). An attacker can mount a denial-of-service attack by sending poisoned data. This is only exploitable if logback receiver component is deployed.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.13, 1.3.12, 1.4.12 or higher.\n## References\n- [Changelog](https://logback.qos.ch/news.html#1.3.12)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/9c782b45be4abdafb7e17481e24e7354c2acd1eb)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b8eac23a9de9e05fb6d51160b3f46acd91af9731)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n",
         "epssDetails": {
-          "percentile": "0.58898",
-          "probability": "0.00385",
+          "percentile": "0.69777",
+          "probability": "0.00652",
           "modelVersion": "v2025.03.14"
         },
         "identifiers": {
@@ -18249,7 +18252,11 @@
           }
         ],
         "description": "## Overview\n[com.fasterxml.jackson.core:jackson-core](https://github.com/FasterXML/jackson-core) is a Core Jackson abstractions, basic JSON streaming API implementation\n\nAffected versions of this package are vulnerable to Information Exposure due to the `JsonLocation._appendSourceDesc` method. An attacker can access up to 500 bytes of unintended memory content by exploiting exception messages that incorrectly read from the beginning of a byte array instead of the logical payload start. \r\n\r\n## Workaround \r\nThis vulnerability can be mitigated by disabling exception message exposure to clients to avoid returning parsing exception messages in HTTP responses and/or disabling source inclusion in exceptions to prevent Jackson from embedding any source content in exception messages, avoiding leakage.\n## PoC\n``` java\r\n\r\nbyte[] buffer = new byte[1000];\r\nSystem.arraycopy(\"SECRET\".getBytes(), 0, buffer, 0, 6);\r\nSystem.arraycopy(\"{ \\\"bad\\\": }\".getBytes(), 0, buffer, 700, 10);\r\n\r\nJsonFactory factory = new JsonFactory();\r\nJsonParser parser = factory.createParser(buffer, 700, 20);\r\nparser.nextToken(); // throws exception\r\n\r\n// Exception message will include \"SECRET\"\r\n\r\n```\n## Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-core` to version 2.13.0-rc1 or higher.\n## References\n- [GitHub Commit](https://github.com/FasterXML/jackson-core/commit/a6c297682737dde13337cb7c3020f299518609a8)\n- [GitHub PR](https://github.com/FasterXML/jackson-core/pull/652)\n",
-        "epssDetails": null,
+        "epssDetails": {
+          "percentile": "0.00156",
+          "probability": "0.00004",
+          "modelVersion": "v2025.03.14"
+        },
         "identifiers": {
           "CVE": [
             "CVE-2025-49128"
@@ -18893,7 +18900,7 @@
         ],
         "description": "## Overview\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow when processing a deeply recursive GraphQL query. An attacker can send such a query to exhaust stack memory and cause a crash.\n## Remediation\nUpgrade `com.graphql-java:graphql-java` to version 0.0.0-2023-03-20T01-49-44-80e3135, 17.5, 18.4, 19.4, 20.1 or higher.\n## References\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/1f905d8f5a3343da9abe4522fd145de0c319cd4e)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/2bb67d402d9d722e35b45558e1a527dd586f0899)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/8b9617f55876505dd1ac547436a3fd9de60f2d55)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/dcd9cf98e24e0297b61331cc812577c8793565a4)\n- [GitHub PR](https://github.com/graphql-java/graphql-java/pull/3112)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v17.5)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v18.4)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v19.4)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v20.1)\n",
         "epssDetails": {
-          "percentile": "0.27492",
+          "percentile": "0.27516",
           "probability": "0.00093",
           "modelVersion": "v2025.03.14"
         },
@@ -19211,8 +19218,8 @@
         ],
         "description": "## Overview\n[commons-io:commons-io](https://search.maven.org/artifact/commons-io/commons-io) is a The Apache Commons IO library contains utility classes, stream implementations, file filters, file comparators, endian transformation classes, and much more.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption through the `XmlStreamReader` class. An attacker can cause the application to consume excessive CPU resources by sending specially crafted XML content.\n## Remediation\nUpgrade `commons-io:commons-io` to version 2.14.0 or higher.\n## References\n- [Apache Advisory](https://lists.apache.org/thread/6ozr91rr9cj5lm0zyhv30bsp317hk5z1)\n- [GitHub Commit](https://github.com/apache/commons-io/commit/06fde31494c279ad940149e1a3d4944040c73c0d)\n",
         "epssDetails": {
-          "percentile": "0.10665",
-          "probability": "0.00038",
+          "percentile": "0.08971",
+          "probability": "0.00035",
           "modelVersion": "v2025.03.14"
         },
         "identifiers": {
