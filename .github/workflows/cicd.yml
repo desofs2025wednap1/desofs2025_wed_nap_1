@@ -182,20 +182,6 @@ jobs:
           image: dsoft-ecommerce-spring # Nome da imagem definido no docker-compose.yml
           args: --file=Dockerfile --sarif-file-output=snyk.sarif --severity-threshold=low
 
-      - name: Fix SARIF format issues
-        run: |
-          sudo apt-get update && sudo apt-get install -y jq
-          # Verificar se o arquivo existe e tem conteúdo
-          if [ -f snyk.sarif ] && [ -s snyk.sarif ]; then
-            echo "Fixing SARIF format issues..."
-            # Substituir valores de severidade nulos por um valor padrão (5.0)
-            jq '(.runs[].tool.driver.rules[]? | select(.properties.security-severity == null)) |= (.properties."security-severity" = "5.0")' snyk.sarif > snyk_fixed.sarif
-            mv snyk_fixed.sarif snyk.sarif
-            echo "SARIF format fixed."
-          else
-            echo "SARIF file does not exist or is empty. Skipping format fix."
-          fi
-
       - name: Upload Snyk SARIF to Security
         uses: github/codeql-action/upload-sarif@v3 # Voltando para v3 conforme recomendação
         with:
