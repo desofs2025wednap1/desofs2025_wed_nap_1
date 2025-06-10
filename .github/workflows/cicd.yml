@@ -185,20 +185,6 @@ jobs:
           allow_issue_writing: true
           cmd_options: '-J report.json -r report.html'
 
-#      - name: Upload ZAP HTML report
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: zap-report-html
-#          path: report.html
-#          if-no-files-found: warn
-#
-#      - name: Upload ZAP JSON report
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: zap-report-json
-#          path: report.json
-#          if-no-files-found: warn
-
       - name: Upload ZAP reports
         uses: actions/upload-artifact@v4
         with:
@@ -211,22 +197,8 @@ jobs:
       - name: Upload SARIF to Security
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: report.json
+          sarif_file: report.sarif
 
-#      - name: Run Snyk to check Docker image for vulnerabilities
-#        uses: snyk/actions/docker@master
-#        continue-on-error: true # To ensure SARIF upload even if vulnerabilities are found
-#        env:
-#          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-#        with:
-#          image: dsoft-ecommerce-spring # Nome da imagem definido no docker-compose.yml
-#          args: --file=Dockerfile --sarif-file-output=snyk.sarif --severity-threshold=low
-#
-#      - name: Upload Snyk SARIF to Security
-#        uses: github/codeql-action/upload-sarif@v3 # Voltando para v3 conforme recomendação
-#        with:
-#          sarif_file: snyk.sarif
-#          wait-for-processing: true
 
       - name: Stop and remove Docker services
         if: always()
