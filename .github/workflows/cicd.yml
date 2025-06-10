@@ -188,18 +188,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: zap-report-html
-          path: report_html.html
+          path: report-html.html
 
       - name: Upload ZAP JSON report
         uses: actions/upload-artifact@v4
         with:
           name: zap-report-json
-          path: report_json.json
+          path: report-json.json
 
       - name: Upload SARIF to Security
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: report_json.json
+          sarif_file: report-json.json
 
 #      - name: Run Snyk to check Docker image for vulnerabilities
 #        uses: snyk/actions/docker@master
@@ -219,4 +219,3 @@ jobs:
       - name: Stop and remove Docker services
         if: always()
         run: docker compose down || true
-
