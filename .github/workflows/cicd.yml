@@ -186,6 +186,11 @@ jobs:
         with:
           sarif_file: snyk.sarif
 
+      - name: Download artefacts
+        uses: actions/download-artifact@v4
+        with:
+          name: snyk-report-Docker
+
       - name: Stop and remove Docker services
         if: always()
         run: docker compose down || true
