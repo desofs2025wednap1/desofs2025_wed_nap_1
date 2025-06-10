@@ -175,7 +175,7 @@ jobs:
           
 
       - name: Run OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.11.0
+        uses: zaproxy/action-baseline@v0.14.0
         with:
           target: 'http://localhost:8080'
           fail_action: false
@@ -188,18 +188,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: zap-report-html
-          path: report-html.html
+          path: report.html
 
       - name: Upload ZAP JSON report
         uses: actions/upload-artifact@v4
         with:
           name: zap-report-json
-          path: report-json.json
+          path: report.json
 
       - name: Upload SARIF to Security
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: report-json.json
+          sarif_file: report.json
 
 #      - name: Run Snyk to check Docker image for vulnerabilities
 #        uses: snyk/actions/docker@master
