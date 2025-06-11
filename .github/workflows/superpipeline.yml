@@ -56,7 +56,7 @@ jobs:
       - name: Secret Scanner
         uses: secret-scanner/action@main
         with:
-          detect_secret_additional_args: '--exclude-files-from .secretsignore' # ADICIONADO - Forma correta de passar argumentos e excluir
+          detect_secret_additional_args: '--exclude-files ".secretsignore"' # ADICIONADO - Forma correta de passar argumentos e excluir
         # A ação secret-scanner/action@main geralmente faz upload para o GitHub Security Events automaticamente (SARIF)
 
       # Tentativa de upload do JSON, se o INPUT_SCAN_ARGS o criar previsivelmente
