@@ -535,7 +535,7 @@ jobs:
 
   remote-deploy:
     name: Deploy to Remote Server
-    needs: [build-and-package, collect-and-commit-reports]
+    needs: [build-and-package]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
