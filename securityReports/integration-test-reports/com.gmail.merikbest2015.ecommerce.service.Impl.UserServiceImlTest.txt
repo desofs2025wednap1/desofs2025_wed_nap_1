@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.gmail.merikbest2015.ecommerce.service.Impl.UserServiceImlTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.266 s - in com.gmail.merikbest2015.ecommerce.service.Impl.UserServiceImlTest
