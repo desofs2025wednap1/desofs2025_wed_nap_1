@@ -34,19 +34,26 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Snyk Open Source test (Maven)
-        run: snyk test --all-projects --json-file-output=snyk-SCA.json
+        run: snyk test --all-projects --json-file-output=snyk-SCA.json --sarif-file-output=snyk-SCA.sarif --html-file-output=snyk-SCA.html
         continue-on-error: true
 
-#      - name: Upload Snyk OSS SARIF results
-#        uses: github/codeql-action/upload-sarif@v3
-#        with:
-#          sarif_file: snyk-SCA.sarif
-
-      - name: Upload SCA report as artifact
+      - name: Upload SCA report as artifact (JSON)
         uses: actions/upload-artifact@v4
         with:
-          name: snyk-report-SCA
+          name: snyk-report-SCA-json
           path: snyk-SCA.json
+
+      - name: Upload SCA report as artifact (SARIF)
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-report-SCA-sarif
+          path: snyk-SCA.sarif
+
+      - name: Upload SCA report as artifact (HTML)
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-report-SCA-html
+          path: snyk-SCA.html
 
 
 
@@ -77,22 +84,26 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Snyk Code test (SAST)
-        run: snyk code test --json-file-output=snyk-SAST.json
+        run: snyk code test --json-file-output=snyk-SAST.json --sarif-file-output=snyk-SAST.sarif --html-file-output=snyk-SAST.html
         continue-on-error: true
 
-#      - name: Upload Snyk Code SARIF results
-#        uses: github/codeql-action/upload-sarif@v3
-#        with:
-#          sarif_file: snyk-SAST.sarif
-
-      - name: Upload SAST report as artifact
+      - name: Upload SAST report as artifact (JSON)
         uses: actions/upload-artifact@v4
         with:
-          name: snyk-report-SAST
+          name: snyk-report-SAST-json
           path: snyk-SAST.json
 
+      - name: Upload SAST report as artifact (SARIF)
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-report-SAST-sarif
+          path: snyk-SAST.sarif
 
-
+      - name: Upload SAST report as artifact (HTML)
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-report-SAST-html
+          path: snyk-SAST.html
 
   commit-sarif:
     needs: [ SCA, SAST ]
@@ -101,28 +112,52 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Baixar artefatos SCA
+      - name: Baixar artefatos SCA (JSON)
         uses: actions/download-artifact@v4
         with:
-          name: snyk-report-SCA
+          name: snyk-report-SCA-json
 
-      - name: Baixar artefatos SAST
+      - name: Baixar artefatos SCA (SARIF)
         uses: actions/download-artifact@v4
         with:
-          name: snyk-report-SAST
+          name: snyk-report-SCA-sarif
 
-      - name: Mover JSON para pasta
+      - name: Baixar artefatos SCA (HTML)
+        uses: actions/download-artifact@v4
+        with:
+          name: snyk-report-SCA-html
+
+      - name: Baixar artefatos SAST (JSON)
+        uses: actions/download-artifact@v4
+        with:
+          name: snyk-report-SAST-json
+
+      - name: Baixar artefatos SAST (SARIF)
+        uses: actions/download-artifact@v4
+        with:
+          name: snyk-report-SAST-sarif
+
+      - name: Baixar artefatos SAST (HTML)
+        uses: actions/download-artifact@v4
+        with:
+          name: snyk-report-SAST-html
+
+      - name: Mover relatórios para pasta
         run: |
           mkdir -p securityReports
           mv snyk-SCA.json securityReports/snyk-SCA.json || true
+          mv snyk-SCA.sarif securityReports/snyk-SCA.sarif || true
+          mv snyk-SCA.html securityReports/snyk-SCA.html || true
           mv snyk-SAST.json securityReports/snyk-SAST.json || true
+          mv snyk-SAST.sarif securityReports/snyk-SAST.sarif || true
+          mv snyk-SAST.html securityReports/snyk-SAST.html || true
 
-      - name: Commit JSON files to repository
+      - name: Commit report files to repository
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add securityReports/snyk-SCA.json securityReports/snyk-SAST.json
-          git commit -m "Add JSON reports [skip ci]" || echo "No changes to commit"
+          git add securityReports/snyk-SCA.json securityReports/snyk-SCA.sarif securityReports/snyk-SCA.html securityReports/snyk-SAST.json securityReports/snyk-SAST.sarif securityReports/snyk-SAST.html
+          git commit -m "Add Snyk reports (JSON, SARIF, HTML) [skip ci]" || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
