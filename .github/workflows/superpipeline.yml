@@ -52,10 +52,11 @@ jobs:
     steps:
       - name: Checkout Configuration
         uses: actions/checkout@v4
+
       - name: Secret Scanner
         uses: secret-scanner/action@main
         with:
-          detect_secret_additional_args: '--exclude-files "securityReports/.*"' # ADICIONADO - Forma correta de passar argumentos e excluir
+          detect_secret_additional_args: '--exclude-files-from .secretsignore' # ADICIONADO - Forma correta de passar argumentos e excluir
         # A ação secret-scanner/action@main geralmente faz upload para o GitHub Security Events automaticamente (SARIF)
 
       # Tentativa de upload do JSON, se o INPUT_SCAN_ARGS o criar previsivelmente
@@ -497,3 +498,5 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
