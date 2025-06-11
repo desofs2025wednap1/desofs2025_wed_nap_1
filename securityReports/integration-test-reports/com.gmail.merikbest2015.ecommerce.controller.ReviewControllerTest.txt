@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.gmail.merikbest2015.ecommerce.controller.ReviewControllerTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.759 s - in com.gmail.merikbest2015.ecommerce.controller.ReviewControllerTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.262 s - in com.gmail.merikbest2015.ecommerce.controller.ReviewControllerTest
