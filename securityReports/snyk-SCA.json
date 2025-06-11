@@ -94,13 +94,19 @@
       "severityWithCritical": "medium",
       "from": [
         "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "ch.qos.logback:logback-classic@1.4.14",
+        "org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE",
+        "ch.qos.logback:logback-classic@1.2.3",
         "ch.qos.logback:logback-core@1.2.3"
       ],
       "upgradePath": [
         false,
-        "ch.qos.logback:logback-classic@1.4.14",
-        "ch.qos.logback:logback-core@1.4.14"
+        "org.springframework.boot:spring-boot-starter-web@2.4.13",
+        "org.springframework.boot:spring-boot-starter@2.4.13",
+        "org.springframework.boot:spring-boot-starter-logging@2.4.13",
+        "ch.qos.logback:logback-classic@1.2.7",
+        "ch.qos.logback:logback-core@1.2.7"
       ],
       "isUpgradable": true,
       "isPatchable": false,
@@ -248,11 +254,17 @@
       "severityWithCritical": "high",
       "from": [
         "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "ch.qos.logback:logback-classic@1.4.14",
+        "org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE",
+        "ch.qos.logback:logback-classic@1.2.3",
         "ch.qos.logback:logback-core@1.2.3"
       ],
       "upgradePath": [
         false,
+        "org.springframework.boot:spring-boot-starter-web@3.1.7",
+        "org.springframework.boot:spring-boot-starter@3.1.7",
+        "org.springframework.boot:spring-boot-starter-logging@3.1.7",
         "ch.qos.logback:logback-classic@1.4.14",
         "ch.qos.logback:logback-core@1.4.14"
       ],
@@ -406,11 +418,17 @@
       "severityWithCritical": "high",
       "from": [
         "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "ch.qos.logback:logback-classic@1.4.14",
+        "org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE",
+        "ch.qos.logback:logback-classic@1.2.3",
         "ch.qos.logback:logback-core@1.2.3"
       ],
       "upgradePath": [
         false,
+        "org.springframework.boot:spring-boot-starter-web@3.1.7",
+        "org.springframework.boot:spring-boot-starter@3.1.7",
+        "org.springframework.boot:spring-boot-starter-logging@3.1.7",
         "ch.qos.logback:logback-classic@1.4.14",
         "ch.qos.logback:logback-core@1.4.14"
       ],
@@ -554,13 +572,15 @@
       "severityWithCritical": "low",
       "from": [
         "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "ch.qos.logback:logback-classic@1.4.14",
+        "org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE",
+        "ch.qos.logback:logback-classic@1.2.3",
         "ch.qos.logback:logback-core@1.2.3"
       ],
       "upgradePath": [
         false,
-        "ch.qos.logback:logback-classic@1.5.13",
-        "ch.qos.logback:logback-core@1.5.13"
+        "org.springframework.boot:spring-boot-starter-web@3.3.7"
       ],
       "isUpgradable": true,
       "isPatchable": false,
@@ -702,17 +722,339 @@
       "severityWithCritical": "medium",
       "from": [
         "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "ch.qos.logback:logback-classic@1.4.14",
+        "org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE",
+        "ch.qos.logback:logback-classic@1.2.3",
         "ch.qos.logback:logback-core@1.2.3"
       ],
       "upgradePath": [
         false,
-        "ch.qos.logback:logback-classic@1.5.13",
-        "ch.qos.logback:logback-core@1.5.13"
+        "org.springframework.boot:spring-boot-starter-web@3.3.7"
       ],
       "isUpgradable": true,
       "isPatchable": false,
       "name": "ch.qos.logback:logback-core",
+      "version": "1.2.3"
+    },
+    {
+      "id": "SNYK-JAVA-CHQOSLOGBACK-6094942",
+      "title": "Denial of Service (DoS)",
+      "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H",
+      "credit": [
+        "Yakov Shafranovich"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[,1.2.13)",
+          "[1.3.0-alpha0,1.3.12)",
+          "[1.4.0,1.4.12)"
+        ]
+      },
+      "exploit": "Not Defined",
+      "fixedIn": [
+        "1.2.13",
+        "1.3.12",
+        "1.4.12"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "java",
+      "severity": "high",
+      "cvssScore": 7.1,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "ch.qos.logback:logback-classic",
+      "references": [
+        {
+          "url": "https://logback.qos.ch/news.html%231.3.12",
+          "title": "Changelog"
+        },
+        {
+          "url": "https://github.com/qos-ch/logback/commit/9c782b45be4abdafb7e17481e24e7354c2acd1eb",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/qos-ch/logback/commit/b8eac23a9de9e05fb6d51160b3f46acd91af9731",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3",
+          "title": "GitHub Commit"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "Red Hat",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2024-03-11T09:54:08.776489Z"
+        },
+        {
+          "assigner": "NVD",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2024-03-11T09:54:08.863927Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 7.1,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-03-06T14:02:24.958701Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "Red Hat",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-03-11T09:54:08.776489Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "NVD",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-03-11T09:54:08.863927Z"
+        }
+      ],
+      "description": "## Overview\n[ch.qos.logback:logback-classic](https://mvnrepository.com/artifact/ch.qos.logback/logback-classic) is a reliable, generic, fast and flexible logging library for Java.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). An attacker can mount a denial-of-service attack by sending poisoned data. This is only exploitable if logback receiver component is deployed.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `ch.qos.logback:logback-classic` to version 1.2.13, 1.3.12, 1.4.12 or higher.\n## References\n- [Changelog](https://logback.qos.ch/news.html#1.3.12)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/9c782b45be4abdafb7e17481e24e7354c2acd1eb)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b8eac23a9de9e05fb6d51160b3f46acd91af9731)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n",
+      "epssDetails": {
+        "percentile": "0.69777",
+        "probability": "0.00652",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2023-6378"
+        ],
+        "CWE": [
+          "CWE-400"
+        ]
+      },
+      "packageName": "ch.qos.logback:logback-classic",
+      "proprietary": false,
+      "creationTime": "2023-11-29T14:25:57.863988Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2023-11-29T13:44:14Z",
+      "exploitDetails": {
+        "sources": [],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Not Defined",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Not Defined",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "maven",
+      "mavenModuleName": {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-classic"
+      },
+      "publicationTime": "2023-11-29T14:25:58.114686Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2024-03-11T09:54:08.863927Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "high",
+      "from": [
+        "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
+        "org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE",
+        "ch.qos.logback:logback-classic@1.2.3"
+      ],
+      "upgradePath": [
+        false,
+        "org.springframework.boot:spring-boot-starter-web@3.1.7",
+        "org.springframework.boot:spring-boot-starter@3.1.7",
+        "org.springframework.boot:spring-boot-starter-logging@3.1.7",
+        "ch.qos.logback:logback-classic@1.4.14"
+      ],
+      "isUpgradable": true,
+      "isPatchable": false,
+      "name": "ch.qos.logback:logback-classic",
+      "version": "1.2.3"
+    },
+    {
+      "id": "SNYK-JAVA-CHQOSLOGBACK-6097492",
+      "title": "Uncontrolled Resource Consumption ('Resource Exhaustion')",
+      "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H",
+      "credit": [
+        "Unknown"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[,1.2.13)",
+          "[1.3.0,1.3.14)",
+          "[1.4.0,1.4.14)"
+        ]
+      },
+      "exploit": "Not Defined",
+      "fixedIn": [
+        "1.2.13",
+        "1.3.14",
+        "1.4.14"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "java",
+      "severity": "high",
+      "cvssScore": 7.1,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "ch.qos.logback:logback-classic",
+      "references": [
+        {
+          "url": "https://github.com/qos-ch/logback/commit/7018a3609c7bcc9dc7bf5903509901a986e5f578",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/qos-ch/logback/commit/c612b2fa3caf6eef3c75f1cd5859438451d0fd6f",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://logback.qos.ch/news.html%231.2.13",
+          "title": "Release Notes"
+        },
+        {
+          "url": "https://logback.qos.ch/news.html%231.3.14",
+          "title": "Release Notes"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "Red Hat",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2024-03-11T09:54:09.139951Z"
+        },
+        {
+          "assigner": "NVD",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2024-03-11T09:54:09.811455Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 7.1,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-03-06T14:09:26.895867Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "Red Hat",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-03-11T09:54:09.139951Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "assigner": "NVD",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-03-11T09:54:09.811455Z"
+        }
+      ],
+      "description": "## Overview\n[ch.qos.logback:logback-classic](https://mvnrepository.com/artifact/ch.qos.logback/logback-classic) is a reliable, generic, fast and flexible logging library for Java.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') via the `logback receiver` component. An attacker can mount a denial-of-service attack by sending poisoned data.\r\n\r\n**Note:**\r\n\r\nSuccessful exploitation requires the logback-receiver component being enabled and also reachable by the attacker.\n## Remediation\nUpgrade `ch.qos.logback:logback-classic` to version 1.2.13, 1.3.14, 1.4.14 or higher.\n## References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/7018a3609c7bcc9dc7bf5903509901a986e5f578)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/c612b2fa3caf6eef3c75f1cd5859438451d0fd6f)\n- [Release Notes](https://logback.qos.ch/news.html#1.2.13)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.14)\n",
+      "epssDetails": {
+        "percentile": "0.53798",
+        "probability": "0.00312",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2023-6481"
+        ],
+        "CWE": [
+          "CWE-400"
+        ]
+      },
+      "packageName": "ch.qos.logback:logback-classic",
+      "proprietary": false,
+      "creationTime": "2023-12-04T14:58:05.575079Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2023-12-04T09:44:53Z",
+      "exploitDetails": {
+        "sources": [],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Not Defined",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Not Defined",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "maven",
+      "mavenModuleName": {
+        "groupId": "ch.qos.logback",
+        "artifactId": "logback-classic"
+      },
+      "publicationTime": "2023-12-04T15:19:15.817374Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2024-03-11T09:54:09.811455Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "high",
+      "from": [
+        "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
+        "org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE",
+        "ch.qos.logback:logback-classic@1.2.3"
+      ],
+      "upgradePath": [
+        false,
+        "org.springframework.boot:spring-boot-starter-web@3.1.7",
+        "org.springframework.boot:spring-boot-starter@3.1.7",
+        "org.springframework.boot:spring-boot-starter-logging@3.1.7",
+        "ch.qos.logback:logback-classic@1.4.14"
+      ],
+      "isUpgradable": true,
+      "isPatchable": false,
+      "name": "ch.qos.logback:logback-classic",
       "version": "1.2.3"
     },
     {
@@ -850,16 +1192,19 @@
       "severityWithCritical": "medium",
       "from": [
         "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "ch.qos.logback:logback-classic@1.4.14"
+        "org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter@2.3.6.RELEASE",
+        "org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE",
+        "ch.qos.logback:logback-classic@1.2.3"
       ],
       "upgradePath": [
         false,
-        "ch.qos.logback:logback-classic@1.5.13"
+        "org.springframework.boot:spring-boot-starter-web@3.3.7"
       ],
       "isUpgradable": true,
       "isPatchable": false,
       "name": "ch.qos.logback:logback-classic",
-      "version": "1.4.14"
+      "version": "1.2.3"
     },
     {
       "id": "SNYK-JAVA-COMAMAZONAWS-2952700",
@@ -978,8 +1323,8 @@
       ],
       "upgradePath": [
         false,
-        "com.amazonaws:aws-java-sdk@1.12.785",
-        "com.amazonaws:aws-java-sdk-s3@1.12.785"
+        "com.amazonaws:aws-java-sdk@1.12.786",
+        "com.amazonaws:aws-java-sdk-s3@1.12.786"
       ],
       "isUpgradable": true,
       "isPatchable": false,
@@ -2152,13 +2497,8 @@
         "com.amazonaws:aws-java-sdk-core@1.11.133",
         "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor@2.11.3"
       ],
-      "upgradePath": [
-        false,
-        "com.amazonaws:aws-java-sdk@1.12.785",
-        "com.amazonaws:aws-java-sdk-core@1.12.785",
-        "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor@2.17.2"
-      ],
-      "isUpgradable": true,
+      "upgradePath": [],
+      "isUpgradable": false,
       "isPatchable": false,
       "name": "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor",
       "version": "2.11.3"
@@ -16197,132 +16537,6 @@
       "version": "5.3.5.RELEASE"
     },
     {
-      "id": "SNYK-JAVA-ORGTHYMELEAF-5811866",
-      "title": "Sandbox Bypass",
-      "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H/E:P",
-      "credit": [
-        "p1n93r"
-      ],
-      "semver": {
-        "vulnerable": [
-          "[,3.1.2.RELEASE)"
-        ]
-      },
-      "exploit": "Proof of Concept",
-      "fixedIn": [
-        "3.1.2.RELEASE"
-      ],
-      "patches": [],
-      "insights": {
-        "triageAdvice": null
-      },
-      "language": "java",
-      "severity": "critical",
-      "cvssScore": 9.8,
-      "functions": [],
-      "malicious": false,
-      "isDisputed": false,
-      "moduleName": "org.thymeleaf:thymeleaf",
-      "references": [
-        {
-          "url": "https://github.com/thymeleaf/thymeleaf/issues/966",
-          "title": "GitHub Commit"
-        },
-        {
-          "url": "https://github.com/p1n93r/SpringBootAdmin-thymeleaf-SSTI",
-          "title": "PoC"
-        }
-      ],
-      "cvssDetails": [
-        {
-          "assigner": "NVD",
-          "severity": "high",
-          "cvssV3Vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
-          "cvssV3BaseScore": 7.5,
-          "modificationTime": "2024-03-11T09:53:27.048353Z"
-        }
-      ],
-      "cvssSources": [
-        {
-          "type": "primary",
-          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H/E:P",
-          "assigner": "Snyk",
-          "severity": "critical",
-          "baseScore": 9.8,
-          "cvssVersion": "3.1",
-          "modificationTime": "2024-03-06T13:55:52.349311Z"
-        },
-        {
-          "type": "secondary",
-          "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
-          "assigner": "NVD",
-          "severity": "high",
-          "baseScore": 7.5,
-          "cvssVersion": "3.1",
-          "modificationTime": "2024-03-11T09:53:27.048353Z"
-        }
-      ],
-      "description": "## Overview\n\nAffected versions of this package are vulnerable to Sandbox Bypass due to insufficient checks, by allowing an attacker to execute arbitrary code via a crafted HTML.\n## PoC\n```\r\n<!DOCTYPE html>\r\n<html xmlns:th=\"http://www.thymeleaf.org\">\r\n<head>\r\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\r\n</head>\r\n<body>\r\n\r\n<tr\r\n        th:with=\"getRuntimeMethod=${T(org.springframework.util.ReflectionUtils).findMethod(T(org.springframework.util.ClassUtils).forName('java.lang.Runtime',T(org.springframework.util.ClassUtils).getDefaultClassLoader()), 'getRuntime' )}\"\r\n>\r\n    <td>\r\n        <a\r\n                th:with=\"runtimeObj=${T(org.springframework.util.ReflectionUtils).invokeMethod(getRuntimeMethod, null)}\"\r\n        >\r\n            <a\r\n                    th:with=\"exeMethod=${T(org.springframework.util.ReflectionUtils).findMethod(T(org.springframework.util.ClassUtils).forName('java.lang.Runtime',T(org.springframework.util.ClassUtils).getDefaultClassLoader()), 'exec', ''.getClass() )}\"\r\n            >\r\n                <a\r\n                        th:with=\"param2=${T(org.springframework.util.ReflectionUtils).invokeMethod(exeMethod, runtimeObj, 'calc' )\r\n                }\"\r\n                        th:href=\"${param2}\"\r\n                ></a>\r\n            </a>\r\n\r\n        </a>\r\n    </td>\r\n</tr>\r\n\r\n</body>\r\n</html>\r\n```\n## Remediation\nUpgrade `org.thymeleaf:thymeleaf` to version 3.1.2.RELEASE or higher.\n## References\n- [GitHub Commit](https://github.com/thymeleaf/thymeleaf/issues/966)\n- [PoC](https://github.com/p1n93r/SpringBootAdmin-thymeleaf-SSTI)\n",
-      "epssDetails": {
-        "percentile": "0.28215",
-        "probability": "0.00097",
-        "modelVersion": "v2025.03.14"
-      },
-      "identifiers": {
-        "CVE": [
-          "CVE-2023-38286"
-        ],
-        "CWE": [
-          "CWE-265"
-        ]
-      },
-      "packageName": "org.thymeleaf:thymeleaf",
-      "proprietary": false,
-      "creationTime": "2023-08-01T09:19:27.913503Z",
-      "functions_new": [],
-      "alternativeIds": [],
-      "disclosureTime": "2023-07-14T12:30:17Z",
-      "exploitDetails": {
-        "sources": [
-          "Snyk"
-        ],
-        "maturityLevels": [
-          {
-            "type": "secondary",
-            "level": "Proof of Concept",
-            "format": "CVSSv3"
-          },
-          {
-            "type": "primary",
-            "level": "Proof of Concept",
-            "format": "CVSSv4"
-          }
-        ]
-      },
-      "packageManager": "maven",
-      "mavenModuleName": {
-        "groupId": "org.thymeleaf",
-        "artifactId": "thymeleaf"
-      },
-      "publicationTime": "2023-07-14T12:42:34.052683Z",
-      "severityBasedOn": "CVSS",
-      "modificationTime": "2024-03-11T09:53:27.048353Z",
-      "socialTrendAlert": false,
-      "severityWithCritical": "critical",
-      "from": [
-        "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-        "org.thymeleaf:thymeleaf@3.0.15.RELEASE"
-      ],
-      "upgradePath": [
-        false,
-        "org.thymeleaf:thymeleaf@3.1.2.RELEASE"
-      ],
-      "isUpgradable": true,
-      "isPatchable": false,
-      "name": "org.thymeleaf:thymeleaf",
-      "version": "3.0.15.RELEASE"
-    },
-    {
       "id": "SNYK-JAVA-ORGYAML-2806360",
       "title": "Denial of Service (DoS)",
       "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
@@ -17640,8 +17854,8 @@
       ],
       "upgradePath": [
         false,
-        "com.amazonaws:aws-java-sdk@1.12.785",
-        "com.amazonaws:aws-java-sdk-core@1.12.785"
+        "com.amazonaws:aws-java-sdk@1.12.786",
+        "com.amazonaws:aws-java-sdk-core@1.12.786"
       ],
       "isUpgradable": true,
       "isPatchable": false,
@@ -17650,7 +17864,7 @@
     }
   ],
   "ok": false,
-  "dependencyCount": 254,
+  "dependencyCount": 253,
   "org": "pedronogueiira",
   "policy": "# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.25.1\nignore: {}\npatch: {}\n",
   "isPrivate": true,
@@ -17745,437 +17959,9 @@
     "reasonRequired": false,
     "disregardFilesystemIgnores": false
   },
-  "summary": "110 vulnerable dependency paths",
+  "summary": "111 vulnerable dependency paths",
   "remediation": {
     "unresolved": [
-      {
-        "id": "SNYK-JAVA-CHQOSLOGBACK-1726923",
-        "title": "Insufficient Hostname Verification",
-        "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
-        "credit": [
-          "Andrei Komarov"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,1.2.7)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "1.2.7"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 4.8,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "ch.qos.logback:logback-core",
-        "references": [
-          {
-            "url": "https://github.com/qos-ch/logback/commit/626c7733c188f2ad60c1348a493761f60e2d7958",
-            "title": "GitHub Commit"
-          },
-          {
-            "url": "https://github.com/qos-ch/logback/pull/305",
-            "title": "GitHub PR"
-          },
-          {
-            "url": "https://jira.qos.ch/browse/LOGBACK-1574",
-            "title": "Jira Issue"
-          }
-        ],
-        "cvssDetails": [],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 4.8,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:05:00.349986Z"
-          }
-        ],
-        "description": "## Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Insufficient Hostname Verification. `X.509` are not properly validated. By spoofing the TLS/SSL server via a certificate that appears valid, an attacker with the ability to intercept network traffic (e.g. MitM, DNS cache poisoning) can disclose and optionally manipulate transmitted data.\n## Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.7 or higher.\n## References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/626c7733c188f2ad60c1348a493761f60e2d7958)\n- [GitHub PR](https://github.com/qos-ch/logback/pull/305)\n- [Jira Issue](https://jira.qos.ch/browse/LOGBACK-1574)\n",
-        "epssDetails": null,
-        "identifiers": {
-          "CVE": [],
-          "CWE": [
-            "CWE-20"
-          ]
-        },
-        "packageName": "ch.qos.logback:logback-core",
-        "proprietary": false,
-        "creationTime": "2021-09-29T13:37:34.088850Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2021-09-29T13:37:31Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "ch.qos.logback",
-          "artifactId": "logback-core"
-        },
-        "publicationTime": "2021-10-01T14:33:15Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-06T14:05:00.349986Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "ch.qos.logback:logback-classic@1.4.14",
-          "ch.qos.logback:logback-core@1.2.3"
-        ],
-        "upgradePath": [
-          false,
-          "ch.qos.logback:logback-classic@1.4.14",
-          "ch.qos.logback:logback-core@1.4.14"
-        ],
-        "isUpgradable": true,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "ch.qos.logback:logback-core",
-        "version": "1.2.3",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-CHQOSLOGBACK-6094943",
-        "title": "Denial of Service (DoS)",
-        "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H",
-        "credit": [
-          "Yakov Shafranovich"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,1.2.13)",
-            "[1.3.0-alpha0,1.3.12)",
-            "[1.4.0,1.4.12)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "1.2.13",
-          "1.3.12",
-          "1.4.12"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "high",
-        "cvssScore": 7.1,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "ch.qos.logback:logback-core",
-        "references": [
-          {
-            "url": "https://logback.qos.ch/news.html%231.3.12",
-            "title": "Changelog"
-          },
-          {
-            "url": "https://github.com/qos-ch/logback/commit/9c782b45be4abdafb7e17481e24e7354c2acd1eb",
-            "title": "GitHub Commit"
-          },
-          {
-            "url": "https://github.com/qos-ch/logback/commit/b8eac23a9de9e05fb6d51160b3f46acd91af9731",
-            "title": "GitHub Commit"
-          },
-          {
-            "url": "https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "Red Hat",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:54:08.776489Z"
-          },
-          {
-            "assigner": "NVD",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:54:08.863927Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H",
-            "assigner": "Snyk",
-            "severity": "high",
-            "baseScore": 7.1,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:02:24.958701Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Red Hat",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:54:08.776489Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "NVD",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:54:08.863927Z"
-          }
-        ],
-        "description": "## Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). An attacker can mount a denial-of-service attack by sending poisoned data. This is only exploitable if logback receiver component is deployed.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.13, 1.3.12, 1.4.12 or higher.\n## References\n- [Changelog](https://logback.qos.ch/news.html#1.3.12)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/9c782b45be4abdafb7e17481e24e7354c2acd1eb)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b8eac23a9de9e05fb6d51160b3f46acd91af9731)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n",
-        "epssDetails": {
-          "percentile": "0.69777",
-          "probability": "0.00652",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2023-6378"
-          ],
-          "CWE": [
-            "CWE-400"
-          ]
-        },
-        "packageName": "ch.qos.logback:logback-core",
-        "proprietary": false,
-        "creationTime": "2023-11-29T14:25:58.134796Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2023-11-29T13:44:14Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "ch.qos.logback",
-          "artifactId": "logback-core"
-        },
-        "publicationTime": "2023-11-29T14:25:58.336471Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:54:08.863927Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "ch.qos.logback:logback-classic@1.4.14",
-          "ch.qos.logback:logback-core@1.2.3"
-        ],
-        "upgradePath": [
-          false,
-          "ch.qos.logback:logback-classic@1.4.14",
-          "ch.qos.logback:logback-core@1.4.14"
-        ],
-        "isUpgradable": true,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "ch.qos.logback:logback-core",
-        "version": "1.2.3",
-        "severityWithCritical": "high"
-      },
-      {
-        "id": "SNYK-JAVA-CHQOSLOGBACK-6097493",
-        "title": "Uncontrolled Resource Consumption ('Resource Exhaustion')",
-        "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H",
-        "credit": [
-          "Unknown"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,1.2.13)",
-            "[1.3.0,1.3.14)",
-            "[1.4.0,1.4.14)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "1.2.13",
-          "1.3.14",
-          "1.4.14"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "high",
-        "cvssScore": 7.1,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "ch.qos.logback:logback-core",
-        "references": [
-          {
-            "url": "https://github.com/qos-ch/logback/commit/7018a3609c7bcc9dc7bf5903509901a986e5f578",
-            "title": "GitHub Commit"
-          },
-          {
-            "url": "https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3",
-            "title": "GitHub Commit"
-          },
-          {
-            "url": "https://github.com/qos-ch/logback/commit/c612b2fa3caf6eef3c75f1cd5859438451d0fd6f",
-            "title": "GitHub Commit"
-          },
-          {
-            "url": "https://logback.qos.ch/news.html%231.2.13",
-            "title": "Release Notes"
-          },
-          {
-            "url": "https://logback.qos.ch/news.html%231.3.14",
-            "title": "Release Notes"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "Red Hat",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:54:09.139951Z"
-          },
-          {
-            "assigner": "NVD",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:54:09.811455Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H",
-            "assigner": "Snyk",
-            "severity": "high",
-            "baseScore": 7.1,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:09:26.895867Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Red Hat",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:54:09.139951Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "NVD",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:54:09.811455Z"
-          }
-        ],
-        "description": "## Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') via the `logback receiver` component. An attacker can mount a denial-of-service attack by sending poisoned data.\r\n\r\n**Note:**\r\n\r\nSuccessful exploitation requires the logback-receiver component being enabled and also reachable by the attacker.\n## Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.13, 1.3.14, 1.4.14 or higher.\n## References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/7018a3609c7bcc9dc7bf5903509901a986e5f578)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/c612b2fa3caf6eef3c75f1cd5859438451d0fd6f)\n- [Release Notes](https://logback.qos.ch/news.html#1.2.13)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.14)\n",
-        "epssDetails": {
-          "percentile": "0.53798",
-          "probability": "0.00312",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2023-6481"
-          ],
-          "CWE": [
-            "CWE-400"
-          ]
-        },
-        "packageName": "ch.qos.logback:logback-core",
-        "proprietary": false,
-        "creationTime": "2023-12-04T14:58:05.925944Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2023-12-04T09:44:53Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "ch.qos.logback",
-          "artifactId": "logback-core"
-        },
-        "publicationTime": "2023-12-04T15:19:16.016949Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:54:09.811455Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "ch.qos.logback:logback-classic@1.4.14",
-          "ch.qos.logback:logback-core@1.2.3"
-        ],
-        "upgradePath": [
-          false,
-          "ch.qos.logback:logback-classic@1.4.14",
-          "ch.qos.logback:logback-core@1.4.14"
-        ],
-        "isUpgradable": true,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "ch.qos.logback:logback-core",
-        "version": "1.2.3",
-        "severityWithCritical": "high"
-      },
       {
         "id": "SNYK-JAVA-COMFASTERXMLJACKSONCORE-10332631",
         "title": "Information Exposure",
@@ -18433,6 +18219,206 @@
         "isPinnable": false,
         "isRuntime": false,
         "name": "com.fasterxml.jackson.core:jackson-core",
+        "version": "2.11.3",
+        "severityWithCritical": "high"
+      },
+      {
+        "id": "SNYK-JAVA-COMFASTERXMLJACKSONDATAFORMAT-1047329",
+        "title": "Denial of Service (DoS)",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "cowtowncoder"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[0,2.11.4)",
+            "[2.12.0-rc1,2.12.1)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "2.11.4",
+          "2.12.1"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "java",
+        "severity": "high",
+        "cvssScore": 7.5,
+        "functions": [
+          {
+            "version": [
+              "[,2.11.4)"
+            ],
+            "functionId": {
+              "filePath": "com/fasterxml/jackson/dataformat/cbor/CBORParser.java",
+              "className": "CBORParser",
+              "functionName": "_finishBytes"
+            }
+          },
+          {
+            "version": [
+              "[2.12.0-rc1,2.12.1)"
+            ],
+            "functionId": {
+              "filePath": "com/fasterxml/jackson/dataformat/cbor/CBORParser.java",
+              "className": "CBORParser",
+              "functionName": "_finishBytes"
+            }
+          }
+        ],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor",
+        "references": [
+          {
+            "url": "https://github.com/FasterXML/jackson-dataformats-binary/commit/de072d314af8f5f269c8abec6930652af67bc8e6",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/FasterXML/jackson-dataformats-binary/issues/186",
+            "title": "GitHub Issue"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-03-11T09:48:23.426276Z"
+          },
+          {
+            "assigner": "SUSE",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-03-11T09:49:20.680651Z"
+          },
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-03-11T09:50:56.375472Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-03-06T14:02:46.226665Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-03-11T09:48:23.426276Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "SUSE",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-03-11T09:49:20.680651Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-03-11T09:50:56.375472Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). Unchecked allocation of byte buffer can cause a `java.lang.OutOfMemoryError` exception.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `com.fasterxml.jackson.dataformat:jackson-dataformat-cbor` to version 2.11.4, 2.12.1 or higher.\n## References\n- [GitHub Commit](https://github.com/FasterXML/jackson-dataformats-binary/commit/de072d314af8f5f269c8abec6930652af67bc8e6)\n- [GitHub Issue](https://github.com/FasterXML/jackson-dataformats-binary/issues/186)\n",
+        "epssDetails": {
+          "percentile": "0.34439",
+          "probability": "0.00134",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2020-28491"
+          ],
+          "CWE": [
+            "CWE-400"
+          ]
+        },
+        "packageName": "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor",
+        "proprietary": true,
+        "creationTime": "2020-11-29T16:20:27.460059Z",
+        "functions_new": [
+          {
+            "version": [
+              "[,2.11.4)"
+            ],
+            "functionId": {
+              "className": "com.fasterxml.jackson.dataformat.cbor.CBORParser",
+              "functionName": "_finishBytes"
+            }
+          },
+          {
+            "version": [
+              "[2.12.0-rc1,2.12.1)"
+            ],
+            "functionId": {
+              "className": "com.fasterxml.jackson.dataformat.cbor.CBORParser",
+              "functionName": "_finishBytes"
+            }
+          }
+        ],
+        "alternativeIds": [],
+        "disclosureTime": "2021-01-26T12:07:29Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "maven",
+        "mavenModuleName": {
+          "groupId": "com.fasterxml.jackson.dataformat",
+          "artifactId": "jackson-dataformat-cbor"
+        },
+        "publicationTime": "2021-01-26T16:10:11Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-03-11T09:50:56.375472Z",
+        "socialTrendAlert": false,
+        "packagePopularityRank": 99,
+        "from": [
+          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
+          "com.amazonaws:aws-java-sdk@1.11.133",
+          "com.amazonaws:aws-java-sdk-core@1.11.133",
+          "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor@2.11.3"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "isPinnable": false,
+        "isRuntime": false,
+        "name": "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor",
         "version": "2.11.3",
         "severityWithCritical": "high"
       },
@@ -19686,29 +19672,14 @@
       }
     ],
     "upgrade": {
-      "ch.qos.logback:logback-classic@1.4.14": {
-        "upgradeTo": "ch.qos.logback:logback-classic@1.5.13",
-        "upgrades": [
-          "ch.qos.logback:logback-core@1.2.3",
-          "ch.qos.logback:logback-core@1.2.3",
-          "ch.qos.logback:logback-classic@1.4.14"
-        ],
-        "vulns": [
-          "SNYK-JAVA-CHQOSLOGBACK-8539865",
-          "SNYK-JAVA-CHQOSLOGBACK-8539866",
-          "SNYK-JAVA-CHQOSLOGBACK-8539867"
-        ]
-      },
       "com.amazonaws:aws-java-sdk@1.11.133": {
-        "upgradeTo": "com.amazonaws:aws-java-sdk@1.12.785",
+        "upgradeTo": "com.amazonaws:aws-java-sdk@1.12.786",
         "upgrades": [
           "com.amazonaws:aws-java-sdk-s3@1.11.133",
-          "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor@2.11.3",
           "software.amazon.ion:ion-java@1.0.2"
         ],
         "vulns": [
           "SNYK-JAVA-COMAMAZONAWS-2952700",
-          "SNYK-JAVA-COMFASTERXMLJACKSONDATAFORMAT-1047329",
           "SNYK-JAVA-SOFTWAREAMAZONION-6153869"
         ]
       },
@@ -19804,6 +19775,9 @@
       "org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE": {
         "upgradeTo": "org.springframework.boot:spring-boot-starter-web@3.3.7",
         "upgrades": [
+          "ch.qos.logback:logback-core@1.2.3",
+          "ch.qos.logback:logback-core@1.2.3",
+          "ch.qos.logback:logback-classic@1.2.3",
           "org.apache.tomcat.embed:tomcat-embed-core@9.0.39",
           "org.apache.tomcat.embed:tomcat-embed-core@9.0.39",
           "org.apache.tomcat.embed:tomcat-embed-core@9.0.39",
@@ -19822,6 +19796,10 @@
           "org.apache.tomcat.embed:tomcat-embed-core@9.0.39",
           "org.apache.tomcat.embed:tomcat-embed-websocket@9.0.39",
           "org.springframework:spring-web@5.2.11.RELEASE",
+          "ch.qos.logback:logback-core@1.2.3",
+          "ch.qos.logback:logback-core@1.2.3",
+          "ch.qos.logback:logback-classic@1.2.3",
+          "ch.qos.logback:logback-classic@1.2.3",
           "org.springframework:spring-webmvc@5.2.11.RELEASE",
           "org.yaml:snakeyaml@1.26",
           "org.yaml:snakeyaml@1.26",
@@ -19839,6 +19817,7 @@
           "org.apache.tomcat.embed:tomcat-embed-core@9.0.39",
           "org.apache.tomcat.embed:tomcat-embed-core@9.0.39",
           "org.apache.tomcat.embed:tomcat-embed-core@9.0.39",
+          "ch.qos.logback:logback-core@1.2.3",
           "org.glassfish:jakarta.el@3.0.3",
           "org.apache.tomcat.embed:tomcat-embed-core@9.0.39",
           "org.apache.tomcat.embed:tomcat-embed-core@9.0.39",
@@ -19851,6 +19830,9 @@
           "org.apache.tomcat.embed:tomcat-embed-core@9.0.39"
         ],
         "vulns": [
+          "SNYK-JAVA-CHQOSLOGBACK-8539865",
+          "SNYK-JAVA-CHQOSLOGBACK-8539866",
+          "SNYK-JAVA-CHQOSLOGBACK-8539867",
           "SNYK-JAVA-ORGAPACHETOMCATEMBED-10264469",
           "SNYK-JAVA-ORGAPACHETOMCATEMBED-8523186",
           "SNYK-JAVA-ORGAPACHETOMCATEMBED-8547999",
@@ -19869,6 +19851,10 @@
           "SNYK-JAVA-ORGAPACHETOMCATEMBED-6435948",
           "SNYK-JAVA-ORGAPACHETOMCATEMBED-6435950",
           "SNYK-JAVA-ORGSPRINGFRAMEWORK-6261586",
+          "SNYK-JAVA-CHQOSLOGBACK-6094943",
+          "SNYK-JAVA-CHQOSLOGBACK-6097493",
+          "SNYK-JAVA-CHQOSLOGBACK-6094942",
+          "SNYK-JAVA-CHQOSLOGBACK-6097492",
           "SNYK-JAVA-ORGSPRINGFRAMEWORK-8384234",
           "SNYK-JAVA-ORGYAML-2806360",
           "SNYK-JAVA-ORGYAML-3016888",
@@ -19886,6 +19872,7 @@
           "SNYK-JAVA-ORGAPACHETOMCATEMBED-3369687",
           "SNYK-JAVA-ORGAPACHETOMCATEMBED-3035793",
           "SNYK-JAVA-ORGAPACHETOMCATEMBED-2414084",
+          "SNYK-JAVA-CHQOSLOGBACK-1726923",
           "SNYK-JAVA-ORGGLASSFISH-1297098",
           "SNYK-JAVA-ORGAPACHETOMCATEMBED-1728266",
           "SNYK-JAVA-ORGAPACHETOMCATEMBED-1728265",
@@ -19975,15 +19962,6 @@
           "SNYK-JAVA-ORGSPRINGFRAMEWORK-2329097",
           "SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-1078232"
         ]
-      },
-      "org.thymeleaf:thymeleaf@3.0.15.RELEASE": {
-        "upgradeTo": "org.thymeleaf:thymeleaf@3.1.2.RELEASE",
-        "upgrades": [
-          "org.thymeleaf:thymeleaf@3.0.15.RELEASE"
-        ],
-        "vulns": [
-          "SNYK-JAVA-ORGTHYMELEAF-5811866"
-        ]
       }
     },
     "patch": {},
@@ -19995,7 +19973,7 @@
     "ignore": [],
     "patch": []
   },
-  "uniqueCount": 110,
+  "uniqueCount": 111,
   "projectName": "com.gmail.merikbest2015:ecommerce",
   "displayTargetFile": "pom.xml",
   "hasUnknownVersions": false,
