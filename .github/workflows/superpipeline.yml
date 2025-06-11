@@ -162,7 +162,7 @@ jobs:
           if-no-files-found: warn
 
   integration-tests:
-    needs: unit-tests
+    needs: setup-java-and-cache
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -290,7 +290,7 @@ jobs:
 
   build-and-package:
     name: Build and Package
-    needs: integration-tests # Garante que os testes passaram antes de empacotar
+    needs: [unit-tests, integration-tests] # Garante que os testes passaram antes de empacotar
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -535,7 +535,7 @@ jobs:
 
   remote-deploy:
     name: Deploy to Remote Server
-    needs: [build-and-package]
+    needs: [build-and-package, deploy-and-dast]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
