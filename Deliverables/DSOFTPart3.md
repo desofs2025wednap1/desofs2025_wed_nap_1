@@ -3,11 +3,12 @@
 This report summarizes the work completed during the second sprint of Phase 2, focusing on the implementation of automated pipelines and the results from the OWASP Application Security Verification Standard (ASVS) checklist.
 
 Group Members:
-1211151 - Alexandre Geração
-1240449 - Eduardo Fernandes
-1242314 - Filip Frýdl
-1211905 - Enmiao Ye
-1211613 - Pedro Nogueira
+
+* 1211151 - Alexandre Geração
+* 1240449 - Eduardo Fernandes
+* 1242314 - Filip Frýdl
+* 1211905 - Enmiao Ye
+ 1211613 - Pedro Nogueira
 
 ---
 
