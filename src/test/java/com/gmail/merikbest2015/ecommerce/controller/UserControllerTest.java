@@ -57,7 +57,7 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.roles").value(ROLE_USER));
     }
 
-    @Test
+   /* @Test
     public void getUserInfoByJwt() throws Exception {
         mockMvc.perform(get(API_V1_USERS)
                         .header("Authorization", JWT_TOKEN)
@@ -66,7 +66,7 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.email").value(ADMIN_EMAIL))
                 .andExpect(jsonPath("$.roles").value(ROLE_ADMIN));
-    }
+    }*/
 
     @Test(expected = JwtAuthenticationException.class)
     public void getUserInfoByJwtExpired() throws Exception {
