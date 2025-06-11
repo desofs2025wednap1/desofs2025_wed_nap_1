@@ -4114,7 +4114,7 @@
           {
             "isSupported": true,
             "lang": "HTML",
-            "files": 3,
+            "files": 4,
             "type": "SUPPORTED"
           },
           {
@@ -4126,7 +4126,7 @@
           {
             "isSupported": true,
             "lang": "XML",
-            "files": 1,
+            "files": 22,
             "type": "SUPPORTED"
           },
           {
