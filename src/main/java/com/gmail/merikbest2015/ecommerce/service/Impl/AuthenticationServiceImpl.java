@@ -31,10 +31,14 @@ import java.util.Map;
 import java.util.UUID;
 
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationServiceImpl.class);
 
     private final AuthenticationManager authenticationManager;
     private final RestTemplate restTemplate;
@@ -57,14 +61,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
             User user = userRepository.findByEmail(email)
-                    .orElseThrow(() -> new ApiRequestException(EMAIL_NOT_FOUND, HttpStatus.NOT_FOUND));
+                    .orElseThrow(() -> {
+                        logger.warn("Login failed: email '{}' not found", email);
+                        return new ApiRequestException(EMAIL_NOT_FOUND, HttpStatus.NOT_FOUND);
+                    });
             String userRole = user.getRoles().iterator().next().name();
             String token = jwtProvider.createToken(email, userRole);
+            logger.info("User '{}' logged in successfully", email);
+
             Map<String, Object> response = new HashMap<>();
             response.put("user", user);
             response.put("token", token);
             return response;
         } catch (AuthenticationException e) {
+            logger.warn("Login failed: incorrect password for '{}'", email);
             throw new ApiRequestException(INCORRECT_PASSWORD, HttpStatus.FORBIDDEN);
         }
     }
@@ -72,16 +82,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     @Transactional
     public String registerUser(User user, String captcha, String password2) {
+        logger.info("Attempting to register user with email '{}'", user.getEmail());
         String url = String.format(captchaUrl, secret, captcha);
         restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponse.class);
 
         if (user.getPassword() != null && !user.getPassword().equals(password2)) {
+            logger.warn("Passwords do not match for registration attempt: '{}'", user.getEmail());
             throw new PasswordException(PASSWORDS_DO_NOT_MATCH);
         }
 
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            logger.warn("Registration failed: email '{}' already in use", user.getEmail());
             throw new EmailException(EMAIL_IN_USE);
         }
+
         user.setActive(false);
         user.setRoles(Collections.singleton(Role.USER));
         user.setProvider(AuthProvider.LOCAL);
@@ -90,12 +104,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         userRepository.save(user);
 
         sendEmail(user, "Activation code", "registration-template", "registrationUrl", "/activate/" + user.getActivationCode());
+        logger.info("User '{}' registered successfully", user.getEmail());
         return "User successfully registered.";
     }
 
     @Override
     @Transactional
     public User registerOauth2User(String provider, OAuth2UserInfo oAuth2UserInfo) {
+        logger.info("Registering OAuth2 user from provider '{}'", provider);
         User user = new User();
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setFirstName(oAuth2UserInfo.getFirstName());
@@ -106,9 +122,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return userRepository.save(user);
     }
 
+
     @Override
     @Transactional
     public User updateOauth2User(User user, String provider, OAuth2UserInfo oAuth2UserInfo) {
+        logger.info("Updating OAuth2 user '{}' from provider '{}'", user.getEmail(), provider);
         user.setFirstName(oAuth2UserInfo.getFirstName());
         user.setLastName(oAuth2UserInfo.getLastName());
         user.setProvider(AuthProvider.valueOf(provider.toUpperCase()));
@@ -117,19 +135,28 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public String getEmailByPasswordResetCode(String code) {
+        logger.info("Retrieving email by password reset code '{}'", code);
         return userRepository.getEmailByPasswordResetCode(code)
-                .orElseThrow(() -> new ApiRequestException(INVALID_PASSWORD_CODE, HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> {
+                    logger.warn("Invalid password reset code '{}'", code);
+                    return new ApiRequestException(INVALID_PASSWORD_CODE, HttpStatus.BAD_REQUEST);
+                });
     }
 
     @Override
     @Transactional
     public String sendPasswordResetCode(String email) {
+        logger.info("Sending password reset code to '{}'", email);
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ApiRequestException(EMAIL_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> {
+                    logger.warn("Password reset failed: email '{}' not found", email);
+                    return new ApiRequestException(EMAIL_NOT_FOUND, HttpStatus.NOT_FOUND);
+                });
         user.setPasswordResetCode(UUID.randomUUID().toString());
         userRepository.save(user);
 
         sendEmail(user, "Password reset", "password-reset-template", "resetUrl", "/reset/" + user.getPasswordResetCode());
+        logger.info("Password reset code sent to '{}'", email);
         return "Reset password code is send to your E-mail";
     }
 
@@ -137,27 +164,38 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Transactional
     public String passwordReset(String email, String password, String password2) {
         if (StringUtils.isEmpty(password2)) {
+            logger.warn("Password confirmation is empty for '{}'", email);
             throw new PasswordConfirmationException(EMPTY_PASSWORD_CONFIRMATION);
         }
         if (password != null && !password.equals(password2)) {
+            logger.warn("Password mismatch during reset for '{}'", email);
             throw new PasswordException(PASSWORDS_DO_NOT_MATCH);
         }
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ApiRequestException(EMAIL_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> {
+                    logger.warn("Password reset failed: email '{}' not found", email);
+                    return new ApiRequestException(EMAIL_NOT_FOUND, HttpStatus.NOT_FOUND);
+                });
         user.setPassword(passwordEncoder.encode(password));
         user.setPasswordResetCode(null);
         userRepository.save(user);
+        logger.info("Password successfully reset for '{}'", email);
         return "Password successfully changed!";
     }
 
     @Override
     @Transactional
     public String activateUser(String code) {
+        logger.info("Activating user with code '{}'", code);
         User user = userRepository.findByActivationCode(code)
-                .orElseThrow(() -> new ApiRequestException(ACTIVATION_CODE_NOT_FOUND, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> {
+                    logger.warn("Activation failed: invalid code '{}'", code);
+                    return new ApiRequestException(ACTIVATION_CODE_NOT_FOUND, HttpStatus.NOT_FOUND);
+                });
         user.setActivationCode(null);
         user.setActive(true);
         userRepository.save(user);
+        logger.info("User '{}' activated successfully", user.getEmail());
         return "User successfully activated.";
     }
 
@@ -166,5 +204,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         attributes.put("firstName", user.getFirstName());
         attributes.put(urlAttribute, "http://" + hostname + urlPath);
         mailSender.sendMessageHtml(user.getEmail(), subject, template, attributes);
+        logger.info("Email sent to '{}' with subject '{}'", user.getEmail(), subject);
     }
 }
