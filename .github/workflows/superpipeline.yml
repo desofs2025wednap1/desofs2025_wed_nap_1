@@ -533,3 +533,39 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
+  remote-deploy:
+    name: Deploy to Remote Server
+    needs: [build-and-package, collect-and-commit-reports]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download packaged JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: java-package
+          path: target
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add remote host to known_hosts
+        run: |
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts    
+
+      - name: Upload files to server
+        run: |
+          scp -P ${{ secrets.SSH_PORT }} target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_DIR }}
+          scp -P ${{ secrets.SSH_PORT }} docker-compose.yml Dockerfile init.sql ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_DIR }}
+
+      - name: Deploy on remote server
+        run: |
+          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd ${{ secrets.DEPLOY_DIR }}
+            docker compose down || true
+            docker compose build
+            docker compose up -d
+          EOF
