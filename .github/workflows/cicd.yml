@@ -222,7 +222,7 @@ jobs:
 
       - name: Upload files to server
         run: |
-          scp -P ${{ secrets.SSH_PORT }} target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_DIR }}
+          scp -P ${{ secrets.SSH_PORT }} target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_DIR }}/target/
           scp -P ${{ secrets.SSH_PORT }} docker-compose.yml Dockerfile init.sql ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_DIR }}
           
       - name: Deploy on remote server
