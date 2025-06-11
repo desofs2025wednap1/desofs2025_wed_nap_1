@@ -41,7 +41,7 @@ public class JwtProvider {
     }
 
     public String createToken(String username, String role) {
-        Claims claims = Jwts.claims().setSubject(username);
+        Claims claims = Jwts.claims().setSubject(username).build();
         claims.put("role", role);
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds * 1000);
@@ -56,7 +56,7 @@ public class JwtProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).build().parseClaimsJws(token);
             return !claimsJws.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException exception) {
             throw new JwtAuthenticationException(INVALID_JWT_TOKEN, HttpStatus.UNAUTHORIZED);
@@ -69,7 +69,7 @@ public class JwtProvider {
     }
 
     public String getUsername(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
     }
 
     public String resolveToken(HttpServletRequest request) {
