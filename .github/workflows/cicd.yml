@@ -230,11 +230,11 @@ jobs:
           ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd ${{ secrets.DEPLOY_DIR }}
           
-            # Kill any running app.jar process
+            # Kill any running java -jar process
             pgrep -f 'java -jar' | xargs -r kill
           
-            # Start the new JAR in background
-            nohup java -jar *.jar > ../app.log 2>&1 &
+            # Start the JAR on port 2224 in background
+            nohup java -jar *.jar --server.port=2224 > ../app.log 2>&1 &
           EOF
 
 
