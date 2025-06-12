@@ -68,35 +68,35 @@ jobs:
 
 
 
-  secret-scanner-scan:
-    name: Secret Scanner (detect-secrets)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install detect-secrets
-        run: pip install detect-secrets
-
-      - name: Create reports directory
-        run: mkdir -p secret-scanner-reports
-
-      - name: Run detect-secrets
-        run: |
-          detect-secrets scan --exclude-files "securityReports/.*" > secret-scanner-reports/secret-scan-report.json
-        continue-on-error: true
-
-      - name: Upload Secret Scan report
-        uses: actions/upload-artifact@v4
-        with:
-          name: report-secret-scan
-          path: secret-scanner-reports/
-          if-no-files-found: warn
+#  secret-scanner-scan:
+#    name: Secret Scanner (detect-secrets)
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Python
+#        uses: actions/setup-python@v4
+#        with:
+#          python-version: '3.10'
+#
+#      - name: Install detect-secrets
+#        run: pip install detect-secrets
+#
+#      - name: Create reports directory
+#        run: mkdir -p secret-scanner-reports
+#
+#      - name: Run detect-secrets
+#        run: |
+#          detect-secrets scan --exclude-files "securityReports/.*" > secret-scanner-reports/secret-scan-report.json
+#        continue-on-error: true
+#
+#      - name: Upload Secret Scan report
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: report-secret-scan
+#          path: secret-scanner-reports/
+#          if-no-files-found: warn
 
 
   super-linter-scan:
@@ -393,7 +393,7 @@ jobs:
     needs:
       - gitleaks-scan
       - super-linter-scan
-      - secret-scanner-scan # Adicionado, mas o relatório pode não estar disponível ou ser padronizado
+#      - secret-scanner-scan # Adicionado, mas o relatório pode não estar disponível ou ser padronizado
       - unit-tests
       - integration-tests
       - snyk-sca
@@ -488,13 +488,13 @@ jobs:
             echo "Gitleaks report not found in staging_reports."
           fi
 
-          # Secret Scan (o nome do arquivo pode variar)
-          if [ -f staging_reports/secret-scan-report.json ]; then
-            mv staging_reports/secret-scan-report.json securityReports/report-secret-scan.json
-            echo "Moved Secret Scan report."
-          else
-            echo "Secret Scan report (secret-scan-report.json) not found in staging_reports."
-          fi
+#          # Secret Scan (o nome do arquivo pode variar)
+#          if [ -f staging_reports/secret-scan-report.json ]; then
+#            mv staging_reports/secret-scan-report.json securityReports/report-secret-scan.json
+#            echo "Moved Secret Scan report."
+#          else
+#            echo "Secret Scan report (secret-scan-report.json) not found in staging_reports."
+#          fi
           
           # Snyk
           if [ -f staging_reports/snyk-SCA.json ]; then
@@ -571,7 +571,14 @@ jobs:
 
 
   remote-deploy:
-      needs: build-and-package
+      needs:
+        - build-and-package
+        - snyk-sca
+        - snyk-sast
+        - deploy-and-dast
+#        - secret-scanner-scan
+        - super-linter-scan
+
       runs-on: ubuntu-latest
       steps:
         - name: Checkout repo
