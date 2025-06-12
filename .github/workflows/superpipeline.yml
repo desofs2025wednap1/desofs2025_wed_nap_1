@@ -104,14 +104,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # Atualizado para v4
+        uses: actions/checkout@v4
+
+      - name: Create linter reports directory
+        run: mkdir -p super-linter-reports
 
       - name: Run Super-Linter
-        uses: github/super-linter@v4 # Mantido v4, pode ser atualizado para v5 ou v6 se disponível/desejado
+        uses: github/super-linter@v4
         env:
-          DEFAULT_BRANCH: master # Ajustado para master conforme branches do workflow
+          DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILTER_REGEX_EXCLUDE: .*/securityReports/.* # Exclui a pasta securityReports
+          FILTER_REGEX_EXCLUDE: .*/securityReports/.*
+          # Variáveis para exportação de relatórios
+          LOG_LEVEL: INFO
+          LOG_FILE: super-linter-reports/super-linter.log
+          OUTPUT_FORMAT: json
+          OUTPUT_DETAILS: detailed
+          OUTPUT_FOLDER: super-linter-reports
+          DISABLE_ERRORS: true # Para não falhar o pipeline por erros de linting
+        continue-on-error: true
+
+      - name: Upload Super-Linter report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: report-super-linter
+          path: super-linter-reports/
+          if-no-files-found: warn
 
 
   setup-java-and-cache:
@@ -373,6 +392,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - gitleaks-scan
+      - super-linter-scan
       - secret-scanner-scan # Adicionado, mas o relatório pode não estar disponível ou ser padronizado
       - unit-tests
       - integration-tests
@@ -389,6 +409,13 @@ jobs:
           mkdir -p securityReports/unit-test-reports
           mkdir -p securityReports/integration-test-reports
           mkdir -p securityReports/dast-reports
+
+      - name: Download Super-Linter Report
+        uses: actions/download-artifact@v4
+        with:
+          name: report-super-linter
+          path: staging_reports/super-linter-raw
+        continue-on-error: true
 
       - name: Download Gitleaks Report
         uses: actions/download-artifact@v4
@@ -443,6 +470,16 @@ jobs:
         shell: bash # Garante que o shell bash está sendo usado para os comandos
         run: |
           echo "Organizing reports..."
+          
+          # Super Linter
+          if [ -d staging_reports/super-linter-raw ]; then
+            mkdir -p securityReports/linter-reports
+            cp -r staging_reports/super-linter-raw/* securityReports/linter-reports/
+            echo "Copied Super Linter reports."
+          else
+            echo "Super Linter reports directory not found."
+          fi
+          
           # Gitleaks
           if [ -f staging_reports/gitleaks-report.json ]; then
             mv staging_reports/gitleaks-report.json securityReports/report-gitleaks.json
