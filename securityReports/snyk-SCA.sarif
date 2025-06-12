@@ -3352,6 +3352,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3592,6 +3616,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3613,6 +3661,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-codec-http@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3640,6 +3712,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3661,6 +3757,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-codec-http@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3688,6 +3808,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3709,6 +3853,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-common@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3736,6 +3904,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3757,6 +3949,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-common@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3784,6 +4000,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3805,6 +4045,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-handler@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3832,6 +4096,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3856,6 +4144,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3877,6 +4189,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-codec@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -6236,7 +6572,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to org.springframework.security:spring-security-test@6.2.7"
+                "text": "Upgrade to org.springframework.security:spring-security-test@6.0.2"
               },
               "artifactChanges": [
                 {
@@ -6249,7 +6585,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "org.springframework.security:spring-security-test@6.2.7"
+                        "text": "org.springframework.security:spring-security-test@6.0.2"
                       }
                     }
                   ]
