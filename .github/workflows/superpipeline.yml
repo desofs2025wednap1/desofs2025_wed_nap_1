@@ -577,6 +577,7 @@ jobs:
         - snyk-sast
         - deploy-and-dast
         - super-linter-scan
+        - gitleaks-scan
 #        - secret-scanner-scan
 
       runs-on: ubuntu-latest
