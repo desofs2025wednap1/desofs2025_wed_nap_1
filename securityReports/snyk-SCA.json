@@ -512,7 +512,7 @@
       ],
       "description": "## Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Server-side Request Forgery (SSRF) through the `SaxEventRecorder` process. An attacker can forge requests by compromising logback configuration files in XML.\n## Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.3.15, 1.5.13 or higher.\n## References\n- [Additional Information](https://logback.qos.ch/news.html#1.5.13)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/2863a4974a3649b5b00d4a529ee6ff2063470f35)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/5f05041cba4c4ac0a62748c5c527a2da48999f2d)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.15)\n",
       "epssDetails": {
-        "percentile": "0.11113",
+        "percentile": "0.11073",
         "probability": "0.00039",
         "modelVersion": "v2025.03.14"
       },
@@ -2105,7 +2105,7 @@
       ],
       "description": "## Overview\n[com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson-databind) is a library which contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the `_deserializeWrappedValue()` function in `StdDeserializer.java`, due to resource exhaustion when processing deeply nested arrays.\r\n\r\n**NOTE:** This vulnerability is only exploitable when the non-default `UNWRAP_SINGLE_VALUE_ARRAYS` feature is enabled.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-databind` to version 2.12.7.1, 2.13.4.1 or higher.\n## References\n- [Chromium Bugs](https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=51020)\n- [Documentation](https://fasterxml.github.io/jackson-databind/javadoc/2.9/com/fasterxml/jackson/databind/DeserializationFeature.html#UNWRAP_SINGLE_VALUE_ARRAYS)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/2c4a601c626f7790cad9d3c322d244e182838288)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/cd090979b7ea78c75e4de8a4aed04f7e9fa8deea)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/d78d00ee7b5245b93103fef3187f70543d67ca33)\n- [GitHub Issue](https://github.com/FasterXML/jackson-databind/issues/3590)\n",
       "epssDetails": {
-        "percentile": "0.50906",
+        "percentile": "0.50884",
         "probability": "0.00278",
         "modelVersion": "v2025.03.14"
       },
@@ -2358,8 +2358,11 @@
         "com.amazonaws:aws-java-sdk-core@1.12.785",
         "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor@2.11.3"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor",
       "version": "2.11.3"
@@ -2661,7 +2664,7 @@
       ],
       "description": "## Overview\n[com.google.guava:guava](https://github.com/google/guava) is a set of core libraries that includes new collection types (such as multimap and multiset,immutable collections, a graph library, functional types, an in-memory cache and more.\n\nAffected versions of this package are vulnerable to Creation of Temporary File in Directory with Insecure Permissions due to the use of Java's default temporary directory for file creation in `FileBackedOutputStream`. Other users and apps on the machine with access to the default Java temporary directory can access the files created by this class. This more fully addresses the underlying issue described in [CVE-2020-8908](https://security.snyk.io/vuln/SNYK-JAVA-COMGOOGLEGUAVA-1015415), by deprecating the permissive temp file creation behavior.\r\n\r\n**NOTE:** Even though the security vulnerability is fixed in version 32.0.0, the maintainers recommend using version 32.0.1, as version 32.0.0 breaks some functionality under Windows.\n## Remediation\nUpgrade `com.google.guava:guava` to version 32.0.0-android, 32.0.0-jre or higher.\n## References\n- [GitHub Commit](https://github.com/google/guava/commit/feb83a1c8fd2e7670b244d5afd23cba5aca43284)\n- [GitHub Issue](https://github.com/google/guava/issues/2575)\n- [GitHub Issue](https://github.com/google/guava/issues/6532)\n- [GitHub Release](https://github.com/google/guava/releases/tag/v32.0.0)\n",
       "epssDetails": {
-        "percentile": "0.11858",
+        "percentile": "0.11797",
         "probability": "0.00041",
         "modelVersion": "v2025.03.14"
       },
@@ -2822,7 +2825,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow when processing a deeply recursive GraphQL query. An attacker can send such a query to exhaust stack memory and cause a crash.\n## Remediation\nUpgrade `com.graphql-java:graphql-java` to version 0.0.0-2023-03-20T01-49-44-80e3135, 17.5, 18.4, 19.4, 20.1 or higher.\n## References\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/1f905d8f5a3343da9abe4522fd145de0c319cd4e)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/2bb67d402d9d722e35b45558e1a527dd586f0899)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/8b9617f55876505dd1ac547436a3fd9de60f2d55)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/dcd9cf98e24e0297b61331cc812577c8793565a4)\n- [GitHub PR](https://github.com/graphql-java/graphql-java/pull/3112)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v17.5)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v18.4)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v19.4)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v20.1)\n",
       "epssDetails": {
-        "percentile": "0.27516",
+        "percentile": "0.27486",
         "probability": "0.00093",
         "modelVersion": "v2025.03.14"
       },
@@ -3134,8 +3137,8 @@
       ],
       "description": "## Overview\n[commons-io:commons-io](https://search.maven.org/artifact/commons-io/commons-io) is a The Apache Commons IO library contains utility classes, stream implementations, file filters, file comparators, endian transformation classes, and much more.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption through the `XmlStreamReader` class. An attacker can cause the application to consume excessive CPU resources by sending specially crafted XML content.\n## Remediation\nUpgrade `commons-io:commons-io` to version 2.14.0 or higher.\n## References\n- [Apache Advisory](https://lists.apache.org/thread/6ozr91rr9cj5lm0zyhv30bsp317hk5z1)\n- [GitHub Commit](https://github.com/apache/commons-io/commit/06fde31494c279ad940149e1a3d4944040c73c0d)\n",
       "epssDetails": {
-        "percentile": "0.08971",
-        "probability": "0.00035",
+        "percentile": "0.11218",
+        "probability": "0.00039",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -3399,7 +3402,7 @@
       ],
       "description": "## Overview\n[com.nimbusds:nimbus-jose-jwt](https://connect2id.com/products/nimbus-jose-jwt) is a library for JSON Web Tokens (JWT)\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to a large JWE `p2c` header value (AKA iteration count) for the `PasswordBasedDecrypter` (PBKDF2) class. An attacker can cause resource consumption by specifying an excessively large iteration count.\n## Remediation\nUpgrade `com.nimbusds:nimbus-jose-jwt` to version 9.37.2 or higher.\n## References\n- [Bitbucket Commit](https://bitbucket.org/connect2id/nimbus-jose-jwt/commits/3b3b77e)\n- [Bitbucket Issue](https://bitbucket.org/connect2id/nimbus-jose-jwt/issues/526/)\n",
       "epssDetails": {
-        "percentile": "0.24222",
+        "percentile": "0.24196",
         "probability": "0.00078",
         "modelVersion": "v2025.03.14"
       },
@@ -3612,8 +3615,11 @@
         "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
         "io.netty:netty-codec-http@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-codec-http",
       "version": "4.1.54.Final"
@@ -3768,8 +3774,11 @@
         "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
         "io.netty:netty-codec-http@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-codec-http",
       "version": "4.1.54.Final"
@@ -3922,8 +3931,11 @@
         "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
         "io.netty:netty-codec-http@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-codec-http",
       "version": "4.1.54.Final"
@@ -4066,8 +4078,11 @@
         "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
         "io.netty:netty-codec-http@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-codec-http",
       "version": "4.1.54.Final"
@@ -4205,8 +4220,11 @@
         "io.netty:netty-codec-http@4.1.54.Final",
         "io.netty:netty-common@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-common",
       "version": "4.1.54.Final"
@@ -4361,8 +4379,11 @@
         "io.netty:netty-codec-http@4.1.54.Final",
         "io.netty:netty-common@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-common",
       "version": "4.1.54.Final"
@@ -4456,8 +4477,8 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) due to the extraneous reading of a Linux environment file when loaded on a Windows application. An attacker can cause the application to crash by creating a large file in `C:\\etc\\os-release` or `C:\\usr\\lib\\os-release` which the application attempts to load. If the file exceeds the JVM's memory limit (1 GB by default) the application will crash when loading it into memory.\r\n\r\n**Note:**\r\nThis vulnerability affects only Windows environments.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `io.netty:netty-common` to version 4.1.115.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/fbf7a704a82e7449b48bd0bbb679f5661c6d61a3)\n",
       "epssDetails": {
-        "percentile": "0.10961",
-        "probability": "0.00039",
+        "percentile": "0.12196",
+        "probability": "0.00042",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -4512,8 +4533,11 @@
         "io.netty:netty-codec-http@4.1.54.Final",
         "io.netty:netty-common@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-common",
       "version": "4.1.54.Final"
@@ -4629,7 +4653,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Improper Validation of Specified Quantity in Input in `BufferedReader.readLine()`, which does not count null bytes when calculating the acceptable size of an input stream. An attacker can cause the application to crash by creating a large file in `C:\\etc\\os-release` or `C:\\usr\\lib\\os-release` which the application attempts to load. If the file exceeds the JVM's memory limit (1 GB by default) the application will crash when loading it into memory.\r\n\r\n**Note:**\r\nThis vulnerability affects only Windows environments and is a bypass for the previously reported and fixed [CVE-2024-47535](https://security.snyk.io/vuln/SNYK-JAVA-IONETTY-8367012).\n## Remediation\nUpgrade `io.netty:netty-common` to version 4.1.118, 4.2.0.RC3 or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/be1e00765b6cc5b5fa6d4eef3e9bd064260cbec0)\n- [GitHub Commit](https://github.com/netty/netty/commit/d1fbda62d3a47835d3fb35db8bd42ecc205a5386)\n",
       "epssDetails": {
-        "percentile": "0.09014",
+        "percentile": "0.08988",
         "probability": "0.00035",
         "modelVersion": "v2025.03.14"
       },
@@ -4684,8 +4708,11 @@
         "io.netty:netty-codec-http@4.1.54.Final",
         "io.netty:netty-common@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-common",
       "version": "4.1.54.Final"
@@ -4822,8 +4849,11 @@
         "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
         "io.netty:netty-handler@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-handler",
       "version": "4.1.54.Final"
@@ -4976,8 +5006,11 @@
         "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
         "io.netty:netty-handler@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-handler",
       "version": "4.1.54.Final"
@@ -5115,8 +5148,11 @@
         "io.netty:netty-codec-http@4.1.54.Final",
         "io.netty:netty-transport@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-transport",
       "version": "4.1.54.Final"
@@ -5254,8 +5290,11 @@
         "io.netty:netty-codec-http@4.1.54.Final",
         "io.netty:netty-codec@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-codec",
       "version": "4.1.54.Final"
@@ -5393,8 +5432,11 @@
         "io.netty:netty-codec-http@4.1.54.Final",
         "io.netty:netty-codec@4.1.54.Final"
       ],
-      "upgradePath": [],
-      "isUpgradable": false,
+      "upgradePath": [
+        false,
+        "com.amazonaws:aws-java-sdk@1.12.787"
+      ],
+      "isUpgradable": true,
       "isPatchable": false,
       "name": "io.netty:netty-codec",
       "version": "4.1.54.Final"
@@ -8275,7 +8317,7 @@
       ],
       "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Unprotected Transport of Credentials when using the `RemoteIpFilter` with requests received from a reverse proxy via HTTP, in which the `X-Forwarded-Proto` header is set to `https`.\r\nSession cookies do not include the secure attribute, so the user agent may transmit the session cookie over an insecure channel.\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 8.5.86, 9.0.72, 10.1.6, 11.0.0-M3 or higher.\n## References\n- [Apache Bug Report](https://bz.apache.org/bugzilla/show_bug.cgi?id=66471)\n- [Apache Mailing List](https://lists.apache.org/thread/hdksc59z3s7tm39x0pp33mtwdrt8qr67)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-10.html)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-11.html)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-8.html)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-9.html)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/3b51230764da595bb19e8d0962dd8c69ab40dfab)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/5b72c94e8b2c4ada63a1d91dc527bf4d8fd1f510)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/c64d496dda1560b5df113be55fbfaefec349b50f)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/f509bbf31fc00abe3d9f25ebfabca5e05173da5b)\n",
       "epssDetails": {
-        "percentile": "0.35912",
+        "percentile": "0.35873",
         "probability": "0.00145",
         "modelVersion": "v2025.03.14"
       },
@@ -8885,7 +8927,7 @@
       ],
       "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Improper Input Validation due to the improper handling of `HTTP` trailer headers. An attacker can manipulate the server into treating a single request as multiple requests by sending a specially crafted, invalid trailer header. This could lead to request smuggling when the server is behind a reverse proxy.\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 8.5.94, 9.0.81, 10.1.14, 11.0.0-M12 or higher.\n## References\n- [Apache Advisory](https://lists.apache.org/thread/2pv8yz1pyp088tsxfb7ogltk9msk0jdp)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/eb5c094e5560764cda436362254997511a3ca1f6#diff-12f38b2bb474fa28d505673a774437e91753fc227ab5dad11cd895d5d2262237)\n- [OSS Security Advisory](http://www.openwall.com/lists/oss-security/2023/10/10/10)\n",
       "epssDetails": {
-        "percentile": "0.71609",
+        "percentile": "0.71591",
         "probability": "0.00732",
         "modelVersion": "v2025.03.14"
       },
@@ -9418,8 +9460,8 @@
       ],
       "description": "## Overview\n[org.apache.tomcat.embed:tomcat-embed-core](https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core) is a Core Tomcat implementation.\n\nAffected versions of this package are vulnerable to Information Exposure through an incomplete POST request, which triggers an error response that could contain data from a previous request from another user.\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-core` to version 8.5.64, 9.0.44, 10.0.4 or higher.\n## References\n- [Apache Thread](https://lists.apache.org/thread/h9bjqdd0odj6lhs2o96qgowcc6hb0cfz)\n- [Apache Tomcat Advisory](https://tomcat.apache.org/security-9.html#Fixed_in_Apache_Tomcat_9.0.44)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/86ccc43940861703c2be96a5f35384407522125a)\n- [GitHub PR](https://github.com/electron/electron/pull/41520)\n- [PoC](https://github.com/LtmThink/CVE-2024-21733)\n",
       "epssDetails": {
-        "percentile": "0.98132",
-        "probability": "0.60067",
+        "percentile": "0.98249",
+        "probability": "0.62935",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -10842,7 +10884,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) when a WebSocket client can keep a WebSocket connection open which is leading to increased resource consumption.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `org.apache.tomcat.embed:tomcat-embed-websocket` to version 8.5.99, 9.0.86, 10.1.19, 1.0.0-M17 or higher.\n## References\n- [Apache Thread](https://lists.apache.org/thread/cmpswfx6tj4s7x0nxxosvfqs11lvdx2f)\n- [GitHub Commit](https://github.com/apache/tomcat/commit/b0e3b1bd78de270d53e319d7cb79eb282aa53cb9)\n",
       "epssDetails": {
-        "percentile": "0.61332",
+        "percentile": "0.61296",
         "probability": "0.00425",
         "modelVersion": "v2025.03.14"
       },
@@ -10994,7 +11036,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Improper Input Validation. A bug in the `ELParserTokenManager` enables invalid EL expressions to be evaluated as if they were valid.\r\n\r\nThe bug seems to be in the parser’s grammar  - `$` or `#` followed by a character that is not `{`, `$` or `#` will be treated as a literal expression. The pertinent case is when the character following the `$` or `#` chars is a backslash. The parser will then consume the backslash as part of the literal expression and will leave the character that follows it unescaped.\r\n\r\n**Note:**\r\n`org.glassfish:javax.el` is deprecated, users can move to use `org.glassfish:jakarta.el` instead where this issue is first fixed in version `3.0.4`.\n## Remediation\nUpgrade `org.glassfish:jakarta.el` to version 3.0.4 or higher.\n## References\n- [GitHub Issue](https://github.com/eclipse-ee4j/el-ri/issues/155)\n- [GitHub PR](https://github.com/eclipse-ee4j/el-ri/pull/160)\n- [GitHub Security Lab](https://securitylab.github.com/advisories/GHSL-2020-021-jakarta-el/)\n- [Vulnerable Code](https://github.com/eclipse-ee4j/el-ri/blob/master/impl/src/main/java/com/sun/el/parser/ELParser.jjt#L451)\n",
       "epssDetails": {
-        "percentile": "0.23804",
+        "percentile": "0.23780",
         "probability": "0.00076",
         "modelVersion": "v2025.03.14"
       },
@@ -11455,8 +11497,8 @@
       ],
       "description": "## Overview\n[org.hibernate.validator:hibernate-validator](https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator) is a Hibernate Validator Engine Relocation Artifact.\n\nAffected versions of this package are vulnerable to Arbitrary Code Injection due to the interpolation of user-supplied input in constraint violation messages with Expression Language. An attacker can access sensitive information or execute arbitrary Java code by injecting malicious input into these messages.\n## Remediation\nUpgrade `org.hibernate.validator:hibernate-validator` to version 6.2.0.Final, 7.0.0.CR1 or higher.\n## References\n- [GitHub Commit](https://github.com/hibernate/hibernate-validator/commit/05f795bb7cf18856004f40e5042709e550ed0d6e)\n- [GitHub Commit](https://github.com/hibernate/hibernate-validator/commit/254858d9dcc4e7cd775d1b0f47f482218077c5e1)\n- [GitHub Commit](https://github.com/hibernate/hibernate-validator/commit/d2db40b9e7d22c7a0b44d7665242dfc7b4d14d78)\n- [GitHub Commit](https://github.com/hibernate/hibernate-validator/commit/e076293b0ee1bfa97b6e67d05ad9eee1ad77e893)\n- [GitHub Diff](https://github.com/hibernate/hibernate-validator/compare/6.1.7.Final...6.2.0.Final)\n- [GitHub Diff](https://github.com/hibernate/hibernate-validator/compare/6.2.5.Final...7.0.0.Final)\n- [GitHub PR](https://github.com/hibernate/hibernate-validator/pull/1138)\n- [hibernate atlassian](https://hibernate.atlassian.net/browse/HV-1816)\n",
       "epssDetails": {
-        "percentile": "0.19119",
-        "probability": "0.00060",
+        "percentile": "0.24537",
+        "probability": "0.00079",
         "modelVersion": "v2025.03.14"
       },
       "identifiers": {
@@ -11576,7 +11618,7 @@
       ],
       "description": "## Overview\n[org.hibernate.validator:hibernate-validator](https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator) is a Hibernate Validator Engine Relocation Artifact.\n\nAffected versions of this package are vulnerable to Cross-site Scripting (XSS) due to the `isValid` method in the `org.hibernate.validator.internal.constraintvalidators.hv.SafeHtmlValidator` class, which can be bypassed by omitting the tag ending in a less-than character. Browsers may render invalid HTML, allowing for the injection of arbitrary HTML content or the execution of scripts in the context of the user's browser session by crafting malicious input.\n## Remediation\nUpgrade `org.hibernate.validator:hibernate-validator` to version 6.2.0 or higher.\n## References\n- [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=1809444)\n",
       "epssDetails": {
-        "percentile": "0.08204",
+        "percentile": "0.08168",
         "probability": "0.00034",
         "modelVersion": "v2025.03.14"
       },
@@ -12514,7 +12556,7 @@
       ],
       "description": "## Overview\n[org.postgresql:postgresql](https://mvnrepository.com/artifact/org.postgresql/postgresql) is a Java JDBC 4.2 (JRE 8+) driver for PostgreSQL database.\n\nAffected versions of this package are vulnerable to Information Exposure in the pgjdbc driver, which writes to the operating system's shared temp directory when the InputStream to either `PreparedStatement.setText(int, InputStream)` or `PreparedStatemet.setBytea(int, InputStream)` is larger than 2K. The temporary file is readable by other users. This is the default system behavior on Unix systems but not on MacOS.\r\n\r\n**NOTE:** This vulnerability is only fixed for JDK 1.7. Systems using JDK 1.6 or below can work around the vulnerability by setting the environment variable `java.io.tmpdir` to a non-world-readable location.\n## Remediation\nUpgrade `org.postgresql:postgresql` to version 42.2.27, 42.3.8, 42.4.3, 42.5.1 or higher.\n## References\n- [GitHub Commit](https://github.com/pgjdbc/pgjdbc/commit/34855cffb9079edf95cf77930f3e3b73f6a1b139)\n- [GitHub Commit](https://github.com/pgjdbc/pgjdbc/commit/9008dc9aade6dbfe4efafcd6872ebc55f4699cf5)\n- [GitHub Commit](https://github.com/pgjdbc/pgjdbc/commit/91b8c2ca600f82d2ec47c3fb54ca2036b000e320)\n- [GitHub Commit](https://github.com/pgjdbc/pgjdbc/commit/e73c6b6b53ff11bc0bd06c44130a880d3bf77c55)\n",
       "epssDetails": {
-        "percentile": "0.11412",
+        "percentile": "0.11360",
         "probability": "0.00040",
         "modelVersion": "v2025.03.14"
       },
@@ -13963,8 +14005,7 @@
       ],
       "upgradePath": [
         false,
-        "org.springframework.security:spring-security-test@6.2.7",
-        "org.springframework:spring-core@6.1.14"
+        "org.springframework.security:spring-security-test@6.0.2"
       ],
       "isUpgradable": true,
       "isPatchable": false,
@@ -15991,7 +16032,7 @@
       ],
       "description": "## Overview\n\nAffected versions of this package are vulnerable to Access Restriction Bypass due to improper implementation of wildcard pattern matching.\r\n\r\nAn application **is vulnerable** when *all* of the following are true:\r\n\r\n1) Users have code that can handle requests matching `/cloudfoundryapplication/**`. Typically, this will be if there is a catch-all request mapping which matches `/**`\r\n\r\n2) The application is deployed to Cloud Foundry.\r\n\r\n**Note:** Applications using Spring Cloud Config Server can handle requests to `/cloudfoundryapplication/**` by default and can be vulnerable if deployed to Cloud Foundry.\r\n\r\nAn application **is not vulnerable** if *any* of the following is true:\r\n\r\n1) The application is not deployed to Cloud Foundry\r\n\r\n2) Users have disabled Cloud Foundry actuator endpoints with `management.cloudfoundry.enabled` set to `false`\r\n\r\n3) The application does not have handler mappings that can handle requests to `/cloudfoundryapplication/**`\r\n\r\n## Workaround\r\n\r\nUsers who are unable to upgrade to the fixed version can disable Cloud Foundry actuator endpoints by setting `management.cloudfoundry.enabled` to `false`.\n## Remediation\nUpgrade `org.springframework.boot:spring-boot-actuator-autoconfigure` to version 2.5.15, 2.6.15, 2.7.11, 3.0.6 or higher.\n## References\n- [Advisory](https://spring.io/security/cve-2023-20873)\n- [GitHub Commit](https://github.com/spring-projects/spring-boot/commit/307f3c339912466e78fcdac648fff95a4edea573)\n- [GitHub Commit](https://github.com/spring-projects/spring-boot/commit/3522714c13b47af03bf42e7f2d5994af568cb1a7)\n- [GitHub Issue](https://github.com/spring-projects/spring-boot/issues/35085)\n- [GitHub Release](https://github.com/spring-projects/spring-boot/releases/tag/v2.7.11)\n",
       "epssDetails": {
-        "percentile": "0.55434",
+        "percentile": "0.55385",
         "probability": "0.00332",
         "modelVersion": "v2025.03.14"
       },
@@ -16809,7 +16850,7 @@
       ],
       "description": "## Overview\n[org.springframework.security:spring-security-core](http://spring.io/spring-security) is a package that provides security services for the Spring IO Platform.\n\nAffected versions of this package are vulnerable to Improper Access Control when the application uses `AuthenticatedVoter` directly and a `null` authentication parameter is passed to it. Exploiting this vulnerability resulting in an erroneous `true` return value.\r\n\r\n**Note**\r\n\r\nUsers are not affected if:\r\n\r\n1) The application does not use `AuthenticatedVoter#vote` directly.\r\n\r\n2) The application does not pass `null` to `AuthenticatedVoter#vote`.\n## Remediation\nUpgrade `org.springframework.security:spring-security-core` to version 5.7.12, 5.8.11, 6.0.10, 6.1.8, 6.2.3 or higher.\n## References\n- [GitHub Commit](https://github.com/spring-projects/spring-security/commit/a972338e1dacf82e9cbb669b04678e4d09eae695)\n- [GitHub Issue](https://github.com/spring-projects/spring-security/issues/14666)\n- [Security Advisory](https://spring.io/security/cve-2024-22257)\n",
       "epssDetails": {
-        "percentile": "0.36416",
+        "percentile": "0.36386",
         "probability": "0.00148",
         "modelVersion": "v2025.03.14"
       },
@@ -19884,206 +19925,6 @@
         "severityWithCritical": "high"
       },
       {
-        "id": "SNYK-JAVA-COMFASTERXMLJACKSONDATAFORMAT-1047329",
-        "title": "Denial of Service (DoS)",
-        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-        "credit": [
-          "cowtowncoder"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[0,2.11.4)",
-            "[2.12.0-rc1,2.12.1)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "2.11.4",
-          "2.12.1"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "high",
-        "cvssScore": 7.5,
-        "functions": [
-          {
-            "version": [
-              "[,2.11.4)"
-            ],
-            "functionId": {
-              "filePath": "com/fasterxml/jackson/dataformat/cbor/CBORParser.java",
-              "className": "CBORParser",
-              "functionName": "_finishBytes"
-            }
-          },
-          {
-            "version": [
-              "[2.12.0-rc1,2.12.1)"
-            ],
-            "functionId": {
-              "filePath": "com/fasterxml/jackson/dataformat/cbor/CBORParser.java",
-              "className": "CBORParser",
-              "functionName": "_finishBytes"
-            }
-          }
-        ],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor",
-        "references": [
-          {
-            "url": "https://github.com/FasterXML/jackson-dataformats-binary/commit/de072d314af8f5f269c8abec6930652af67bc8e6",
-            "title": "GitHub Commit"
-          },
-          {
-            "url": "https://github.com/FasterXML/jackson-dataformats-binary/issues/186",
-            "title": "GitHub Issue"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "Red Hat",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:48:23.426276Z"
-          },
-          {
-            "assigner": "SUSE",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:49:20.680651Z"
-          },
-          {
-            "assigner": "NVD",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:50:56.375472Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Snyk",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:02:46.226665Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Red Hat",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:48:23.426276Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "SUSE",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:49:20.680651Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "NVD",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:50:56.375472Z"
-          }
-        ],
-        "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). Unchecked allocation of byte buffer can cause a `java.lang.OutOfMemoryError` exception.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `com.fasterxml.jackson.dataformat:jackson-dataformat-cbor` to version 2.11.4, 2.12.1 or higher.\n## References\n- [GitHub Commit](https://github.com/FasterXML/jackson-dataformats-binary/commit/de072d314af8f5f269c8abec6930652af67bc8e6)\n- [GitHub Issue](https://github.com/FasterXML/jackson-dataformats-binary/issues/186)\n",
-        "epssDetails": {
-          "percentile": "0.34388",
-          "probability": "0.00134",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2020-28491"
-          ],
-          "CWE": [
-            "CWE-400"
-          ]
-        },
-        "packageName": "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor",
-        "proprietary": true,
-        "creationTime": "2020-11-29T16:20:27.460059Z",
-        "functions_new": [
-          {
-            "version": [
-              "[,2.11.4)"
-            ],
-            "functionId": {
-              "className": "com.fasterxml.jackson.dataformat.cbor.CBORParser",
-              "functionName": "_finishBytes"
-            }
-          },
-          {
-            "version": [
-              "[2.12.0-rc1,2.12.1)"
-            ],
-            "functionId": {
-              "className": "com.fasterxml.jackson.dataformat.cbor.CBORParser",
-              "functionName": "_finishBytes"
-            }
-          }
-        ],
-        "alternativeIds": [],
-        "disclosureTime": "2021-01-26T12:07:29Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "com.fasterxml.jackson.dataformat",
-          "artifactId": "jackson-dataformat-cbor"
-        },
-        "publicationTime": "2021-01-26T16:10:11Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:50:56.375472Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-core@1.12.785",
-          "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor@2.11.3"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor",
-        "version": "2.11.3",
-        "severityWithCritical": "high"
-      },
-      {
         "id": "SNYK-JAVA-COMGOOGLEGUAVA-1015415",
         "title": "Information Disclosure",
         "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N/E:P",
@@ -20383,7 +20224,7 @@
         ],
         "description": "## Overview\n[com.google.guava:guava](https://github.com/google/guava) is a set of core libraries that includes new collection types (such as multimap and multiset,immutable collections, a graph library, functional types, an in-memory cache and more.\n\nAffected versions of this package are vulnerable to Creation of Temporary File in Directory with Insecure Permissions due to the use of Java's default temporary directory for file creation in `FileBackedOutputStream`. Other users and apps on the machine with access to the default Java temporary directory can access the files created by this class. This more fully addresses the underlying issue described in [CVE-2020-8908](https://security.snyk.io/vuln/SNYK-JAVA-COMGOOGLEGUAVA-1015415), by deprecating the permissive temp file creation behavior.\r\n\r\n**NOTE:** Even though the security vulnerability is fixed in version 32.0.0, the maintainers recommend using version 32.0.1, as version 32.0.0 breaks some functionality under Windows.\n## Remediation\nUpgrade `com.google.guava:guava` to version 32.0.0-android, 32.0.0-jre or higher.\n## References\n- [GitHub Commit](https://github.com/google/guava/commit/feb83a1c8fd2e7670b244d5afd23cba5aca43284)\n- [GitHub Issue](https://github.com/google/guava/issues/2575)\n- [GitHub Issue](https://github.com/google/guava/issues/6532)\n- [GitHub Release](https://github.com/google/guava/releases/tag/v32.0.0)\n",
         "epssDetails": {
-          "percentile": "0.11858",
+          "percentile": "0.11797",
           "probability": "0.00041",
           "modelVersion": "v2025.03.14"
         },
@@ -20547,7 +20388,7 @@
         ],
         "description": "## Overview\n\nAffected versions of this package are vulnerable to Stack-based Buffer Overflow when processing a deeply recursive GraphQL query. An attacker can send such a query to exhaust stack memory and cause a crash.\n## Remediation\nUpgrade `com.graphql-java:graphql-java` to version 0.0.0-2023-03-20T01-49-44-80e3135, 17.5, 18.4, 19.4, 20.1 or higher.\n## References\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/1f905d8f5a3343da9abe4522fd145de0c319cd4e)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/2bb67d402d9d722e35b45558e1a527dd586f0899)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/8b9617f55876505dd1ac547436a3fd9de60f2d55)\n- [GitHub Commit](https://github.com/graphql-java/graphql-java/commit/dcd9cf98e24e0297b61331cc812577c8793565a4)\n- [GitHub PR](https://github.com/graphql-java/graphql-java/pull/3112)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v17.5)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v18.4)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v19.4)\n- [GitHub Release](https://github.com/graphql-java/graphql-java/releases/tag/v20.1)\n",
         "epssDetails": {
-          "percentile": "0.27516",
+          "percentile": "0.27486",
           "probability": "0.00093",
           "modelVersion": "v2025.03.14"
         },
@@ -20865,8 +20706,8 @@
         ],
         "description": "## Overview\n[commons-io:commons-io](https://search.maven.org/artifact/commons-io/commons-io) is a The Apache Commons IO library contains utility classes, stream implementations, file filters, file comparators, endian transformation classes, and much more.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption through the `XmlStreamReader` class. An attacker can cause the application to consume excessive CPU resources by sending specially crafted XML content.\n## Remediation\nUpgrade `commons-io:commons-io` to version 2.14.0 or higher.\n## References\n- [Apache Advisory](https://lists.apache.org/thread/6ozr91rr9cj5lm0zyhv30bsp317hk5z1)\n- [GitHub Commit](https://github.com/apache/commons-io/commit/06fde31494c279ad940149e1a3d4944040c73c0d)\n",
         "epssDetails": {
-          "percentile": "0.08971",
-          "probability": "0.00035",
+          "percentile": "0.11218",
+          "probability": "0.00039",
           "modelVersion": "v2025.03.14"
         },
         "identifiers": {
@@ -20922,1985 +20763,6 @@
         "name": "commons-io:commons-io",
         "version": "2.6",
         "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-1070799",
-        "title": "Information Disclosure",
-        "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-        "credit": [
-          "Jonathan Leitschuh"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[4.0.0.Final, 4.1.59.Final)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "4.1.59.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": "This vulnerability is only applicable on Linux operating systems"
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 6.2,
-        "functions": [
-          {
-            "version": [
-              "[4.0.0.Final, 4.1.59.Final)"
-            ],
-            "functionId": {
-              "filePath": "io/netty/handler/codec/http/multipart/AbstractDiskHttpData.java",
-              "className": "AbstractDiskHttpData",
-              "functionName": "tempFile"
-            }
-          }
-        ],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-codec-http",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/c735357bf29d07856ad171c6611a2e1a0e0000ec",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "NVD",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2024-03-11T09:50:21.609728Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 6.2,
-            "modificationTime": "2024-03-11T09:53:47.016828Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 6.2,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:04:08.564896Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "NVD",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:50:21.609728Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 6.2,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:47.016828Z"
-          }
-        ],
-        "description": "## Overview\n[io.netty:netty-codec-http](https://mvnrepository.com/artifact/io.netty/netty-codec-http) is a network application framework for rapid development of maintainable high performance protocol servers & clients.\n\nAffected versions of this package are vulnerable to Information Disclosure via the `AbstractDiskHttpData` method, and on Unix-like systems.\r\n\r\nWhen `netty`'s multipart decoders are used, local information disclosure can occur via the local system temporary directory if temporary storing uploads on the disk are enabled.\r\nOn unix-like systems, the temporary directory is shared between all users. As such, writing to this directory using API's that do not explicitly set the file/directory permissions can lead to information disclosure.\r\nThe method `File.createTempFile` on unix-like systems creates a random file, but, by default will create this file with the permissions `-rw-r--r--`. Sensitive information is written to this file in `AbstractDiskHttpData`, and other local users can read it.\n## Remediation\nUpgrade `io.netty:netty-codec-http` to version 4.1.59.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/c735357bf29d07856ad171c6611a2e1a0e0000ec)\n",
-        "epssDetails": {
-          "percentile": "0.03783",
-          "probability": "0.00021",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2021-21290"
-          ],
-          "CWE": [
-            "CWE-378"
-          ],
-          "GHSA": [
-            "GHSA-5mcr-gq6c-3hq2"
-          ]
-        },
-        "packageName": "io.netty:netty-codec-http",
-        "proprietary": false,
-        "creationTime": "2021-02-09T10:14:30.625539Z",
-        "functions_new": [
-          {
-            "version": [
-              "[4.0.0.Final, 4.1.59.Final)"
-            ],
-            "functionId": {
-              "className": "io.netty.handler.codec.http.multipart.AbstractDiskHttpData",
-              "functionName": "tempFile"
-            }
-          }
-        ],
-        "alternativeIds": [],
-        "disclosureTime": "2021-02-09T09:57:33Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-codec-http"
-        },
-        "publicationTime": "2021-02-09T16:34:47Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:53:47.016828Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-codec-http",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-1317097",
-        "title": "HTTP Request Smuggling",
-        "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N/E:H",
-        "credit": [
-          "Unknown"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,4.1.60.Final)"
-          ]
-        },
-        "exploit": "High",
-        "fixedIn": [
-          "4.1.60.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 5.9,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-codec-http",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/89c241e3b1795ff257af4ad6eadc616cb2fb3dc4",
-            "title": "GitHub Commit"
-          },
-          {
-            "url": "https://github.com/Netflix/zuul/pull/980",
-            "title": "GitHub PR"
-          },
-          {
-            "url": "https://portswigger.net/research/http2",
-            "title": "HTTP/2: The Sequel is Always Worse"
-          },
-          {
-            "url": "https://github.com/PortSwigger/http-request-smuggler",
-            "title": "HTTP Request Smuggling Burp App"
-          },
-          {
-            "url": "https://snyk.io/blog/demystifying-http-request-smuggling/",
-            "title": "HTTP Request Smuggling Demystified - Snyk Blog"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "NVD",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
-            "cvssV3BaseScore": 5.9,
-            "modificationTime": "2024-03-11T09:50:21.777538Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
-            "cvssV3BaseScore": 5.9,
-            "modificationTime": "2024-03-11T09:53:47.019084Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N/E:H",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 5.9,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:02:36.361673Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
-            "assigner": "NVD",
-            "severity": "medium",
-            "baseScore": 5.9,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:50:21.777538Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 5.9,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:47.019084Z"
-          }
-        ],
-        "description": "## Overview\n[io.netty:netty-codec-http](https://mvnrepository.com/artifact/io.netty/netty-codec-http) is a network application framework for rapid development of maintainable high performance protocol servers & clients.\n\nAffected versions of this package are vulnerable to HTTP Request Smuggling. If a Content-Length header is present in the original HTTP/2 request, the field is not validated by `Http2MultiplexHandler` as it is propagated up.\r\n\r\nAn additional case of this vulnerability was fixed in 4.1.61.Final (CVE-2021-21409).\n## Remediation\nUpgrade `io.netty:netty-codec-http` to version 4.1.60.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/89c241e3b1795ff257af4ad6eadc616cb2fb3dc4)\n- [GitHub PR](https://github.com/Netflix/zuul/pull/980)\n- [HTTP/2: The Sequel is Always Worse](https://portswigger.net/research/http2)\n- [HTTP Request Smuggling Burp App](https://github.com/PortSwigger/http-request-smuggler)\n- [HTTP Request Smuggling Demystified - Snyk Blog](https://snyk.io/blog/demystifying-http-request-smuggling/)\n",
-        "epssDetails": {
-          "percentile": "0.77615",
-          "probability": "0.01170",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2021-21295"
-          ],
-          "CWE": [
-            "CWE-444"
-          ],
-          "GHSA": [
-            "GHSA-wm47-8v5p-wjpj"
-          ]
-        },
-        "packageName": "io.netty:netty-codec-http",
-        "proprietary": false,
-        "creationTime": "2021-07-14T14:49:11.887224Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2021-03-10T08:58:43Z",
-        "exploitDetails": {
-          "sources": [
-            "Snyk"
-          ],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "High",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Proof of Concept",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-codec-http"
-        },
-        "publicationTime": "2021-03-10T16:31:48Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:53:47.019084Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-codec-http",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-2314893",
-        "title": "HTTP Request Smuggling",
-        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
-        "credit": [
-          "Unknown"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,4.1.71.Final)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "4.1.71.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 6.5,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-codec-http",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/07aa6b5938a8b6ed7a6586e066400e2643897323",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "SUSE",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
-            "cvssV3BaseScore": 6.1,
-            "modificationTime": "2024-03-11T09:49:32.272775Z"
-          },
-          {
-            "assigner": "NVD",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
-            "cvssV3BaseScore": 6.5,
-            "modificationTime": "2024-03-11T09:51:27.387660Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
-            "cvssV3BaseScore": 6.5,
-            "modificationTime": "2024-03-11T09:53:46.992015Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 6.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:04:50.355007Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
-            "assigner": "SUSE",
-            "severity": "medium",
-            "baseScore": 6.1,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:49:32.272775Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
-            "assigner": "NVD",
-            "severity": "medium",
-            "baseScore": 6.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:51:27.387660Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 6.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:46.992015Z"
-          }
-        ],
-        "description": "## Overview\n[io.netty:netty-codec-http](https://mvnrepository.com/artifact/io.netty/netty-codec-http) is a network application framework for rapid development of maintainable high performance protocol servers & clients.\n\nAffected versions of this package are vulnerable to HTTP Request Smuggling. Netty currently just skips control characters when these are present at the beginning or end of the header name. It should instead fail fast as these are not allowed by the spec and could lead to HTTP request smuggling. Failing to do the validation might cause netty to \"sanitize\" header names before it forward these to another remote system when used as proxy. This remote system can't see the invalid usage anymore, and therefore does not do the validation itself.\n## Remediation\nUpgrade `io.netty:netty-codec-http` to version 4.1.71.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/07aa6b5938a8b6ed7a6586e066400e2643897323)\n",
-        "epssDetails": {
-          "percentile": "0.35092",
-          "probability": "0.00139",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2021-43797"
-          ],
-          "CWE": [
-            "CWE-444"
-          ],
-          "GHSA": [
-            "GHSA-wx5j-54mm-rqqq"
-          ]
-        },
-        "packageName": "io.netty:netty-codec-http",
-        "proprietary": false,
-        "creationTime": "2021-12-10T13:16:15.661204Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2021-12-09T19:09:17Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-codec-http"
-        },
-        "publicationTime": "2021-12-10T16:45:54.209160Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:53:46.992015Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-codec-http",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-6483812",
-        "title": "Allocation of Resources Without Limits or Throttling",
-        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L/E:P",
-        "credit": [
-          "Julien Viet"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,4.1.108.Final)"
-          ]
-        },
-        "exploit": "Proof of Concept",
-        "fixedIn": [
-          "4.1.108.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 5.3,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-codec-http",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/0d0c6ed782d13d423586ad0c71737b2c7d02058c",
-            "title": "GitHub Commit"
-          },
-          {
-            "url": "https://gist.github.com/vietj/f558b8ea81ec6505f1e9a6ca283c9ae3",
-            "title": "GitHub Gist"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "SUSE",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-04-03T11:02:02.218002Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
-            "cvssV3BaseScore": 5.3,
-            "modificationTime": "2024-04-03T13:31:59.507790Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L/E:P",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 5.3,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-26T07:23:20.820326Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "SUSE",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-04-03T11:02:02.218002Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 5.3,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-04-03T13:31:59.507790Z"
-          }
-        ],
-        "description": "## Overview\n[io.netty:netty-codec-http](https://mvnrepository.com/artifact/io.netty/netty-codec-http) is a network application framework for rapid development of maintainable high performance protocol servers & clients.\n\nAffected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling due to the accumulation of data in the `HttpPostRequestDecoder`. The decoder cumulates bytes in the `undecodedChunk` buffer until it can decode a field, allowing for data to accumulate without limits.\n\nAn attacker can cause a denial of service by sending a chunked post consisting of many small fields that will be accumulated in the `bodyListHttpData` list.\n## Remediation\nUpgrade `io.netty:netty-codec-http` to version 4.1.108.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/0d0c6ed782d13d423586ad0c71737b2c7d02058c)\n- [GitHub Gist](https://gist.github.com/vietj/f558b8ea81ec6505f1e9a6ca283c9ae3)\n",
-        "epssDetails": {
-          "percentile": "0.17547",
-          "probability": "0.00056",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2024-29025"
-          ],
-          "CWE": [
-            "CWE-770"
-          ],
-          "GHSA": [
-            "GHSA-5jpm-x58v-624v"
-          ]
-        },
-        "packageName": "io.netty:netty-codec-http",
-        "proprietary": false,
-        "creationTime": "2024-03-26T07:23:20.505438Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2024-03-25T20:40:14.074000Z",
-        "exploitDetails": {
-          "sources": [
-            "Snyk"
-          ],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Proof of Concept",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Proof of Concept",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-codec-http"
-        },
-        "publicationTime": "2024-03-26T07:23:20.733079Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-04-03T13:31:59.507790Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-codec-http",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-1082234",
-        "title": "Information Disclosure",
-        "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-        "credit": [
-          "Jonathan Leitschuh"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[4.0.0.Final, 4.1.59.Final)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "4.1.59.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": "This vulnerability is only applicable on Linux operating systems"
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 6.2,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-common",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/c735357bf29d07856ad171c6611a2e1a0e0000ec",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "NVD",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2024-03-11T09:50:21.609728Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 6.2,
-            "modificationTime": "2024-03-11T09:53:47.016828Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 6.2,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:04:08.564896Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "NVD",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:50:21.609728Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 6.2,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:47.016828Z"
-          }
-        ],
-        "description": "## Overview\n\nAffected versions of this package are vulnerable to Information Disclosure via the `AbstractDiskHttpData` method, and on Unix-like systems.\r\n\r\nWhen `netty`'s multipart decoders are used, local information disclosure can occur via the local system temporary directory if temporary storing uploads on the disk are enabled.\r\nOn unix-like systems, the temporary directory is shared between all users. As such, writing to this directory using API's that do not explicitly set the file/directory permissions can lead to information disclosure.\r\nThe method `File.createTempFile` on unix-like systems creates a random file, but, by default will create this file with the permissions `-rw-r--r--`. Sensitive information is written to this file in `AbstractDiskHttpData`, and other local users can read it.\n## Remediation\nUpgrade `io.netty:netty-common` to version 4.1.59.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/c735357bf29d07856ad171c6611a2e1a0e0000ec)\n",
-        "epssDetails": {
-          "percentile": "0.03783",
-          "probability": "0.00021",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2021-21290"
-          ],
-          "CWE": [
-            "CWE-378"
-          ],
-          "GHSA": [
-            "GHSA-5mcr-gq6c-3hq2"
-          ]
-        },
-        "packageName": "io.netty:netty-common",
-        "proprietary": false,
-        "creationTime": "2021-03-03T17:11:17.073632Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2021-02-09T09:57:33Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-common"
-        },
-        "publicationTime": "2021-02-09T16:34:47Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:53:47.016828Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final",
-          "io.netty:netty-common@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-common",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-2812456",
-        "title": "Information Exposure",
-        "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-        "credit": [
-          "Jonathan Leitschuh"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[4.0.0.Final,4.1.77.Final)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "4.1.77.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": "This vulnerability is only applicable on systems using Java 6 and below"
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 5.5,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-common",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/185f8b2756a36aaa4f973f1a2a025e7d981823f1",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "NVD",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2024-03-11T09:49:19.922774Z"
-          },
-          {
-            "assigner": "SUSE",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 6.2,
-            "modificationTime": "2024-03-11T09:53:12.591685Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2024-03-11T09:53:46.996828Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T13:56:04.062988Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "NVD",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:49:19.922774Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "SUSE",
-            "severity": "medium",
-            "baseScore": 6.2,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:12.591685Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:46.996828Z"
-          }
-        ],
-        "description": "## Overview\n\nAffected versions of this package are vulnerable to Information Exposure due to an incomplete fix to [CVE-2021-21290](https://security.snyk.io/vuln/SNYK-JAVA-IONETTY-1082234), which still allowed one exploitable path.\r\nWhen netty's multipart decoders are used, local information disclosure can occur via the local system temporary directory, if temporary storing uploads on the disk is enabled.\r\n**Note:** To be vulnerable, a victim application has to run on a Unix-like operating system, and with Java 6 or below.\n## Remediation\nUpgrade `io.netty:netty-common` to version 4.1.77.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/185f8b2756a36aaa4f973f1a2a025e7d981823f1)\n",
-        "epssDetails": {
-          "percentile": "0.51590",
-          "probability": "0.00285",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2022-24823"
-          ],
-          "CWE": [
-            "CWE-200",
-            "CWE-378"
-          ],
-          "GHSA": [
-            "GHSA-269q-hmxg-m83q"
-          ]
-        },
-        "packageName": "io.netty:netty-common",
-        "proprietary": false,
-        "creationTime": "2022-05-08T11:07:40.664255Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2022-05-08T10:55:12Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-common"
-        },
-        "publicationTime": "2022-05-08T12:55:35.834666Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:53:46.996828Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final",
-          "io.netty:netty-common@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-common",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-8367012",
-        "title": "Denial of Service (DoS)",
-        "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H/E:P",
-        "credit": [
-          "Amossys-PGR"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,4.1.115.Final)"
-          ]
-        },
-        "exploit": "Proof of Concept",
-        "fixedIn": [
-          "4.1.115.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": "This vulnerability is only applicable on Windows operating system"
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 6.8,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-common",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/fbf7a704a82e7449b48bd0bbb679f5661c6d61a3",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2024-11-13T13:37:33.534354Z"
-          },
-          {
-            "assigner": "SUSE",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 4.1,
-            "modificationTime": "2024-12-24T11:02:12.372301Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:P",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 6.8,
-            "cvssVersion": "4.0",
-            "modificationTime": "2024-11-13T06:42:24.710400Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H/E:P",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-11-13T06:42:24.710400Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-11-13T13:37:33.534354Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "SUSE",
-            "severity": "medium",
-            "baseScore": 4.1,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-12-24T11:02:12.372301Z"
-          }
-        ],
-        "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) due to the extraneous reading of a Linux environment file when loaded on a Windows application. An attacker can cause the application to crash by creating a large file in `C:\\etc\\os-release` or `C:\\usr\\lib\\os-release` which the application attempts to load. If the file exceeds the JVM's memory limit (1 GB by default) the application will crash when loading it into memory.\r\n\r\n**Note:**\r\nThis vulnerability affects only Windows environments.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `io.netty:netty-common` to version 4.1.115.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/fbf7a704a82e7449b48bd0bbb679f5661c6d61a3)\n",
-        "epssDetails": {
-          "percentile": "0.10961",
-          "probability": "0.00039",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2024-47535"
-          ],
-          "CWE": [
-            "CWE-670",
-            "CWE-789"
-          ],
-          "GHSA": [
-            "GHSA-xq3w-v528-46rv"
-          ]
-        },
-        "packageName": "io.netty:netty-common",
-        "proprietary": false,
-        "creationTime": "2024-11-12T17:48:31.992331Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2024-11-12T16:45:22Z",
-        "exploitDetails": {
-          "sources": [
-            "Snyk"
-          ],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Proof of Concept",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Proof of Concept",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-common"
-        },
-        "publicationTime": "2024-11-12T17:49:54.459001Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-12-24T11:02:12.372301Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final",
-          "io.netty:netty-common@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-common",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-8707740",
-        "title": "Improper Validation of Specified Quantity in Input",
-        "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H/E:P",
-        "credit": [
-          "Chris Vest"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,4.1.118)",
-            "[4.2.0.Alpha1,4.2.0.RC3)"
-          ]
-        },
-        "exploit": "Proof of Concept",
-        "fixedIn": [
-          "4.1.118",
-          "4.2.0.RC3"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 6.8,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-common",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/be1e00765b6cc5b5fa6d4eef3e9bd064260cbec0",
-            "title": "GitHub Commit"
-          },
-          {
-            "url": "https://github.com/netty/netty/commit/d1fbda62d3a47835d3fb35db8bd42ecc205a5386",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "NVD",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2025-03-27T01:12:55.025851Z"
-          },
-          {
-            "assigner": "SUSE",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2025-02-20T11:01:56.648876Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2025-03-28T14:35:27.930266Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:P",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 6.8,
-            "cvssVersion": "4.0",
-            "modificationTime": "2025-02-11T08:43:37.637453Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H/E:P",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2025-02-11T08:43:37.637453Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "NVD",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2025-03-27T01:12:55.025851Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "SUSE",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2025-02-20T11:01:56.648876Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2025-03-28T14:35:27.930266Z"
-          }
-        ],
-        "description": "## Overview\n\nAffected versions of this package are vulnerable to Improper Validation of Specified Quantity in Input in `BufferedReader.readLine()`, which does not count null bytes when calculating the acceptable size of an input stream. An attacker can cause the application to crash by creating a large file in `C:\\etc\\os-release` or `C:\\usr\\lib\\os-release` which the application attempts to load. If the file exceeds the JVM's memory limit (1 GB by default) the application will crash when loading it into memory.\r\n\r\n**Note:**\r\nThis vulnerability affects only Windows environments and is a bypass for the previously reported and fixed [CVE-2024-47535](https://security.snyk.io/vuln/SNYK-JAVA-IONETTY-8367012).\n## Remediation\nUpgrade `io.netty:netty-common` to version 4.1.118, 4.2.0.RC3 or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/be1e00765b6cc5b5fa6d4eef3e9bd064260cbec0)\n- [GitHub Commit](https://github.com/netty/netty/commit/d1fbda62d3a47835d3fb35db8bd42ecc205a5386)\n",
-        "epssDetails": {
-          "percentile": "0.09014",
-          "probability": "0.00035",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2025-25193"
-          ],
-          "CWE": [
-            "CWE-1284"
-          ],
-          "GHSA": [
-            "GHSA-389x-839f-4rhx"
-          ]
-        },
-        "packageName": "io.netty:netty-common",
-        "proprietary": false,
-        "creationTime": "2025-02-11T08:32:54.357740Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2025-02-10T18:14:47Z",
-        "exploitDetails": {
-          "sources": [
-            "Snyk"
-          ],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Proof of Concept",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Proof of Concept",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-common"
-        },
-        "publicationTime": "2025-02-11T08:43:37.626710Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2025-03-28T14:35:27.930266Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final",
-          "io.netty:netty-common@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-common",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-1082235",
-        "title": "Information Disclosure",
-        "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-        "credit": [
-          "Jonathan Leitschuh"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[4.0.0.Final, 4.1.59.Final)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "4.1.59.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": "This vulnerability is only applicable on Linux operating systems"
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 6.2,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-handler",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/c735357bf29d07856ad171c6611a2e1a0e0000ec",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "NVD",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2024-03-11T09:50:21.609728Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 6.2,
-            "modificationTime": "2024-03-11T09:53:47.016828Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 6.2,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:04:08.564896Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "NVD",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:50:21.609728Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 6.2,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:47.016828Z"
-          }
-        ],
-        "description": "## Overview\n[io.netty:netty-handler](https://github.com/netty/netty.git/netty-handler) is a library that provides an asynchronous event-driven network application framework and tools for rapid development of maintainable high performance and high scalability protocol servers and clients. In other words, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients. It greatly simplifies and streamlines network programming such as TCP and UDP socket server.\n\nAffected versions of this package are vulnerable to Information Disclosure via the `AbstractDiskHttpData` method, and on Unix-like systems.\r\n\r\nWhen `netty`'s multipart decoders are used, local information disclosure can occur via the local system temporary directory if temporary storing uploads on the disk are enabled.\r\nOn unix-like systems, the temporary directory is shared between all users. As such, writing to this directory using API's that do not explicitly set the file/directory permissions can lead to information disclosure.\r\nThe method `File.createTempFile` on unix-like systems creates a random file, but, by default will create this file with the permissions `-rw-r--r--`. Sensitive information is written to this file in `AbstractDiskHttpData`, and other local users can read it.\n## Remediation\nUpgrade `io.netty:netty-handler` to version 4.1.59.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/c735357bf29d07856ad171c6611a2e1a0e0000ec)\n",
-        "epssDetails": {
-          "percentile": "0.03783",
-          "probability": "0.00021",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2021-21290"
-          ],
-          "CWE": [
-            "CWE-378"
-          ],
-          "GHSA": [
-            "GHSA-5mcr-gq6c-3hq2"
-          ]
-        },
-        "packageName": "io.netty:netty-handler",
-        "proprietary": false,
-        "creationTime": "2021-03-03T17:11:17.470930Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2021-02-09T09:57:33Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-handler"
-        },
-        "publicationTime": "2021-02-09T16:34:47Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:53:47.016828Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-handler@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-handler",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-5725787",
-        "title": "Denial of Service (DoS)",
-        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-        "credit": [
-          "vietj"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,4.1.94.Final)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "4.1.94.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 6.5,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-handler",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/535da17e45201ae4278c0479e6162bb4127d4c32",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "NVD",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 6.5,
-            "modificationTime": "2024-03-11T09:53:22.096228Z"
-          },
-          {
-            "assigner": "SUSE",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 6.5,
-            "modificationTime": "2024-03-11T09:53:26.920493Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 6.5,
-            "modificationTime": "2024-03-11T09:54:01.741831Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 6.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:07:29.986587Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "NVD",
-            "severity": "medium",
-            "baseScore": 6.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:22.096228Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "SUSE",
-            "severity": "medium",
-            "baseScore": 6.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:26.920493Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 6.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:54:01.741831Z"
-          }
-        ],
-        "description": "## Overview\n[io.netty:netty-handler](https://github.com/netty/netty.git/netty-handler) is a library that provides an asynchronous event-driven network application framework and tools for rapid development of maintainable high performance and high scalability protocol servers and clients. In other words, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients. It greatly simplifies and streamlines network programming such as TCP and UDP socket server.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) such that if the user has no idle timeout handler configured it might be possible for a remote peer to send a `client hello` packet which leads the server to buffer up to 16MB of data per connection.\r\n\r\nThe `SniHandler` class is a handler that waits for the TLS handshake to configure a `SslHandler` according to the indicated server name by the `ClientHello` record. For this matter it allocates a `ByteBuf` using the value defined in the `ClientHello` record.\r\n\r\n**Note:**\r\n\r\nAn attacker can craft a packet that makes the `SslClientHelloHandler` to:\r\n\r\n1) Allocate a 16MB `ByteBuf`.\r\n\r\n2) Not fail `decode` method in buffer.\r\n\r\n3) Get out of the loop without an exception.\r\n\r\nThe combination of this without the use of a timeout makes it easy to connect to a TCP server and allocate 16MB of heap memory per connection.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `io.netty:netty-handler` to version 4.1.94.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/535da17e45201ae4278c0479e6162bb4127d4c32)\n",
-        "epssDetails": {
-          "percentile": "0.60772",
-          "probability": "0.00416",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2023-34462"
-          ],
-          "CWE": [
-            "CWE-400"
-          ],
-          "GHSA": [
-            "GHSA-6mjq-h674-j845"
-          ]
-        },
-        "packageName": "io.netty:netty-handler",
-        "proprietary": false,
-        "creationTime": "2023-06-21T12:27:47.465395Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2023-06-20T16:33:22Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-handler"
-        },
-        "publicationTime": "2023-06-21T12:34:19.416209Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:54:01.741831Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-handler@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-handler",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-1082236",
-        "title": "Information Disclosure",
-        "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-        "credit": [
-          "Jonathan Leitschuh"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[4.0.0.Final, 4.1.59.Final)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "4.1.59.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": "This vulnerability is only applicable on Linux operating systems"
-        },
-        "language": "java",
-        "severity": "medium",
-        "cvssScore": 6.2,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-transport",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/c735357bf29d07856ad171c6611a2e1a0e0000ec",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "NVD",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 5.5,
-            "modificationTime": "2024-03-11T09:50:21.609728Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "cvssV3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "cvssV3BaseScore": 6.2,
-            "modificationTime": "2024-03-11T09:53:47.016828Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "Snyk",
-            "severity": "medium",
-            "baseScore": 6.2,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T14:04:08.564896Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "NVD",
-            "severity": "medium",
-            "baseScore": 5.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:50:21.609728Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-            "assigner": "Red Hat",
-            "severity": "medium",
-            "baseScore": 6.2,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:47.016828Z"
-          }
-        ],
-        "description": "## Overview\n\nAffected versions of this package are vulnerable to Information Disclosure via the `AbstractDiskHttpData` method, and on Unix-like systems.\r\n\r\nWhen `netty`'s multipart decoders are used, local information disclosure can occur via the local system temporary directory if temporary storing uploads on the disk are enabled.\r\nOn unix-like systems, the temporary directory is shared between all users. As such, writing to this directory using API's that do not explicitly set the file/directory permissions can lead to information disclosure.\r\nThe method `File.createTempFile` on unix-like systems creates a random file, but, by default will create this file with the permissions `-rw-r--r--`. Sensitive information is written to this file in `AbstractDiskHttpData`, and other local users can read it.\n## Remediation\nUpgrade `io.netty:netty-transport` to version 4.1.59.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/c735357bf29d07856ad171c6611a2e1a0e0000ec)\n",
-        "epssDetails": {
-          "percentile": "0.03783",
-          "probability": "0.00021",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2021-21290"
-          ],
-          "CWE": [
-            "CWE-378"
-          ],
-          "GHSA": [
-            "GHSA-5mcr-gq6c-3hq2"
-          ]
-        },
-        "packageName": "io.netty:netty-transport",
-        "proprietary": false,
-        "creationTime": "2021-03-03T17:11:17.865940Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2021-02-09T09:57:33Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-transport"
-        },
-        "publicationTime": "2021-02-09T16:34:47Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:53:47.016828Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final",
-          "io.netty:netty-transport@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-transport",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "medium"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-1584063",
-        "title": "Denial of Service (DoS)",
-        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-        "credit": [
-          "Ori Hollander of JFrog Security"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,4.1.68.Final)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "4.1.68.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "high",
-        "cvssScore": 7.5,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-codec",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/6da4956b31023ae967451e1d94ff51a746a9194f",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "NVD",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:51:51.041251Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:53:46.984993Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Snyk",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T13:59:33.723127Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "NVD",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:51:51.041251Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Red Hat",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:46.984993Z"
-          }
-        ],
-        "description": "## Overview\n[io.netty:netty-codec](https://github.com/netty/netty) is an event-driven asynchronous network application framework.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). `SnappyFrameDecoder` doesn't restrict chunk length any mad buffer skippable chunks in an unnecessary way, leading to excessive memory usage. This vulnerability can be triggered by supplying malicious input that decompresses to a very big size (via a network stream or a file), or by sending a huge skippable chunk.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `io.netty:netty-codec` to version 4.1.68.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/6da4956b31023ae967451e1d94ff51a746a9194f)\n",
-        "epssDetails": {
-          "percentile": "0.66636",
-          "probability": "0.00543",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2021-37137"
-          ],
-          "CWE": [
-            "CWE-400"
-          ],
-          "GHSA": [
-            "GHSA-9vjp-v76f-g363"
-          ]
-        },
-        "packageName": "io.netty:netty-codec",
-        "proprietary": false,
-        "creationTime": "2021-09-10T10:52:55.949455Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2021-09-09T17:11:31Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-codec"
-        },
-        "publicationTime": "2021-09-11T14:59:36.442193Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:53:46.984993Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final",
-          "io.netty:netty-codec@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-codec",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "high"
-      },
-      {
-        "id": "SNYK-JAVA-IONETTY-1584064",
-        "title": "Denial of Service (DoS)",
-        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-        "credit": [
-          "Ori Hollander of JFrog Security"
-        ],
-        "semver": {
-          "vulnerable": [
-            "[,4.1.68.Final)"
-          ]
-        },
-        "exploit": "Not Defined",
-        "fixedIn": [
-          "4.1.68.Final"
-        ],
-        "patches": [],
-        "insights": {
-          "triageAdvice": null
-        },
-        "language": "java",
-        "severity": "high",
-        "cvssScore": 7.5,
-        "functions": [],
-        "malicious": false,
-        "isDisputed": false,
-        "moduleName": "io.netty:netty-codec",
-        "references": [
-          {
-            "url": "https://github.com/netty/netty/commit/41d3d61a61608f2223bb364955ab2045dd5e4020",
-            "title": "GitHub Commit"
-          }
-        ],
-        "cvssDetails": [
-          {
-            "assigner": "NVD",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:51:50.903927Z"
-          },
-          {
-            "assigner": "Red Hat",
-            "severity": "high",
-            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "cvssV3BaseScore": 7.5,
-            "modificationTime": "2024-03-11T09:53:46.987267Z"
-          }
-        ],
-        "cvssSources": [
-          {
-            "type": "primary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Snyk",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-06T13:59:33.777299Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "NVD",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:51:50.903927Z"
-          },
-          {
-            "type": "secondary",
-            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-            "assigner": "Red Hat",
-            "severity": "high",
-            "baseScore": 7.5,
-            "cvssVersion": "3.1",
-            "modificationTime": "2024-03-11T09:53:46.987267Z"
-          }
-        ],
-        "description": "## Overview\n[io.netty:netty-codec](https://github.com/netty/netty) is an event-driven asynchronous network application framework.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). `Bzip2Decoder` doesn't allow setting size restrictions for decompressed data. An attacker can exploit this by providing a compressed file that, when decompressed, triggers an out-of-memory exception.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `io.netty:netty-codec` to version 4.1.68.Final or higher.\n## References\n- [GitHub Commit](https://github.com/netty/netty/commit/41d3d61a61608f2223bb364955ab2045dd5e4020)\n",
-        "epssDetails": {
-          "percentile": "0.45833",
-          "probability": "0.00229",
-          "modelVersion": "v2025.03.14"
-        },
-        "identifiers": {
-          "CVE": [
-            "CVE-2021-37136"
-          ],
-          "CWE": [
-            "CWE-400"
-          ],
-          "GHSA": [
-            "GHSA-grg4-wf29-r9vv"
-          ]
-        },
-        "packageName": "io.netty:netty-codec",
-        "proprietary": false,
-        "creationTime": "2021-09-10T10:58:04.292191Z",
-        "functions_new": [],
-        "alternativeIds": [],
-        "disclosureTime": "2021-09-09T17:11:21Z",
-        "exploitDetails": {
-          "sources": [],
-          "maturityLevels": [
-            {
-              "type": "secondary",
-              "level": "Not Defined",
-              "format": "CVSSv3"
-            },
-            {
-              "type": "primary",
-              "level": "Not Defined",
-              "format": "CVSSv4"
-            }
-          ]
-        },
-        "packageManager": "maven",
-        "mavenModuleName": {
-          "groupId": "io.netty",
-          "artifactId": "netty-codec"
-        },
-        "publicationTime": "2021-09-11T14:59:36.669250Z",
-        "severityBasedOn": "CVSS",
-        "modificationTime": "2024-03-11T09:53:46.987267Z",
-        "socialTrendAlert": false,
-        "packagePopularityRank": 99,
-        "from": [
-          "com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT",
-          "com.amazonaws:aws-java-sdk@1.12.785",
-          "com.amazonaws:aws-java-sdk-kinesisvideo@1.12.785",
-          "io.netty:netty-codec-http@4.1.54.Final",
-          "io.netty:netty-codec@4.1.54.Final"
-        ],
-        "upgradePath": [],
-        "isUpgradable": false,
-        "isPatchable": false,
-        "isPinnable": false,
-        "isRuntime": false,
-        "name": "io.netty:netty-codec",
-        "version": "4.1.54.Final",
-        "severityWithCritical": "high"
       },
       {
         "id": "SNYK-JAVA-IOSPRINGFOX-3018911",
@@ -23312,6 +21174,41 @@
       }
     ],
     "upgrade": {
+      "com.amazonaws:aws-java-sdk@1.12.785": {
+        "upgradeTo": "com.amazonaws:aws-java-sdk@1.12.787",
+        "upgrades": [
+          "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor@2.11.3",
+          "io.netty:netty-codec-http@4.1.54.Final",
+          "io.netty:netty-codec-http@4.1.54.Final",
+          "io.netty:netty-codec-http@4.1.54.Final",
+          "io.netty:netty-codec-http@4.1.54.Final",
+          "io.netty:netty-common@4.1.54.Final",
+          "io.netty:netty-common@4.1.54.Final",
+          "io.netty:netty-common@4.1.54.Final",
+          "io.netty:netty-common@4.1.54.Final",
+          "io.netty:netty-handler@4.1.54.Final",
+          "io.netty:netty-handler@4.1.54.Final",
+          "io.netty:netty-transport@4.1.54.Final",
+          "io.netty:netty-codec@4.1.54.Final",
+          "io.netty:netty-codec@4.1.54.Final"
+        ],
+        "vulns": [
+          "SNYK-JAVA-COMFASTERXMLJACKSONDATAFORMAT-1047329",
+          "SNYK-JAVA-IONETTY-1070799",
+          "SNYK-JAVA-IONETTY-1317097",
+          "SNYK-JAVA-IONETTY-2314893",
+          "SNYK-JAVA-IONETTY-6483812",
+          "SNYK-JAVA-IONETTY-1082234",
+          "SNYK-JAVA-IONETTY-2812456",
+          "SNYK-JAVA-IONETTY-8367012",
+          "SNYK-JAVA-IONETTY-8707740",
+          "SNYK-JAVA-IONETTY-1082235",
+          "SNYK-JAVA-IONETTY-5725787",
+          "SNYK-JAVA-IONETTY-1082236",
+          "SNYK-JAVA-IONETTY-1584063",
+          "SNYK-JAVA-IONETTY-1584064"
+        ]
+      },
       "org.hibernate.validator:hibernate-validator@6.1.6.Final": {
         "upgradeTo": "org.hibernate.validator:hibernate-validator@6.2.0.Final",
         "upgrades": [
@@ -23572,7 +21469,7 @@
         ]
       },
       "org.springframework.security:spring-security-test@5.3.5.RELEASE": {
-        "upgradeTo": "org.springframework.security:spring-security-test@6.2.7",
+        "upgradeTo": "org.springframework.security:spring-security-test@6.0.2",
         "upgrades": [
           "org.springframework:spring-core@5.2.11.RELEASE",
           "org.springframework.security:spring-security-core@5.3.5.RELEASE",
