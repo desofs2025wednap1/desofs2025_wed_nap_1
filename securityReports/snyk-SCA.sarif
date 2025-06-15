@@ -10,7 +10,7 @@
           "version": "1.1297.1",
           "informationUri": "https://docs.snyk.io/",
           "properties": {
-            "artifactsScanned": 542
+            "artifactsScanned": 540
           },
           "rules": [
             {
@@ -23,7 +23,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-core\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, ch.qos.logback:logback-classic@1.4.14 and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › ch.qos.logback:logback-classic@1.4.14 › ch.qos.logback:logback-core@1.2.3\n# Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Insufficient Hostname Verification. `X.509` are not properly validated. By spoofing the TLS/SSL server via a certificate that appears valid, an attacker with the ability to intercept network traffic (e.g. MitM, DNS cache poisoning) can disclose and optionally manipulate transmitted data.\n# Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.7 or higher.\n# References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/626c7733c188f2ad60c1348a493761f60e2d7958)\n- [GitHub PR](https://github.com/qos-ch/logback/pull/305)\n- [Jira Issue](https://jira.qos.ch/browse/LOGBACK-1574)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-core\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE › ch.qos.logback:logback-classic@1.2.3 › ch.qos.logback:logback-core@1.2.3\n# Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Insufficient Hostname Verification. `X.509` are not properly validated. By spoofing the TLS/SSL server via a certificate that appears valid, an attacker with the ability to intercept network traffic (e.g. MitM, DNS cache poisoning) can disclose and optionally manipulate transmitted data.\n# Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.7 or higher.\n# References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/626c7733c188f2ad60c1348a493761f60e2d7958)\n- [GitHub PR](https://github.com/qos-ch/logback/pull/305)\n- [Jira Issue](https://jira.qos.ch/browse/LOGBACK-1574)\n"
               },
               "properties": {
                 "tags": [
@@ -45,7 +45,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-core\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, ch.qos.logback:logback-classic@1.4.14 and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › ch.qos.logback:logback-classic@1.4.14 › ch.qos.logback:logback-core@1.2.3\n# Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). An attacker can mount a denial-of-service attack by sending poisoned data. This is only exploitable if logback receiver component is deployed.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.13, 1.3.12, 1.4.12 or higher.\n# References\n- [Changelog](https://logback.qos.ch/news.html#1.3.12)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/9c782b45be4abdafb7e17481e24e7354c2acd1eb)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b8eac23a9de9e05fb6d51160b3f46acd91af9731)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-core\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE › ch.qos.logback:logback-classic@1.2.3 › ch.qos.logback:logback-core@1.2.3\n# Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). An attacker can mount a denial-of-service attack by sending poisoned data. This is only exploitable if logback receiver component is deployed.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.13, 1.3.12, 1.4.12 or higher.\n# References\n- [Changelog](https://logback.qos.ch/news.html#1.3.12)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/9c782b45be4abdafb7e17481e24e7354c2acd1eb)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b8eac23a9de9e05fb6d51160b3f46acd91af9731)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n"
               },
               "properties": {
                 "tags": [
@@ -67,7 +67,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-core\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, ch.qos.logback:logback-classic@1.4.14 and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › ch.qos.logback:logback-classic@1.4.14 › ch.qos.logback:logback-core@1.2.3\n# Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') via the `logback receiver` component. An attacker can mount a denial-of-service attack by sending poisoned data.\r\n\r\n**Note:**\r\n\r\nSuccessful exploitation requires the logback-receiver component being enabled and also reachable by the attacker.\n# Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.13, 1.3.14, 1.4.14 or higher.\n# References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/7018a3609c7bcc9dc7bf5903509901a986e5f578)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/c612b2fa3caf6eef3c75f1cd5859438451d0fd6f)\n- [Release Notes](https://logback.qos.ch/news.html#1.2.13)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.14)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-core\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE › ch.qos.logback:logback-classic@1.2.3 › ch.qos.logback:logback-core@1.2.3\n# Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') via the `logback receiver` component. An attacker can mount a denial-of-service attack by sending poisoned data.\r\n\r\n**Note:**\r\n\r\nSuccessful exploitation requires the logback-receiver component being enabled and also reachable by the attacker.\n# Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.2.13, 1.3.14, 1.4.14 or higher.\n# References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/7018a3609c7bcc9dc7bf5903509901a986e5f578)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/c612b2fa3caf6eef3c75f1cd5859438451d0fd6f)\n- [Release Notes](https://logback.qos.ch/news.html#1.2.13)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.14)\n"
               },
               "properties": {
                 "tags": [
@@ -89,7 +89,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-core\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, ch.qos.logback:logback-classic@1.4.14 and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › ch.qos.logback:logback-classic@1.4.14 › ch.qos.logback:logback-core@1.2.3\n# Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Server-side Request Forgery (SSRF) through the `SaxEventRecorder` process. An attacker can forge requests by compromising logback configuration files in XML.\n# Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.3.15, 1.5.13 or higher.\n# References\n- [Additional Information](https://logback.qos.ch/news.html#1.5.13)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/2863a4974a3649b5b00d4a529ee6ff2063470f35)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/5f05041cba4c4ac0a62748c5c527a2da48999f2d)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.15)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-core\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE › ch.qos.logback:logback-classic@1.2.3 › ch.qos.logback:logback-core@1.2.3\n# Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Server-side Request Forgery (SSRF) through the `SaxEventRecorder` process. An attacker can forge requests by compromising logback configuration files in XML.\n# Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.3.15, 1.5.13 or higher.\n# References\n- [Additional Information](https://logback.qos.ch/news.html#1.5.13)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/2863a4974a3649b5b00d4a529ee6ff2063470f35)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/5f05041cba4c4ac0a62748c5c527a2da48999f2d)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.15)\n"
               },
               "properties": {
                 "tags": [
@@ -111,7 +111,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-core\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, ch.qos.logback:logback-classic@1.4.14 and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › ch.qos.logback:logback-classic@1.4.14 › ch.qos.logback:logback-core@1.2.3\n# Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Improper Neutralization of Special Elements via the `JaninoEventEvaluator` extension. An attacker can execute arbitrary code by compromising an existing logback configuration file or injecting an environment variable before program execution.\n# Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.3.15, 1.5.13 or higher.\n# References\n- [Additional Information](https://logback.qos.ch/news.html#1.5.13)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/2cb6d520df7592ef1c3a198f1b5df3c10c93e183)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b44b940cc7d4839e06e31a7d60dca174b99c1aa5)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.15)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-core\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE › ch.qos.logback:logback-classic@1.2.3 › ch.qos.logback:logback-core@1.2.3\n# Overview\n[ch.qos.logback:logback-core](https://mvnrepository.com/artifact/ch.qos.logback/logback-core) is a logback-core module.\n\nAffected versions of this package are vulnerable to Improper Neutralization of Special Elements via the `JaninoEventEvaluator` extension. An attacker can execute arbitrary code by compromising an existing logback configuration file or injecting an environment variable before program execution.\n# Remediation\nUpgrade `ch.qos.logback:logback-core` to version 1.3.15, 1.5.13 or higher.\n# References\n- [Additional Information](https://logback.qos.ch/news.html#1.5.13)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/2cb6d520df7592ef1c3a198f1b5df3c10c93e183)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b44b940cc7d4839e06e31a7d60dca174b99c1aa5)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.15)\n"
               },
               "properties": {
                 "tags": [
@@ -124,16 +124,60 @@
               }
             },
             {
+              "id": "SNYK-JAVA-CHQOSLOGBACK-6094942",
+              "shortDescription": {
+                "text": "High severity - Denial of Service (DoS) vulnerability in ch.qos.logback:logback-classic"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-6378) ch.qos.logback:logback-classic@1.2.3"
+              },
+              "help": {
+                "text": "",
+                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-classic\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE › ch.qos.logback:logback-classic@1.2.3\n# Overview\n[ch.qos.logback:logback-classic](https://mvnrepository.com/artifact/ch.qos.logback/logback-classic) is a reliable, generic, fast and flexible logging library for Java.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS). An attacker can mount a denial-of-service attack by sending poisoned data. This is only exploitable if logback receiver component is deployed.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `ch.qos.logback:logback-classic` to version 1.2.13, 1.3.12, 1.4.12 or higher.\n# References\n- [Changelog](https://logback.qos.ch/news.html#1.3.12)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/9c782b45be4abdafb7e17481e24e7354c2acd1eb)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b8eac23a9de9e05fb6d51160b3f46acd91af9731)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-400",
+                  "maven"
+                ],
+                "cvssv3_baseScore": 7.1,
+                "security-severity": "7.1"
+              }
+            },
+            {
+              "id": "SNYK-JAVA-CHQOSLOGBACK-6097492",
+              "shortDescription": {
+                "text": "High severity - Uncontrolled Resource Consumption ('Resource Exhaustion') vulnerability in ch.qos.logback:logback-classic"
+              },
+              "fullDescription": {
+                "text": "(CVE-2023-6481) ch.qos.logback:logback-classic@1.2.3"
+              },
+              "help": {
+                "text": "",
+                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-classic\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE › ch.qos.logback:logback-classic@1.2.3\n# Overview\n[ch.qos.logback:logback-classic](https://mvnrepository.com/artifact/ch.qos.logback/logback-classic) is a reliable, generic, fast and flexible logging library for Java.\n\nAffected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') via the `logback receiver` component. An attacker can mount a denial-of-service attack by sending poisoned data.\r\n\r\n**Note:**\r\n\r\nSuccessful exploitation requires the logback-receiver component being enabled and also reachable by the attacker.\n# Remediation\nUpgrade `ch.qos.logback:logback-classic` to version 1.2.13, 1.3.14, 1.4.14 or higher.\n# References\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/7018a3609c7bcc9dc7bf5903509901a986e5f578)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/bb095154be011267b64e37a1d401546e7cc2b7c3)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/c612b2fa3caf6eef3c75f1cd5859438451d0fd6f)\n- [Release Notes](https://logback.qos.ch/news.html#1.2.13)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.14)\n"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "CWE-400",
+                  "maven"
+                ],
+                "cvssv3_baseScore": 7.1,
+                "security-severity": "7.1"
+              }
+            },
+            {
               "id": "SNYK-JAVA-CHQOSLOGBACK-8539867",
               "shortDescription": {
                 "text": "Medium severity - Improper Neutralization of Special Elements vulnerability in ch.qos.logback:logback-classic"
               },
               "fullDescription": {
-                "text": "(CVE-2024-12798) ch.qos.logback:logback-classic@1.4.14"
+                "text": "(CVE-2024-12798) ch.qos.logback:logback-classic@1.2.3"
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-classic\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT and ch.qos.logback:logback-classic@1.4.14\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › ch.qos.logback:logback-classic@1.4.14\n# Overview\n[ch.qos.logback:logback-classic](https://mvnrepository.com/artifact/ch.qos.logback/logback-classic) is a reliable, generic, fast and flexible logging library for Java.\n\nAffected versions of this package are vulnerable to Improper Neutralization of Special Elements via the `JaninoEventEvaluator` extension. An attacker can execute arbitrary code by compromising an existing logback configuration file or injecting an environment variable before program execution.\n# Remediation\nUpgrade `ch.qos.logback:logback-classic` to version 1.3.15, 1.5.13 or higher.\n# References\n- [Additional Information](https://logback.qos.ch/news.html#1.5.13)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/2cb6d520df7592ef1c3a198f1b5df3c10c93e183)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b44b940cc7d4839e06e31a7d60dca174b99c1aa5)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.15)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: ch.qos.logback:logback-classic\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-logging@2.3.6.RELEASE › ch.qos.logback:logback-classic@1.2.3\n# Overview\n[ch.qos.logback:logback-classic](https://mvnrepository.com/artifact/ch.qos.logback/logback-classic) is a reliable, generic, fast and flexible logging library for Java.\n\nAffected versions of this package are vulnerable to Improper Neutralization of Special Elements via the `JaninoEventEvaluator` extension. An attacker can execute arbitrary code by compromising an existing logback configuration file or injecting an environment variable before program execution.\n# Remediation\nUpgrade `ch.qos.logback:logback-classic` to version 1.3.15, 1.5.13 or higher.\n# References\n- [Additional Information](https://logback.qos.ch/news.html#1.5.13)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/2cb6d520df7592ef1c3a198f1b5df3c10c93e183)\n- [GitHub Commit](https://github.com/qos-ch/logback/commit/b44b940cc7d4839e06e31a7d60dca174b99c1aa5)\n- [Release Notes](https://logback.qos.ch/news.html#1.3.15)\n"
               },
               "properties": {
                 "tags": [
@@ -199,7 +243,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: com.fasterxml.jackson.core:jackson-databind\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, net.logstash.logback:logstash-logback-encoder@7.4 and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › net.logstash.logback:logstash-logback-encoder@7.4 › com.fasterxml.jackson.core:jackson-databind@2.11.3\n# Overview\n[com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson-databind) is a library which contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) when using JDK serialization to serialize and deserialize `JsonNode` values.\r\nIt is possible for the attacker to send a 4-byte length payload, with a value of `Integer.MAX_VALUE` , that will eventually cause large buffer allocation and out of heap memory.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-databind` to version 2.13.1, 2.12.6 or higher.\n# References\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/3ccde7d938fea547e598fdefe9a82cff37fed5cb)\n- [GitHub Issue](https://github.com/FasterXML/jackson-databind/issues/3328)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: com.fasterxml.jackson.core:jackson-databind\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE › org.springframework.boot:spring-boot-starter-json@2.3.6.RELEASE › com.fasterxml.jackson.core:jackson-databind@2.11.3\n# Overview\n[com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson-databind) is a library which contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) when using JDK serialization to serialize and deserialize `JsonNode` values.\r\nIt is possible for the attacker to send a 4-byte length payload, with a value of `Integer.MAX_VALUE` , that will eventually cause large buffer allocation and out of heap memory.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-databind` to version 2.13.1, 2.12.6 or higher.\n# References\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/3ccde7d938fea547e598fdefe9a82cff37fed5cb)\n- [GitHub Issue](https://github.com/FasterXML/jackson-databind/issues/3328)\n"
               },
               "properties": {
                 "tags": [
@@ -221,7 +265,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: com.fasterxml.jackson.core:jackson-databind\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, net.logstash.logback:logstash-logback-encoder@7.4 and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › net.logstash.logback:logstash-logback-encoder@7.4 › com.fasterxml.jackson.core:jackson-databind@2.11.3\n# Overview\n[com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson-databind) is a library which contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) via a large depth of nested objects.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-databind` to version 2.12.6.1, 2.13.2.1 or higher.\n# References\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/8238ab41d0350fb915797c89d46777b4496b74fd)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/fcfc4998ec23f0b1f7f8a9521c2b317b6c25892b)\n- [GitHub Issue](https://github.com/FasterXML/jackson-databind/issues/2816)\n- [GitHub PR](https://github.com/FasterXML/jackson-databind/pull/3416)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: com.fasterxml.jackson.core:jackson-databind\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE › org.springframework.boot:spring-boot-starter-json@2.3.6.RELEASE › com.fasterxml.jackson.core:jackson-databind@2.11.3\n# Overview\n[com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson-databind) is a library which contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) via a large depth of nested objects.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-databind` to version 2.12.6.1, 2.13.2.1 or higher.\n# References\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/8238ab41d0350fb915797c89d46777b4496b74fd)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/fcfc4998ec23f0b1f7f8a9521c2b317b6c25892b)\n- [GitHub Issue](https://github.com/FasterXML/jackson-databind/issues/2816)\n- [GitHub PR](https://github.com/FasterXML/jackson-databind/pull/3416)\n"
               },
               "properties": {
                 "tags": [
@@ -243,7 +287,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: com.fasterxml.jackson.core:jackson-databind\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, net.logstash.logback:logstash-logback-encoder@7.4 and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › net.logstash.logback:logstash-logback-encoder@7.4 › com.fasterxml.jackson.core:jackson-databind@2.11.3\n# Overview\n[com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson-databind) is a library which contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the `_deserializeFromArray()` function in `BeanDeserializer`, due to resource exhaustion when processing a deeply nested array.\r\n\r\n**NOTE:**\r\nFor this vulnerability to be exploitable the non-default `DeserializationFeature` must be enabled.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-databind` to version 2.12.7.1, 2.13.4 or higher.\n# References\n- [Chromium Bugs](https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=50490)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/063183589218fec19a9293ed2f17ec53ea80ba88)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/cd090979b7ea78c75e4de8a4aed04f7e9fa8deea)\n- [GitHub Issue](https://github.com/FasterXML/jackson-databind/issues/3582)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: com.fasterxml.jackson.core:jackson-databind\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE › org.springframework.boot:spring-boot-starter-json@2.3.6.RELEASE › com.fasterxml.jackson.core:jackson-databind@2.11.3\n# Overview\n[com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson-databind) is a library which contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the `_deserializeFromArray()` function in `BeanDeserializer`, due to resource exhaustion when processing a deeply nested array.\r\n\r\n**NOTE:**\r\nFor this vulnerability to be exploitable the non-default `DeserializationFeature` must be enabled.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-databind` to version 2.12.7.1, 2.13.4 or higher.\n# References\n- [Chromium Bugs](https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=50490)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/063183589218fec19a9293ed2f17ec53ea80ba88)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/cd090979b7ea78c75e4de8a4aed04f7e9fa8deea)\n- [GitHub Issue](https://github.com/FasterXML/jackson-databind/issues/3582)\n"
               },
               "properties": {
                 "tags": [
@@ -265,7 +309,7 @@
               },
               "help": {
                 "text": "",
-                "markdown": "* Package Manager: maven\n* Vulnerable module: com.fasterxml.jackson.core:jackson-databind\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, net.logstash.logback:logstash-logback-encoder@7.4 and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › net.logstash.logback:logstash-logback-encoder@7.4 › com.fasterxml.jackson.core:jackson-databind@2.11.3\n# Overview\n[com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson-databind) is a library which contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the `_deserializeWrappedValue()` function in `StdDeserializer.java`, due to resource exhaustion when processing deeply nested arrays.\r\n\r\n**NOTE:** This vulnerability is only exploitable when the non-default `UNWRAP_SINGLE_VALUE_ARRAYS` feature is enabled.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-databind` to version 2.12.7.1, 2.13.4.1 or higher.\n# References\n- [Chromium Bugs](https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=51020)\n- [Documentation](https://fasterxml.github.io/jackson-databind/javadoc/2.9/com/fasterxml/jackson/databind/DeserializationFeature.html#UNWRAP_SINGLE_VALUE_ARRAYS)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/2c4a601c626f7790cad9d3c322d244e182838288)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/cd090979b7ea78c75e4de8a4aed04f7e9fa8deea)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/d78d00ee7b5245b93103fef3187f70543d67ca33)\n- [GitHub Issue](https://github.com/FasterXML/jackson-databind/issues/3590)\n"
+                "markdown": "* Package Manager: maven\n* Vulnerable module: com.fasterxml.jackson.core:jackson-databind\n* Introduced through: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT, org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE and others\n### Detailed paths\n* _Introduced through_: com.gmail.merikbest2015:ecommerce@0.0.1-SNAPSHOT › org.springframework.boot:spring-boot-starter-web@2.3.6.RELEASE › org.springframework.boot:spring-boot-starter-json@2.3.6.RELEASE › com.fasterxml.jackson.core:jackson-databind@2.11.3\n# Overview\n[com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson-databind) is a library which contains the general-purpose data-binding functionality and tree-model for Jackson Data Processor.\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) in the `_deserializeWrappedValue()` function in `StdDeserializer.java`, due to resource exhaustion when processing deeply nested arrays.\r\n\r\n**NOTE:** This vulnerability is only exploitable when the non-default `UNWRAP_SINGLE_VALUE_ARRAYS` feature is enabled.\n\n# Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n# Remediation\nUpgrade `com.fasterxml.jackson.core:jackson-databind` to version 2.12.7.1, 2.13.4.1 or higher.\n# References\n- [Chromium Bugs](https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=51020)\n- [Documentation](https://fasterxml.github.io/jackson-databind/javadoc/2.9/com/fasterxml/jackson/databind/DeserializationFeature.html#UNWRAP_SINGLE_VALUE_ARRAYS)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/2c4a601c626f7790cad9d3c322d244e182838288)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/cd090979b7ea78c75e4de8a4aed04f7e9fa8deea)\n- [GitHub Commit](https://github.com/FasterXML/jackson-databind/commit/d78d00ee7b5245b93103fef3187f70543d67ca33)\n- [GitHub Issue](https://github.com/FasterXML/jackson-databind/issues/3590)\n"
               },
               "properties": {
                 "tags": [
@@ -2688,7 +2732,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to ch.qos.logback:logback-classic@1.4.14"
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-logging@2.4.13"
               },
               "artifactChanges": [
                 {
@@ -2701,7 +2745,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "ch.qos.logback:logback-classic@1.4.14"
+                        "text": "org.springframework.boot:spring-boot-starter-logging@2.4.13"
                       }
                     }
                   ]
@@ -2736,7 +2780,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to ch.qos.logback:logback-classic@1.4.14"
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-logging@3.1.7"
               },
               "artifactChanges": [
                 {
@@ -2749,7 +2793,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "ch.qos.logback:logback-classic@1.4.14"
+                        "text": "org.springframework.boot:spring-boot-starter-logging@3.1.7"
                       }
                     }
                   ]
@@ -2784,7 +2828,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to ch.qos.logback:logback-classic@1.4.14"
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-logging@3.1.7"
               },
               "artifactChanges": [
                 {
@@ -2797,7 +2841,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "ch.qos.logback:logback-classic@1.4.14"
+                        "text": "org.springframework.boot:spring-boot-starter-logging@3.1.7"
                       }
                     }
                   ]
@@ -2832,7 +2876,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to ch.qos.logback:logback-classic@1.5.13"
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-logging@3.3.7"
               },
               "artifactChanges": [
                 {
@@ -2845,7 +2889,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "ch.qos.logback:logback-classic@1.5.13"
+                        "text": "org.springframework.boot:spring-boot-starter-logging@3.3.7"
                       }
                     }
                   ]
@@ -2880,7 +2924,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to ch.qos.logback:logback-classic@1.5.13"
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-logging@3.3.7"
               },
               "artifactChanges": [
                 {
@@ -2893,7 +2937,103 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "ch.qos.logback:logback-classic@1.5.13"
+                        "text": "org.springframework.boot:spring-boot-starter-logging@3.3.7"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-JAVA-CHQOSLOGBACK-6094942",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable ch.qos.logback:logback-classic package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "ch.qos.logback:logback-classic@1.2.3"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-logging@3.1.7"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "org.springframework.boot:spring-boot-starter-logging@3.1.7"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "SNYK-JAVA-CHQOSLOGBACK-6097492",
+          "level": "error",
+          "message": {
+            "text": "This file introduces a vulnerable ch.qos.logback:logback-classic package with a high severity vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "pom.xml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "ch.qos.logback:logback-classic@1.2.3"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-logging@3.1.7"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "org.springframework.boot:spring-boot-starter-logging@3.1.7"
                       }
                     }
                   ]
@@ -2920,7 +3060,7 @@
               },
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "ch.qos.logback:logback-classic@1.4.14"
+                  "fullyQualifiedName": "ch.qos.logback:logback-classic@1.2.3"
                 }
               ]
             }
@@ -2928,7 +3068,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to ch.qos.logback:logback-classic@1.5.13"
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-logging@3.3.7"
               },
               "artifactChanges": [
                 {
@@ -2941,7 +3081,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "ch.qos.logback:logback-classic@1.5.13"
+                        "text": "org.springframework.boot:spring-boot-starter-logging@3.3.7"
                       }
                     }
                   ]
@@ -3024,7 +3164,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to net.logstash.logback:logstash-logback-encoder@7.4"
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-web@2.5.8"
               },
               "artifactChanges": [
                 {
@@ -3037,7 +3177,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "net.logstash.logback:logstash-logback-encoder@7.4"
+                        "text": "org.springframework.boot:spring-boot-starter-web@2.5.8"
                       }
                     }
                   ]
@@ -3072,7 +3212,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to net.logstash.logback:logstash-logback-encoder@7.4"
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-web@2.5.12"
               },
               "artifactChanges": [
                 {
@@ -3085,7 +3225,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "net.logstash.logback:logstash-logback-encoder@7.4"
+                        "text": "org.springframework.boot:spring-boot-starter-web@2.5.12"
                       }
                     }
                   ]
@@ -3120,7 +3260,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to net.logstash.logback:logstash-logback-encoder@7.4"
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-web@2.5.15"
               },
               "artifactChanges": [
                 {
@@ -3133,7 +3273,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "net.logstash.logback:logstash-logback-encoder@7.4"
+                        "text": "org.springframework.boot:spring-boot-starter-web@2.5.15"
                       }
                     }
                   ]
@@ -3168,7 +3308,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to net.logstash.logback:logstash-logback-encoder@7.4"
+                "text": "Upgrade to org.springframework.boot:spring-boot-starter-web@2.5.15"
               },
               "artifactChanges": [
                 {
@@ -3181,7 +3321,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "net.logstash.logback:logstash-logback-encoder@7.4"
+                        "text": "org.springframework.boot:spring-boot-starter-web@2.5.15"
                       }
                     }
                   ]
@@ -3209,6 +3349,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor@2.11.3"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3452,6 +3616,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3473,6 +3661,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-codec-http@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3500,6 +3712,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3521,6 +3757,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-codec-http@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3548,6 +3808,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3569,6 +3853,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-common@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3596,6 +3904,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3617,6 +3949,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-common@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3644,6 +4000,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3665,6 +4045,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-handler@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3692,6 +4096,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3716,6 +4144,30 @@
                 }
               ]
             }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -3737,6 +4189,30 @@
               "logicalLocations": [
                 {
                   "fullyQualifiedName": "io.netty:netty-codec@4.1.54.Final"
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Upgrade to com.amazonaws:aws-java-sdk@1.12.787"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "pom.xml"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "startLine": 1
+                      },
+                      "insertedContent": {
+                        "text": "com.amazonaws:aws-java-sdk@1.12.787"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -6096,7 +6572,7 @@
           "fixes": [
             {
               "description": {
-                "text": "Upgrade to org.springframework.security:spring-security-test@6.2.7"
+                "text": "Upgrade to org.springframework.security:spring-security-test@6.0.2"
               },
               "artifactChanges": [
                 {
@@ -6109,7 +6585,7 @@
                         "startLine": 1
                       },
                       "insertedContent": {
-                        "text": "org.springframework.security:spring-security-test@6.2.7"
+                        "text": "org.springframework.security:spring-security-test@6.0.2"
                       }
                     }
                   ]
