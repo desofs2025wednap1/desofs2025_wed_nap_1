@@ -212,7 +212,7 @@ td {
 	</h2>
 
 	<h3>
-		Generated on Thu, 12 Jun 2025 22:29:47
+		Generated on Sun, 15 Jun 2025 06:08:18
 	</h3>
 
 	<h3>
@@ -245,7 +245,7 @@ td {
 					<div>Medium</div>
 				</td>
 				<td align="center">
-					<div>2</div>
+					<div>1</div>
 				</td>
 			</tr>
 			<tr>
@@ -301,11 +301,6 @@ td {
 				<td align="center">2</td>
 			</tr>
 			<tr>
-				<td><a href="#90003">Sub Resource Integrity Attribute Missing</a></td>
-				<td align="center" class="risk-2">Medium</td>
-				<td align="center">2</td>
-			</tr>
-			<tr>
 				<td><a href="#10054">Cookie without SameSite Attribute</a></td>
 				<td align="center" class="risk-1">Low</td>
 				<td align="center">3</td>
@@ -313,7 +308,7 @@ td {
 			<tr>
 				<td><a href="#90004">Insufficient Site Isolation Against Spectre Vulnerability</a></td>
 				<td align="center" class="risk-1">Low</td>
-				<td align="center">6</td>
+				<td align="center">7</td>
 			</tr>
 			<tr>
 				<td><a href="#10063">Permissions Policy Header Not Set</a></td>
@@ -323,7 +318,7 @@ td {
 			<tr>
 				<td><a href="#10049">Non-Storable Content</a></td>
 				<td align="center" class="risk-0">Informational</td>
-				<td align="center">7</td>
+				<td align="center">8</td>
 			</tr>
 			<tr>
 				<td><a href="#10112">Session Management Response Identified</a></td>
@@ -466,121 +461,6 @@ td {
 					<td width="20%">Plugin Id</td>
 					<td width="80%"><a
 						href="https://www.zaproxy.org/docs/alerts/10038/">10038</a></td>
-				</tr>
-			</table>
-			<div class="spacer"></div>
-		
-			<table class="results">
-				<tr height="24">
-					<th width="20%" class="risk-2"><a
-						id="90003"></a>
-						<div>Medium</div></th>
-					<th class="risk-2">Sub Resource Integrity Attribute Missing</th>
-				</tr>
-				<tr>
-					<td width="20%">Description</td>
-					<td width="80%">
-							<div>The integrity attribute is missing on a script or link tag served by an external server. The integrity tag prevents an attacker who have gained access to this server from injecting a malicious content.</div>
-							
-						</td>
-				</tr>
-				<TR vAlign="top">
-					<TD colspan="2"></TD>
-				</TR>
-				
-					<tr>
-						<td width="20%"
-							class="indent1">URL</td>
-						<td width="80%"><a href="http://localhost:8080">http://localhost:8080</a></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Method</td>
-						<td width="80%">GET</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Parameter</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Attack</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Evidence</td>
-						<td width="80%">&lt;link href=&quot;https://getbootstrap.com/docs/4.0/examples/signin/signin.css&quot; rel=&quot;stylesheet&quot; crossorigin=&quot;anonymous&quot;/&gt;</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Other Info</td>
-						<td width="80%"></td>
-					</tr>
-				
-					<tr>
-						<td width="20%"
-							class="indent1">URL</td>
-						<td width="80%"><a href="http://localhost:8080/login">http://localhost:8080/login</a></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Method</td>
-						<td width="80%">GET</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Parameter</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Attack</td>
-						<td width="80%"></td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Evidence</td>
-						<td width="80%">&lt;link href=&quot;https://getbootstrap.com/docs/4.0/examples/signin/signin.css&quot; rel=&quot;stylesheet&quot; crossorigin=&quot;anonymous&quot;/&gt;</td>
-					</tr>
-					<tr>
-						<td width="20%"
-							class="indent2">Other Info</td>
-						<td width="80%"></td>
-					</tr>
-				
-				<tr>
-					<td width="20%">Instances</td>
-					<td width="80%">2</td>
-				</tr>
-				<tr>
-					<td width="20%">Solution</td>
-					<td width="80%">
-							<div>Provide a valid integrity attribute to the tag.</div>
-							
-						</td>
-				</tr>
-				<tr>
-					<td width="20%">Reference</td>
-					<td width="80%">
-							<a href="https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity">https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity</a>
-							
-						</td>
-				</tr>
-				<tr>
-					<td width="20%">CWE Id</td>
-					<td width="80%"><a
-						href="https://cwe.mitre.org/data/definitions/345.html">345</a></td>
-				</tr>
-				<tr>
-					<td width="20%">WASC Id</td>
-					<td width="80%">15</td>
-				</tr>
-				<tr>
-					<td width="20%">Plugin Id</td>
-					<td width="80%"><a
-						href="https://www.zaproxy.org/docs/alerts/90003/">90003</a></td>
 				</tr>
 			</table>
 			<div class="spacer"></div>
@@ -783,6 +663,37 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
+						<td width="80%"><a href="http://localhost:8080/default-ui.css">http://localhost:8080/default-ui.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%">Cross-Origin-Resource-Policy</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
 						<td width="80%"><a href="http://localhost:8080/login">http://localhost:8080/login</a></td>
 					</tr>
 					<tr>
@@ -937,7 +848,7 @@ td {
 				
 				<tr>
 					<td width="20%">Instances</td>
-					<td width="80%">6</td>
+					<td width="80%">7</td>
 				</tr>
 				<tr>
 					<td width="20%">Solution</td>
@@ -1158,6 +1069,37 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent1">URL</td>
+						<td width="80%"><a href="http://localhost:8080/default-ui.css">http://localhost:8080/default-ui.css</a></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Method</td>
+						<td width="80%">GET</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Parameter</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Attack</td>
+						<td width="80%"></td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Evidence</td>
+						<td width="80%">no-store</td>
+					</tr>
+					<tr>
+						<td width="20%"
+							class="indent2">Other Info</td>
+						<td width="80%"></td>
+					</tr>
+				
+					<tr>
+						<td width="20%"
+							class="indent1">URL</td>
 						<td width="80%"><a href="http://localhost:8080/login">http://localhost:8080/login</a></td>
 					</tr>
 					<tr>
@@ -1343,7 +1285,7 @@ td {
 				
 				<tr>
 					<td width="20%">Instances</td>
-					<td width="80%">7</td>
+					<td width="80%">8</td>
 				</tr>
 				<tr>
 					<td width="20%">Solution</td>
@@ -1456,7 +1398,7 @@ td {
 					<tr>
 						<td width="20%"
 							class="indent2">Evidence</td>
-						<td width="80%">52C2B0ED40B6818F74F85686CB13692C</td>
+						<td width="80%">0618ADDB9DF12DA180073483A5FE0631</td>
 					</tr>
 					<tr>
 						<td width="20%"
@@ -1488,7 +1430,7 @@ cookie:JSESSIONID</td>
 					<tr>
 						<td width="20%"
 							class="indent2">Evidence</td>
-						<td width="80%">3185005D99576D2722362D52828060CC</td>
+						<td width="80%">6BC26770A6A686BFED6F9463930C1ACB</td>
 					</tr>
 					<tr>
 						<td width="20%"
@@ -1520,7 +1462,7 @@ cookie:JSESSIONID</td>
 					<tr>
 						<td width="20%"
 							class="indent2">Evidence</td>
-						<td width="80%">0BC8C0A0A5549ADA96C5D9DE1F88F879</td>
+						<td width="80%">388008A75BAF6A42434D3DF3148FCA9A</td>
 					</tr>
 					<tr>
 						<td width="20%"

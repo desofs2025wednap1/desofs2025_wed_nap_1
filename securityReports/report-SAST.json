@@ -10,22 +10,22 @@
           "version": "1.0.0",
           "rules": [
             {
-              "id": "java/DisablesCSRFProtection",
-              "name": "DisablesCSRFProtection",
+              "id": "java/HardcodedPassword",
+              "name": "HardcodedPassword",
               "shortDescription": {
-                "text": "Cross-Site Request Forgery (CSRF)"
+                "text": "Use of Hardcoded Passwords"
               },
               "defaultConfiguration": {
-                "level": "error"
+                "level": "warning"
               },
               "help": {
-                "markdown": "\n## Details\nCross-site request forgery is an attack in which a malicious third party takes advantage of a user's authenticated credentials (such as a browser cookie) to impersonate that trusted user and perform unauthorized actions. The web application server cannot tell the difference between legitimate and malicious requests. This type of attack generally begins by tricking the user with a social engineering attack, such as a link or popup that the user inadvertently clicks, causing an unauthorized request to be sent to the web server. Consequences vary: At a standard user level, attackers can change passwords, transfer funds, make purchases, or connect with contacts; from an administrator account, attackers can then make changes to or even take down the app itself.\n\n## Best practices for prevention\n* Use development frameworks that defend against CSRF, using a nonce, hash, or some other security device to the URL and/or to forms.\n* Implement secure, unique, hidden tokens that are checked by the server each time to validate state-change requests.\n* Never assume that authentication tokens and session identifiers mean a request is legitimate.\n* Understand and implement other safe-cookie techniques, such as double submit cookies.\n* Terminate user sessions when not in use, including automatic timeout.\n* Ensure rigorous coding practices and defenses against other commonly exploited CWEs, since cross-site scripting (XSS), for example, can be used to bypass defenses against CSRF.",
+                "markdown": "\n## Details\n\nDevelopers may use hardcoded passwords during development to streamline setup or simplify authentication while testing. Although these passwords are intended to be removed before deployment, they are sometimes inadvertently left in the code. This introduces serious security risks, especially if the password grants elevated privileges or is reused across multiple systems.\n\nAn attacker who discovers a hardcoded password can potentially gain unauthorized access, escalate privileges, exfiltrate sensitive data, or disrupt service availability. If the password is reused across different environments or applications, the compromise can spread quickly and broadly.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
                 "text": ""
               },
               "properties": {
                 "tags": [
                   "java",
-                  "DisablesCSRFProtection",
+                  "HardcodedPassword",
                   "Security"
                 ],
                 "categories": [
@@ -33,226 +33,147 @@
                 ],
                 "exampleCommitFixes": [
                   {
-                    "commitURL": "https://github.com/13482477/JFDF/commit/3326a94a203ab334e9185d93beadc38b9c93b100?diff=split#diff-a9f9136673bc42f9fcd901899a430de1862ad2f7cda4150ce17bbddbd5909851L-1",
+                    "commitURL": "https://github.com/clowee/OpenSZZ-Cloud-Native/commit/ee429faf9d384074cf33515eda2a52e4e85ef061?diff=split#diff-a125fdf9d37b8daa4d9f0a7a46aedd416a80a49936bdee4bae40db3f3eef22deL-1",
                     "lines": [
                       {
-                        "line": "http\r\n",
-                        "lineNumber": 37,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": ".authorizeRequests()\r\n",
-                        "lineNumber": 38,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t.antMatchers(new String[] {\r\n",
-                        "lineNumber": 39,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/login\",\r\n",
-                        "lineNumber": 40,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/logout\",\r\n",
-                        "lineNumber": 41,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/**/*.css\",\r\n",
-                        "lineNumber": 42,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/**/*.js\",\r\n",
-                        "lineNumber": 43,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/**/*.woff\",\r\n",
-                        "lineNumber": 44,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/**/*.woff2\",\r\n",
-                        "lineNumber": 45,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/**/*.css.map\",\r\n",
-                        "lineNumber": 46,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/**/*.ttf\",\r\n",
-                        "lineNumber": 47,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/**/*.png\",\r\n",
-                        "lineNumber": 48,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/**/*.jpg\",\r\n",
-                        "lineNumber": 49,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/**/*.jpeg\",\r\n",
-                        "lineNumber": 50,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t\"/**/*.gif\",\r\n",
-                        "lineNumber": 51,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\t\t}).permitAll()\r\n",
-                        "lineNumber": 52,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t.anyRequest().authenticated()\r\n",
-                        "lineNumber": 53,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t.and()\r\n",
-                        "lineNumber": 54,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": ".formLogin()\r\n",
-                        "lineNumber": 55,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t.loginPage(\"/login\")\r\n",
-                        "lineNumber": 56,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t.defaultSuccessUrl(\"/index\")\r\n",
-                        "lineNumber": 57,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t.failureHandler(new FeedbackLoginInfoAuthenticationFailureHandler(\"/login\"))\r\n",
-                        "lineNumber": 58,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t.and()\r\n",
-                        "lineNumber": 59,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": ".logout()\r\n",
-                        "lineNumber": 60,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t.logoutUrl(\"/logout\")\r\n",
-                        "lineNumber": 61,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t.logoutSuccessUrl(\"/login\")\r\n",
-                        "lineNumber": 62,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t.and()\r\n",
-                        "lineNumber": 63,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": ".csrf()\r\n",
-                        "lineNumber": 64,
+                        "line": "final String username = \"noreply.openszz@gmail.com\";\n",
+                        "lineNumber": 19,
                         "lineChange": "removed"
                       },
                       {
-                        "line": "\t.disable();\r\n",
-                        "lineNumber": 65,
+                        "line": "final String password = \"Aa30011992\";\n",
+                        "lineNumber": 20,
                         "lineChange": "removed"
                       },
                       {
-                        "line": ".csrf();\r\n",
-                        "lineNumber": 64,
+                        "line": "final String username = System.getenv(\"EMAIL\");\n",
+                        "lineNumber": 19,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "final String password = System.getenv(\"PWD\");\n",
+                        "lineNumber": 20,
                         "lineChange": "added"
                       }
                     ]
                   },
                   {
-                    "commitURL": "https://github.com/mraible/java-webapp-security-examples/commit/1ae83aeb6975a107dcdb616eeae63bc846fcadaf?diff=split#diff-b8cb20d5732c784ae693cb1cd9ecb813e912a21fe570c581998875276a2a642dL-1",
+                    "commitURL": "https://github.com/winstonli/writelatex-git-bridge/commit/1117c70f31cee7d9a84c565c143f353d8bbab19e?diff=split#diff-16d090e60dcd386546c2164ae454bd356cbf326d715a66796582e8c003d8af10L-1",
                     "lines": [
                       {
-                        "line": "http\n",
-                        "lineNumber": 23,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "    .csrf().disable()\n",
-                        "lineNumber": 24,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "    .csrf().and()\n",
-                        "lineNumber": 24,
+                        "line": "    public static void setBasicAuth(String username, String password) {\n",
+                        "lineNumber": 27,
                         "lineChange": "added"
-                      }
-                    ]
-                  },
-                  {
-                    "commitURL": "https://github.com/jgribonvald/demo-spring-security-cas/commit/3b1ee5ecc5e718513127355b884c165bb4936c7f?diff=split#diff-4ead997b1df6dd1b785b7ba2dbcb18dfb6f6624a1997e5642b016adf46e69d08L-1",
-                    "lines": [
-                      {
-                        "line": "\t\t/**\n",
-                        "lineNumber": 162,
-                        "lineChange": "removed"
                       },
                       {
-                        "line": "\t\t * <session-management session-fixation-protection=\"newSession\"/>\n",
-                        "lineNumber": 163,
-                        "lineChange": "removed"
+                        "line": "        USERNAME = username;\n",
+                        "lineNumber": 28,
+                        "lineChange": "added"
                       },
                       {
-                        "line": "\t\t */\n",
-                        "lineNumber": 164,
-                        "lineChange": "removed"
+                        "line": "        PASSWORD = password;\n",
+                        "lineNumber": 29,
+                        "lineChange": "added"
                       },
                       {
-                        "line": "\t\thttp.sessionManagement().sessionFixation().changeSessionId();\n",
-                        "lineNumber": 165,
-                        "lineChange": "removed"
+                        "line": "    }\n",
+                        "lineNumber": 30,
+                        "lineChange": "added"
                       },
                       {
                         "line": "\n",
-                        "lineNumber": 166,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "\t\thttp.csrf().disable();\n",
-                        "lineNumber": 167,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "\t\t// http.csrf();\n",
-                        "lineNumber": 171,
+                        "lineNumber": 31,
                         "lineChange": "added"
+                      },
+                      {
+                        "line": "    public static void setBaseURL(String baseURL) {\n",
+                        "lineNumber": 32,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "        BASE_URL = baseURL;\n",
+                        "lineNumber": 33,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "    }\n",
+                        "lineNumber": 34,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "\n",
+                        "lineNumber": 35,
+                        "lineChange": "added"
+                      }
+                    ]
+                  },
+                  {
+                    "commitURL": "https://github.com/CheckChe0803/flink-recommandSystem-demo/commit/bbe348d12bc76858d8c0878f2a89ccc0f1e7b05b?diff=split#diff-7cac3b1a67764486d11265840a420739f0339a6cc8ff947d192de102366f8acaL-1",
+                    "lines": [
+                      {
+                        "line": "private static String URL = \"jdbc:mysql://localhost/con?serverTimezone=GMT%2B8\";\n",
+                        "lineNumber": 6,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "private static String NAME = \"root\";\n",
+                        "lineNumber": 7,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "private static String PASS = \"root\";\n",
+                        "lineNumber": 8,
+                        "lineChange": "removed"
+                      },
+                      {
+                        "line": "private static String URL = Property.getStrValue(\"mysql.url\");\n",
+                        "lineNumber": 8,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "private static String NAME = Property.getStrValue(\"mysql.name\");\n",
+                        "lineNumber": 9,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "private static String PASS = Property.getStrValue(\"mysql.pass\");\n",
+                        "lineNumber": 10,
+                        "lineChange": "added"
+                      },
+                      {
+                        "line": "private static Statement stmt;\n",
+                        "lineNumber": 11,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "static {\n",
+                        "lineNumber": 12,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "    try {\n",
+                        "lineNumber": 13,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        Class.forName(\"com.mysql.cj.jdbc.Driver\");\n",
+                        "lineNumber": 14,
+                        "lineChange": "none"
+                      },
+                      {
+                        "line": "        Connection conn = DriverManager.getConnection(URL, NAME, PASS);\n",
+                        "lineNumber": 15,
+                        "lineChange": "none"
                       }
                     ]
                   }
                 ],
                 "exampleCommitDescriptions": [],
                 "precision": "very-high",
-                "repoDatasetSize": 42,
+                "repoDatasetSize": 74,
                 "cwe": [
-                  "CWE-352"
+                  "CWE-798",
+                  "CWE-259"
                 ]
               }
             },
@@ -274,8 +195,9 @@
                   "java",
                   "PT",
                   "Security",
-                  "SourceServer",
-                  "SourceHttpBody",
+                  "SourceNonServer",
+                  "SourceLocalEnv",
+                  "SourceCLI",
                   "Taint"
                 ],
                 "categories": [
@@ -622,208 +544,6 @@
               }
             },
             {
-              "id": "java/ReturnsPassword",
-              "name": "ReturnsPassword",
-              "shortDescription": {
-                "text": "Unprotected Storage of Credentials"
-              },
-              "defaultConfiguration": {
-                "level": "warning"
-              },
-              "help": {
-                "markdown": "## Details\n\nIf credentials are not protected or not sufficiently protected through strong encryption, attackers can access this information in a number of ways. Developers may rely on plain-text storage of credentials when they believe the system is completely secure from attack or only accessible to insiders. This confidence is misguided and dangerous. If a malicious insider-such as a former employee-or a hostile attacker using SQL injection, XML injection, or a brute-force attack accesses the system, they can access this credential information to gain unauthorized permissions within the system and to export other confidential and secure information.\n\n## Best practices for prevention\n* Ensure that passwords are never stored in plain text, even for \"purely internal\" use.\n* Never rely on password encoding, such as base 64 encoding; choose a complex encryption algorithm that includes salting, then hashing.\n* Implement zero-trust approaches in which users have access only to information needed for legitimate business purposes.\n* To the greatest extent possible, secure the application against injection attacks and other types of weaknesses.",
-                "text": ""
-              },
-              "properties": {
-                "tags": [
-                  "java",
-                  "ReturnsPassword",
-                  "Security"
-                ],
-                "categories": [
-                  "Security"
-                ],
-                "exampleCommitFixes": [
-                  {
-                    "commitURL": "https://github.com/ShotaOd/carbon/commit/4562a7a2c0f27065ed63c7615f044423ad1701fd?diff=split#diff-5a57acf4efafddf23331cc9f3c8d724e1cdd01633f61aa2d4e680b9b5241ff71L-1",
-                    "lines": [
-                      {
-                        "line": "import org.mindrot.jbcrypt.BCrypt;\n",
-                        "lineNumber": 6,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 7,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "/**\n",
-                        "lineNumber": 8,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": " * @author Shota Oda 2016/11/23.\n",
-                        "lineNumber": 9,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": " */\n",
-                        "lineNumber": 10,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "@Data\n",
-                        "lineNumber": 11,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "@AllArgsConstructor\n",
-                        "lineNumber": 12,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "public class BusinessAuthIdentity implements AuthIdentity{\n",
-                        "lineNumber": 13,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 14,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\tprivate Lecturer user;\n",
-                        "lineNumber": 15,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 16,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t@Override\n",
-                        "lineNumber": 17,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\tpublic String username() {\n",
-                        "lineNumber": 18,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\treturn user.getUsername();\n",
-                        "lineNumber": 19,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t}\n",
-                        "lineNumber": 20,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 21,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t@Override\n",
-                        "lineNumber": 22,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\tpublic String cryptPassword() {\n",
-                        "lineNumber": 23,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\treturn user.getPassword();\n",
-                        "lineNumber": 24,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t}\n",
-                        "lineNumber": 25,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 26,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t@Override\n",
-                        "lineNumber": 27,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\tpublic boolean confirm(String plainPassword) {\n",
-                        "lineNumber": 28,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t\treturn cryptPassword().equals(plainPassword);\n",
-                        "lineNumber": 28,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "        return BCrypt.checkpw(plainPassword, cryptPassword());\n",
-                        "lineNumber": 29,
-                        "lineChange": "added"
-                      }
-                    ]
-                  },
-                  {
-                    "commitURL": "https://github.com/inbloom/secure-data-service/commit/3fa417150ddd23be7d76e75ce371d6be3d23e778?diff=split#diff-2c2abfa3625909a294c9c9db46cb34d8c5dda8baab7c7a40c5125abf7ffd05aeL-1",
-                    "lines": [
-                      {
-                        "line": "return !(securityContext == null || securityContext.getAuthentication() == null || securityContext.getAuthentication().getCredentials() == null || securityContext.getAuthentication().getCredentials().equals(\"\"));\n",
-                        "lineNumber": 49,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "return !(securityContext == null || securityContext.getAuthentication() == null || !securityContext.getAuthentication().isAuthenticated());\n",
-                        "lineNumber": 49,
-                        "lineChange": "added"
-                      }
-                    ]
-                  },
-                  {
-                    "commitURL": "https://github.com/geoserver/geoserver/commit/2306fad111f1535389489c351af5104abeac00b0?diff=split#diff-7389a9006d12ec8f1e4034b12be4e717327f9a5917972f9b71f8415f1b695a88L-1",
-                    "lines": [
-                      {
-                        "line": "public boolean matches(CharSequence rawPassword, String encodedPassword) {\n",
-                        "lineNumber": 114,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "    return rawPassword.equals(decodeToCharArray(encodedPassword));\n",
-                        "lineNumber": 111,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "    return this.isPasswordValid(rawPassword.toString(), encodedPassword, null);\n",
-                        "lineNumber": 115,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    //return rawPassword.equals(decodeToCharArray(encodedPassword));\n",
-                        "lineNumber": 116,
-                        "lineChange": "added"
-                      }
-                    ]
-                  }
-                ],
-                "exampleCommitDescriptions": [],
-                "precision": "very-high",
-                "repoDatasetSize": 9,
-                "cwe": [
-                  "CWE-256"
-                ]
-              }
-            },
-            {
               "id": "java/TooPermissiveCors",
               "name": "TooPermissiveCors",
               "shortDescription": {
@@ -1075,1508 +795,14 @@
                   "CWE-346"
                 ]
               }
-            },
-            {
-              "id": "java/XSS",
-              "name": "XSS",
-              "shortDescription": {
-                "text": "Cross-site Scripting (XSS)"
-              },
-              "defaultConfiguration": {
-                "level": "error"
-              },
-              "help": {
-                "markdown": "## Details\n\nA cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source.\n\nThis is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML)  in order to perform actions that are otherwise typically blocked by the browser's Same Origin Policy.\n\nInjecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability.\n\nEscaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as  `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they've been correctly escaped in the application code and in this way the attempted attack is diverted.\n\nThe most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware.\n\n### Types of attacks\nThere are a few methods by which XSS can be manipulated:\n\n|Type|Origin|Description|\n|--|--|--|\n|**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.|\n|**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user's browser.|\n|**DOM-based**|Client|The attacker forces the user's browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.|\n|**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.|\n\n### Affected environments\nThe following environments are susceptible to an XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n## Best practices for prevention\nThis section describes the top best practices designed to specifically protect your code:\n\n* Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches.\n* Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents.\n* Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n* Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions.\n* Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack.\n* Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML.",
-                "text": ""
-              },
-              "properties": {
-                "tags": [
-                  "java",
-                  "XSS",
-                  "Security",
-                  "SourceServer",
-                  "SourceRequestUrl",
-                  "Taint"
-                ],
-                "categories": [
-                  "Security"
-                ],
-                "exampleCommitFixes": [
-                  {
-                    "commitURL": "https://github.com/NaveFarjun/MagitWeb/commit/1d1dfbfb3529f300a938005f4e5125222624c573?diff=split#diff-cda33ce748881132817fdfd59b6cf07422431a10222ec77cd3d3dac178c203efL-1",
-                    "lines": [
-                      {
-                        "line": "resp.setContentType(\"application/json;charset=UTF-8\");\n",
-                        "lineNumber": 18,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "String userName = req.getParameter(\"userName\");\n",
-                        "lineNumber": 19,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "if (userName == null) {\n",
-                        "lineNumber": 20,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "    userName = SessionUtils.getUserName(req);\n",
-                        "lineNumber": 21,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "}\n",
-                        "lineNumber": 22,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "UserInSystem user=ServletUtils.getUserManaqer(getServletContext()).getUsers().get(userName);\n",
-                        "lineNumber": 23,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "Repository repository=user.getRepositories().get(req.getParameter(\"repName\"));\n",
-                        "lineNumber": 24,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "try(PrintWriter out=resp.getWriter()){\n",
-                        "lineNumber": 25,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "    Gson gson=new Gson();\n",
-                        "lineNumber": 26,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "    String json=gson.toJson(repository);\n",
-                        "lineNumber": 27,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "    out.println(json);\n",
-                        "lineNumber": 28,
-                        "lineChange": "none"
-                      }
-                    ]
-                  },
-                  {
-                    "commitURL": "https://github.com/OpenClinica/OpenClinica/commit/20d4fc43fa07322f7444fa4e18c6d71fbae92d85?diff=split#diff-59d03fffb0b89cbfff421502565d07302680cafb279c4cc424c6ba4b604dad33L-1",
-                    "lines": [
-                      {
-                        "line": "<%@ page import=\"org.springframework.web.util.HtmlUtils\" %>\n",
-                        "lineNumber": 2,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "<jsp:useBean scope='request' id='presetValues' class='java.util.HashMap'/>\n",
-                        "lineNumber": 3,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "<%\n",
-                        "lineNumber": 4,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "String fieldName = request.getParameter(\"fieldName\");\n",
-                        "lineNumber": 5,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "Object fieldValue;\n",
-                        "lineNumber": 6,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 7,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "if (presetValues.containsKey(fieldName)) {\n",
-                        "lineNumber": 8,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\tfieldValue = presetValues.get(fieldName);\n",
-                        "lineNumber": 9,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t%>\n",
-                        "lineNumber": 10,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "<%= fieldValue.toString() %>\n",
-                        "lineNumber": 10,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "<%= HtmlUtils.htmlEscape(fieldValue.toString()) %>\n",
-                        "lineNumber": 11,
-                        "lineChange": "added"
-                      }
-                    ]
-                  },
-                  {
-                    "commitURL": "https://github.com/halestudio/hale/commit/40d7b0dc89fde001c42ba3dc94fb81110df888a3?diff=split#diff-be9bbd5658ee33e7e23c7aae5d9ef1431c1337b1afc9918596ada29859747d38L-1",
-                    "lines": [
-                      {
-                        "line": "response.setContentType(\"text/xml\");\n",
-                        "lineNumber": 68,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "response.setCharacterEncoding(\"UTF-8\");\n",
-                        "lineNumber": 69,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "PrintWriter writer = response.getWriter();\n",
-                        "lineNumber": 70,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 71,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "// read file\n",
-                        "lineNumber": 72,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "FileReader fReader = new FileReader(file);\n",
-                        "lineNumber": 73,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "BufferedReader reader = new BufferedReader(fReader);\n",
-                        "lineNumber": 74,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 75,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "String txt;\n",
-                        "lineNumber": 76,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "while ((txt = reader.readLine()) != null) {\n",
-                        "lineNumber": 77,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\t// and write to screen\n",
-                        "lineNumber": 78,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "\twriter.println(txt);\n",
-                        "lineNumber": 79,
-                        "lineChange": "none"
-                      }
-                    ]
-                  }
-                ],
-                "exampleCommitDescriptions": [],
-                "precision": "very-high",
-                "repoDatasetSize": 102,
-                "cwe": [
-                  "CWE-79"
-                ]
-              }
-            },
-            {
-              "id": "java/HardcodedPassword",
-              "name": "HardcodedPassword",
-              "shortDescription": {
-                "text": "Use of Hardcoded Passwords"
-              },
-              "defaultConfiguration": {
-                "level": "warning"
-              },
-              "help": {
-                "markdown": "\n## Details\n\nDevelopers may use hardcoded passwords during development to streamline setup or simplify authentication while testing. Although these passwords are intended to be removed before deployment, they are sometimes inadvertently left in the code. This introduces serious security risks, especially if the password grants elevated privileges or is reused across multiple systems.\n\nAn attacker who discovers a hardcoded password can potentially gain unauthorized access, escalate privileges, exfiltrate sensitive data, or disrupt service availability. If the password is reused across different environments or applications, the compromise can spread quickly and broadly.\n\n## Best practices for prevention\n* Plan software architecture such that keys and passwords are always stored outside the code, wherever possible.\n* Plan encryption into software architecture for all credential information and ensure proper handling of keys, credentials, and passwords.\n* Prompt for a secure password on first login rather than hard-code a default password.\n* If a hardcoded password or credential must be used, limit its use, for example, to system console users rather than via the network.\n* Use strong hashes for inbound password authentication, ideally with randomly assigned salts to increase the difficulty level in case of brute-force attack.",
-                "text": ""
-              },
-              "properties": {
-                "tags": [
-                  "java",
-                  "HardcodedPassword",
-                  "Security"
-                ],
-                "categories": [
-                  "Security"
-                ],
-                "exampleCommitFixes": [
-                  {
-                    "commitURL": "https://github.com/clowee/OpenSZZ-Cloud-Native/commit/ee429faf9d384074cf33515eda2a52e4e85ef061?diff=split#diff-a125fdf9d37b8daa4d9f0a7a46aedd416a80a49936bdee4bae40db3f3eef22deL-1",
-                    "lines": [
-                      {
-                        "line": "final String username = \"noreply.openszz@gmail.com\";\n",
-                        "lineNumber": 19,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "final String password = \"Aa30011992\";\n",
-                        "lineNumber": 20,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "final String username = System.getenv(\"EMAIL\");\n",
-                        "lineNumber": 19,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "final String password = System.getenv(\"PWD\");\n",
-                        "lineNumber": 20,
-                        "lineChange": "added"
-                      }
-                    ]
-                  },
-                  {
-                    "commitURL": "https://github.com/winstonli/writelatex-git-bridge/commit/1117c70f31cee7d9a84c565c143f353d8bbab19e?diff=split#diff-16d090e60dcd386546c2164ae454bd356cbf326d715a66796582e8c003d8af10L-1",
-                    "lines": [
-                      {
-                        "line": "    public static void setBasicAuth(String username, String password) {\n",
-                        "lineNumber": 27,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "        USERNAME = username;\n",
-                        "lineNumber": 28,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "        PASSWORD = password;\n",
-                        "lineNumber": 29,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    }\n",
-                        "lineNumber": 30,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 31,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    public static void setBaseURL(String baseURL) {\n",
-                        "lineNumber": 32,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "        BASE_URL = baseURL;\n",
-                        "lineNumber": 33,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    }\n",
-                        "lineNumber": 34,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 35,
-                        "lineChange": "added"
-                      }
-                    ]
-                  },
-                  {
-                    "commitURL": "https://github.com/CheckChe0803/flink-recommandSystem-demo/commit/bbe348d12bc76858d8c0878f2a89ccc0f1e7b05b?diff=split#diff-7cac3b1a67764486d11265840a420739f0339a6cc8ff947d192de102366f8acaL-1",
-                    "lines": [
-                      {
-                        "line": "private static String URL = \"jdbc:mysql://localhost/con?serverTimezone=GMT%2B8\";\n",
-                        "lineNumber": 6,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "private static String NAME = \"root\";\n",
-                        "lineNumber": 7,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "private static String PASS = \"root\";\n",
-                        "lineNumber": 8,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "private static String URL = Property.getStrValue(\"mysql.url\");\n",
-                        "lineNumber": 8,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "private static String NAME = Property.getStrValue(\"mysql.name\");\n",
-                        "lineNumber": 9,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "private static String PASS = Property.getStrValue(\"mysql.pass\");\n",
-                        "lineNumber": 10,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "private static Statement stmt;\n",
-                        "lineNumber": 11,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "static {\n",
-                        "lineNumber": 12,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "    try {\n",
-                        "lineNumber": 13,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "        Class.forName(\"com.mysql.cj.jdbc.Driver\");\n",
-                        "lineNumber": 14,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "        Connection conn = DriverManager.getConnection(URL, NAME, PASS);\n",
-                        "lineNumber": 15,
-                        "lineChange": "none"
-                      }
-                    ]
-                  }
-                ],
-                "exampleCommitDescriptions": [],
-                "precision": "very-high",
-                "repoDatasetSize": 74,
-                "cwe": [
-                  "CWE-798",
-                  "CWE-259"
-                ]
-              }
-            },
-            {
-              "id": "java/NonCryptoHardcodedSecret/test",
-              "name": "NonCryptoHardcodedSecret/test",
-              "shortDescription": {
-                "text": "Use of Hardcoded, Security-relevant Constants"
-              },
-              "defaultConfiguration": {
-                "level": "note"
-              },
-              "help": {
-                "markdown": "## Details\n\nWhen constants are hardcoded into applications, this information could easily be reverse-engineered and become known to attackers. For example, if a breached authentication token is hardcoded in multiple places in the application, it may lead to components of the application remaining vulnerable if not all instances are changed.\nAnother negative effect of hard-coding constants is potential unpredictability in the application's performance if the development team fails to update every single instance of the hardcoded constant throughout the code. For these reasons, hard-coding security-relevant constants is considered bad coding practice and should be remedied if present and avoided in future.\n\n## Best practices for prevention\n* Never hard code security-related constants; use symbolic names or configuration lookup files.\n* As hard coding is often done by coders working alone on a small scale, examine all legacy code components and test carefully when scaling.\n* Adopt a \"future-proof code\" mindset: While use of constants may save a little time now and make development simpler in the short term, it could cost time and money adapting to scale or other unforeseen circumstances (such as new hardware) in the future.",
-                "text": ""
-              },
-              "properties": {
-                "tags": [
-                  "java",
-                  "NonCryptoHardcodedSecret",
-                  "Security",
-                  "InTest"
-                ],
-                "categories": [
-                  "Security",
-                  "InTest"
-                ],
-                "exampleCommitFixes": [
-                  {
-                    "commitURL": "https://github.com/tronprotocol/java-tron/commit/84148c19e3d15f344fc164913be5bee478c1f637?diff=split#diff-9ff136527c21b19349c00267ff04c85b76dae23a2d28bc0f17a7c5b2eac78565L-1",
-                    "lines": [
-                      {
-                        "line": "private String ownerAddress = \"TDZdB4ogHSgU1CGrun8WXaMb2QDDkvAKQm\";\n",
-                        "lineNumber": 17,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "private String ownerAddress = Configuration.getByPath(\"stress.conf\").getString(\"address.exchangeOwnerAddress\");\n",
-                        "lineNumber": 18,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "private long exchangeID = commonexchangeid;\n",
-                        "lineNumber": 19,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "private long quant = 1000000L;\n",
-                        "lineNumber": 20,
-                        "lineChange": "none"
-                      },
-                      {
-                        "line": "private String privateKey = \"549c7797b351e48ab1c6bb5857138b418012d97526fc2acba022357d49c93ac0\";\n",
-                        "lineNumber": 20,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "private String privateKey = Configuration.getByPath(\"stress.conf\").getString(\"privateKey.exchangeOwnerKey\");\n",
-                        "lineNumber": 21,
-                        "lineChange": "added"
-                      }
-                    ]
-                  },
-                  {
-                    "commitURL": "https://github.com/shuxianfeng/movision/commit/5ee84a05bac382bea508e6a42da3330b1ccf4371?diff=split#diff-bdd70437062ccb0d3735e4c014d182875ef0c029af6c9c8c3e2a42e4136d410fL-1",
-                    "lines": [
-                      {
-                        "line": "        String accessKeyId = \"LTAITI0FOKgMZQty\";\n",
-                        "lineNumber": 15,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "        String accessKeySecret = \"5x12H1yASg31OlPanhTCg0z0PzNr3t\";\n",
-                        "lineNumber": 16,
-                        "lineChange": "removed"
-                      },
-                      {
-                        "line": "        String accessKeyId = PropertiesLoader.getValue(\"access.key.id\");\n",
-                        "lineNumber": 17,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "        String accessKeySecret = PropertiesLoader.getValue(\"access.key.secret\");\n",
-                        "lineNumber": 18,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "\n",
-                        "lineNumber": 19,
-                        "lineChange": "added"
-                      }
-                    ]
-                  },
-                  {
-                    "commitURL": "https://github.com/xiexianbin/UEditor-for-aliyun-OSS/commit/324d6fd48c4c99d43ac30545ba30f9736b505c61?diff=split#diff-4d95e836c61d2ea3ffdda0f95df204e45f3b74f5ba58cb53c85cdb5114efa29fL-1",
-                    "lines": [
-                      {
-                        "line": "static {\r\n",
-                        "lineNumber": 17,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "String OSSKeyPath = SystemUtil.getProjectClassesPath() + \"OSSKey.properties\";\r\n",
-                        "lineNumber": 18,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "// 生成文件输入流\r\n",
-                        "lineNumber": 19,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "FileInputStream inpf = null;\r\n",
-                        "lineNumber": 20,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "try {\r\n",
-                        "lineNumber": 21,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    inpf = new FileInputStream(new File(OSSKeyPath));\r\n",
-                        "lineNumber": 22,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    OSSKeyProperties.load(inpf);\r\n",
-                        "lineNumber": 23,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    useStatus = (Boolean) OSSKeyProperties.get(\"useStatus\");\r\n",
-                        "lineNumber": 24,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    key = (String) OSSKeyProperties.get(\"key\");\r\n",
-                        "lineNumber": 25,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    secret = (String) OSSKeyProperties.get(\"secret\");\r\n",
-                        "lineNumber": 26,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    endPoint = (String) OSSKeyProperties.get(\"endPoint\");\r\n",
-                        "lineNumber": 27,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "} catch (Exception e) {\r\n",
-                        "lineNumber": 28,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "    e.printStackTrace();\r\n",
-                        "lineNumber": 29,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "}\r\n",
-                        "lineNumber": 30,
-                        "lineChange": "added"
-                      },
-                      {
-                        "line": "}\r\n",
-                        "lineNumber": 31,
-                        "lineChange": "added"
-                      }
-                    ]
-                  }
-                ],
-                "exampleCommitDescriptions": [],
-                "precision": "very-high",
-                "repoDatasetSize": 33,
-                "cwe": [
-                  "CWE-547"
-                ]
-              }
             }
           ]
         }
       },
       "results": [
         {
-          "ruleId": "java/DisablesCSRFProtection",
-          "ruleIndex": 0,
-          "level": "error",
-          "message": {
-            "text": "CSRF protection is disabled by disable. This allows the attackers to execute requests on a user's behalf.",
-            "markdown": "CSRF protection is disabled by {0}. This allows the attackers to execute requests on a user's behalf.",
-            "arguments": [
-              "[disable](0)"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/configuration/WebSecurityConfiguration.java",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 28,
-                  "endLine": 29,
-                  "startColumn": 9,
-                  "endColumn": 35
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "0": "423403cc0dd47d747fb92099be8bbeba76aa98c84e832dd7aee41c82f20c89f0",
-            "1": "b5099633.9526148f.b1578a41.b2ac4de3.abc9aa4a.41206609.3953228b.d0820912.b5099633.9526148f.b1578a41.b2ac4de3.f17f544b.2216e4d9.3953228b.b6581a1c"
-          },
-          "codeFlows": [
-            {
-              "threadFlows": [
-                {
-                  "locations": [
-                    {
-                      "location": {
-                        "id": 0,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/configuration/WebSecurityConfiguration.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 28,
-                            "endLine": 29,
-                            "startColumn": 9,
-                            "endColumn": 45
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "properties": {
-            "priorityScore": 757,
-            "priorityScoreFactors": [
-              {
-                "label": true,
-                "type": "hotFileCodeFlow"
-              },
-              {
-                "label": true,
-                "type": "fixExamples"
-              }
-            ],
-            "isAutofixable": true
-          }
-        },
-        {
-          "ruleId": "java/PT",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "Unsanitized input from the HTTP request body flows into java.io.FileOutputStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.",
-            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.",
-            "arguments": [
-              "[the HTTP request body](0)",
-              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10)",
-              "[java.io.FileOutputStream](11)"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 50,
-                  "endLine": 50,
-                  "startColumn": 34,
-                  "endColumn": 59
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "0": "4a72118ff108487a5b8cac3db5e25f302d8d027c3ddc17c506c0dc43a9e5d47f",
-            "1": "be719357.ca952c94.a224ef38.06245546.fe5d5fc2.789cbeb9.d1171e40.96f2b075.be719357.4bb3fd0b.7820398b.de031890.fe5d5fc2.ce109560.d1171e40.96f2b075"
-          },
-          "codeFlows": [
-            {
-              "threadFlows": [
-                {
-                  "locations": [
-                    {
-                      "location": {
-                        "id": 0,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 46,
-                            "endLine": 46,
-                            "startColumn": 59,
-                            "endColumn": 123
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 1,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 46,
-                            "endLine": 46,
-                            "startColumn": 59,
-                            "endColumn": 123
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 2,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 50,
-                            "endLine": 50,
-                            "startColumn": 69,
-                            "endColumn": 73
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 3,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/mapper/PerfumeMapper.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 60,
-                            "endLine": 60,
-                            "startColumn": 75,
-                            "endColumn": 93
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 4,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/mapper/PerfumeMapper.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 65,
-                            "endLine": 65,
-                            "startColumn": 83,
-                            "endColumn": 87
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 5,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 107,
-                            "endLine": 107,
-                            "startColumn": 49,
-                            "endColumn": 76
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 6,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 114,
-                            "endLine": 114,
-                            "startColumn": 34,
-                            "endColumn": 47
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 7,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 114,
-                            "endLine": 114,
-                            "startColumn": 34,
-                            "endColumn": 67
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 8,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 114,
-                            "endLine": 114,
-                            "startColumn": 29,
-                            "endColumn": 33
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 9,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 114,
-                            "endLine": 114,
-                            "startColumn": 18,
-                            "endColumn": 70
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 10,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 115,
-                            "endLine": 115,
-                            "startColumn": 62,
-                            "endColumn": 66
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 11,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 115,
-                            "endLine": 115,
-                            "startColumn": 45,
-                            "endColumn": 61
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "properties": {
-            "priorityScore": 847,
-            "priorityScoreFactors": [
-              {
-                "label": true,
-                "type": "multipleOccurrence"
-              },
-              {
-                "label": true,
-                "type": "hotFileSource"
-              },
-              {
-                "label": true,
-                "type": "fixExamples"
-              }
-            ],
-            "isAutofixable": false
-          }
-        },
-        {
-          "ruleId": "java/PT",
-          "ruleIndex": 1,
-          "level": "error",
-          "message": {
-            "text": "Unsanitized input from the HTTP request body flows into java.io.FileOutputStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.",
-            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.",
-            "arguments": [
-              "[the HTTP request body](0)",
-              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10)",
-              "[java.io.FileOutputStream](11)"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 58,
-                  "endLine": 58,
-                  "startColumn": 34,
-                  "endColumn": 59
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "0": "efa7dff545553b57f65041ee0aba5033331cc126fff0e6000c1834edcc9b1b7e",
-            "1": "be719357.ca952c94.a224ef38.06245546.fe5d5fc2.789cbeb9.d1171e40.96f2b075.be719357.4bb3fd0b.7820398b.de031890.fe5d5fc2.ce109560.d1171e40.96f2b075"
-          },
-          "codeFlows": [
-            {
-              "threadFlows": [
-                {
-                  "locations": [
-                    {
-                      "location": {
-                        "id": 0,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 54,
-                            "endLine": 54,
-                            "startColumn": 62,
-                            "endColumn": 126
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 1,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 54,
-                            "endLine": 54,
-                            "startColumn": 62,
-                            "endColumn": 126
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 2,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 58,
-                            "endLine": 58,
-                            "startColumn": 69,
-                            "endColumn": 73
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 3,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/mapper/PerfumeMapper.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 60,
-                            "endLine": 60,
-                            "startColumn": 75,
-                            "endColumn": 93
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 4,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/mapper/PerfumeMapper.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 65,
-                            "endLine": 65,
-                            "startColumn": 83,
-                            "endColumn": 87
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 5,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 107,
-                            "endLine": 107,
-                            "startColumn": 49,
-                            "endColumn": 76
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 6,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 114,
-                            "endLine": 114,
-                            "startColumn": 34,
-                            "endColumn": 47
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 7,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 114,
-                            "endLine": 114,
-                            "startColumn": 34,
-                            "endColumn": 67
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 8,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 114,
-                            "endLine": 114,
-                            "startColumn": 29,
-                            "endColumn": 33
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 9,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 114,
-                            "endLine": 114,
-                            "startColumn": 18,
-                            "endColumn": 70
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 10,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 115,
-                            "endLine": 115,
-                            "startColumn": 62,
-                            "endColumn": 66
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 11,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 115,
-                            "endLine": 115,
-                            "startColumn": 45,
-                            "endColumn": 61
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "properties": {
-            "priorityScore": 847,
-            "priorityScoreFactors": [
-              {
-                "label": true,
-                "type": "multipleOccurrence"
-              },
-              {
-                "label": true,
-                "type": "hotFileSource"
-              },
-              {
-                "label": true,
-                "type": "fixExamples"
-              }
-            ],
-            "isAutofixable": false
-          }
-        },
-        {
-          "ruleId": "java/ReturnsPassword",
-          "ruleIndex": 2,
-          "level": "warning",
-          "message": {
-            "text": "An attacker might be able to detect the value of the password due to the exposure of comparison timing. When the functions Arrays.equals() or String.equals() are called, they will exit earlier if fewer bytes are matched. Use password encoder such as BCrypt for comparing passwords.",
-            "markdown": "An attacker might be able to detect the value of the password due to the exposure of comparison timing. When the functions Arrays.equals() or String.equals() are called, they will exit earlier if fewer bytes are matched. Use password encoder such as BCrypt for comparing passwords.",
-            "arguments": []
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/AuthenticationServiceImpl.java",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 89,
-                  "endLine": 89,
-                  "startColumn": 44,
-                  "endColumn": 60
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "0": "f81b8885e615db534305309ff1345f383dd8d147592036d8e81f4004d1f7717c",
-            "1": "daf8aa0f.02e6f4cd.d308627b.9998adc9.dd06b926.31ccdec6.e865951e.b5f6b3ae.daf8aa0f.c8c8034f.d308627b.9998adc9.dd06b926.31ccdec6.e865951e.b58b1d67"
-          },
-          "codeFlows": [
-            {
-              "threadFlows": [
-                {
-                  "locations": [
-                    {
-                      "location": {
-                        "id": 0,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/AuthenticationServiceImpl.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 89,
-                            "endLine": 89,
-                            "startColumn": 44,
-                            "endColumn": 60
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "properties": {
-            "priorityScore": 507,
-            "priorityScoreFactors": [
-              {
-                "label": true,
-                "type": "hotFileCodeFlow"
-              },
-              {
-                "label": true,
-                "type": "fixExamples"
-              }
-            ],
-            "isAutofixable": false
-          }
-        },
-        {
-          "ruleId": "java/TooPermissiveCors",
-          "ruleIndex": 3,
-          "level": "warning",
-          "message": {
-            "text": "CORS policy \"*\" might be too permissive. This allows malicious code on other domains to communicate with the application, which is a security risk",
-            "markdown": "{0} {1} might be too permissive. This allows malicious code on other domains to communicate with the application, which is a security risk",
-            "arguments": [
-              "[CORS policy](0)",
-              "[\"*\"](1)"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/configuration/WebSocketConfiguration.java",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 21,
-                  "endLine": 21,
-                  "startColumn": 9,
-                  "endColumn": 61
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "0": "aec2b16a2127c2d1a5399b820735ba7a4559e1f190a84be9692c604dada99687",
-            "1": "9a99886a.b1738d1b.9a23c4be.e22980a8.9f4dceef.b0ca612d.151cc078.54d46e25.9a99886a.b1738d1b.9a23c4be.e22980a8.9f4dceef.b0ca612d.151cc078.54d46e25"
-          },
-          "codeFlows": [
-            {
-              "threadFlows": [
-                {
-                  "locations": [
-                    {
-                      "location": {
-                        "id": 0,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/configuration/WebSocketConfiguration.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 21,
-                            "endLine": 21,
-                            "startColumn": 9,
-                            "endColumn": 61
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 1,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/configuration/WebSocketConfiguration.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 21,
-                            "endLine": 21,
-                            "startColumn": 62,
-                            "endColumn": 65
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "properties": {
-            "priorityScore": 507,
-            "priorityScoreFactors": [
-              {
-                "label": true,
-                "type": "hotFileCodeFlow"
-              },
-              {
-                "label": true,
-                "type": "fixExamples"
-              }
-            ],
-            "isAutofixable": true
-          }
-        },
-        {
-          "ruleId": "java/XSS",
-          "ruleIndex": 4,
-          "level": "error",
-          "message": {
-            "text": "Unsanitized input from the request URL flows into here, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).",
-            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used to render an HTML page returned to the user. This may result in a Cross-Site Scripting attack (XSS).",
-            "arguments": [
-              "[the request URL](0)",
-              "[flows](1),(2),(3),(4)",
-              "[here](5)"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AuthenticationController.java",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 46,
-                  "endLine": 46,
-                  "startColumn": 16,
-                  "endColumn": 33
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "0": "bf578b6531b05181cbe2ce0d920432c463c8a9afea756e9eb8892d3e10570683",
-            "1": "f57a8a84.1cbd3ff4.fc7d5400.e22980a8.2a05aeda.f940a352.1921e5c5.54d46e25.e1d7cd7c.71bb4ac1.5f73edd4.de031890.f0e1baa5.ce109560.a62d0864.54d46e25"
-          },
-          "codeFlows": [
-            {
-              "threadFlows": [
-                {
-                  "locations": [
-                    {
-                      "location": {
-                        "id": 0,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AuthenticationController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 44,
-                            "endLine": 44,
-                            "startColumn": 63,
-                            "endColumn": 88
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 1,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AuthenticationController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 44,
-                            "endLine": 44,
-                            "startColumn": 63,
-                            "endColumn": 88
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 2,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AuthenticationController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 46,
-                            "endLine": 46,
-                            "startColumn": 83,
-                            "endColumn": 87
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 3,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AuthenticationController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 46,
-                            "endLine": 46,
-                            "startColumn": 34,
-                            "endColumn": 82
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 4,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AuthenticationController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 46,
-                            "endLine": 46,
-                            "startColumn": 16,
-                            "endColumn": 33
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "location": {
-                        "id": 5,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AuthenticationController.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 46,
-                            "endLine": 46,
-                            "startColumn": 16,
-                            "endColumn": 33
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "properties": {
-            "priorityScore": 757,
-            "priorityScoreFactors": [
-              {
-                "label": true,
-                "type": "hotFileCodeFlow"
-              },
-              {
-                "label": true,
-                "type": "fixExamples"
-              }
-            ],
-            "isAutofixable": true
-          }
-        },
-        {
           "ruleId": "java/HardcodedPassword",
-          "ruleIndex": 5,
+          "ruleIndex": 0,
           "level": "warning",
           "message": {
             "text": "Do not hardcode passwords in code. Found hardcoded password used in here.",
@@ -2633,7 +859,7 @@
             }
           ],
           "properties": {
-            "priorityScore": 570,
+            "priorityScore": 578,
             "priorityScoreFactors": [
               {
                 "label": true,
@@ -2653,7 +879,7 @@
         },
         {
           "ruleId": "java/HardcodedPassword",
-          "ruleIndex": 5,
+          "ruleIndex": 0,
           "level": "warning",
           "message": {
             "text": "Do not hardcode passwords in code. Found hardcoded password used in here.",
@@ -2710,7 +936,7 @@
             }
           ],
           "properties": {
-            "priorityScore": 570,
+            "priorityScore": 578,
             "priorityScoreFactors": [
               {
                 "label": true,
@@ -2730,7 +956,7 @@
         },
         {
           "ruleId": "java/HardcodedPassword",
-          "ruleIndex": 5,
+          "ruleIndex": 0,
           "level": "warning",
           "message": {
             "text": "Do not hardcode passwords in code. Found hardcoded password used in here.",
@@ -2787,7 +1013,7 @@
             }
           ],
           "properties": {
-            "priorityScore": 570,
+            "priorityScore": 578,
             "priorityScoreFactors": [
               {
                 "label": true,
@@ -2796,79 +1022,6 @@
               {
                 "label": true,
                 "type": "hotFileSource"
-              },
-              {
-                "label": true,
-                "type": "fixExamples"
-              }
-            ],
-            "isAutofixable": false
-          }
-        },
-        {
-          "ruleId": "java/NonCryptoHardcodedSecret/test",
-          "ruleIndex": 6,
-          "level": "note",
-          "message": {
-            "text": "Avoid hardcoding values that are meant to be secret. Found hardcoded secret.",
-            "markdown": "Avoid hardcoding values that are meant to be secret. Found hardcoded {0}.",
-            "arguments": [
-              "[secret](0)"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/test/java/com/gmail/merikbest2015/ecommerce/util/TestConstants.java",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 13,
-                  "endLine": 13,
-                  "startColumn": 44,
-                  "endColumn": 210
-                }
-              }
-            }
-          ],
-          "fingerprints": {
-            "0": "0c7f5487f86efea0fddf78be0d1e68fbcaddf1ebf8b120dfe239904ef100b5e3",
-            "1": "416089e6.42bb1e77.3c7d90aa.de031890.8b2d3351.ce109560.f2dd8dc5.388d3142.7656a3d1.42bb1e77.863af543.de031890.5fdb3ec7.ce109560.f2dd8dc5.388d3142"
-          },
-          "codeFlows": [
-            {
-              "threadFlows": [
-                {
-                  "locations": [
-                    {
-                      "location": {
-                        "id": 0,
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "src/test/java/com/gmail/merikbest2015/ecommerce/util/TestConstants.java",
-                            "uriBaseId": "%SRCROOT%"
-                          },
-                          "region": {
-                            "startLine": 13,
-                            "endLine": 13,
-                            "startColumn": 44,
-                            "endColumn": 210
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "properties": {
-            "priorityScore": 357,
-            "priorityScoreFactors": [
-              {
-                "label": true,
-                "type": "hotFileCodeFlow"
               },
               {
                 "label": true,
@@ -3093,7 +1246,7 @@
             }
           ],
           "properties": {
-            "priorityScore": 597,
+            "priorityScore": 614,
             "priorityScoreFactors": [
               {
                 "label": true,
@@ -3360,7 +1513,7 @@
             }
           ],
           "properties": {
-            "priorityScore": 597,
+            "priorityScore": 614,
             "priorityScoreFactors": [
               {
                 "label": true,
@@ -3575,7 +1728,7 @@
             }
           ],
           "properties": {
-            "priorityScore": 597,
+            "priorityScore": 614,
             "priorityScoreFactors": [
               {
                 "label": true,
@@ -3824,7 +1977,7 @@
             }
           ],
           "properties": {
-            "priorityScore": 597,
+            "priorityScore": 614,
             "priorityScoreFactors": [
               {
                 "label": true,
@@ -4090,7 +2243,7 @@
             }
           ],
           "properties": {
-            "priorityScore": 597,
+            "priorityScore": 614,
             "priorityScoreFactors": [
               {
                 "label": true,
@@ -4099,6 +2252,937 @@
               {
                 "label": true,
                 "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": true
+          }
+        },
+        {
+          "ruleId": "java/PT",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from the HTTP request body flows into exists, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to bypass the logic of the application in the conditional expression.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to bypass the logic of the application in the {3}.",
+            "arguments": [
+              "[the HTTP request body](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18)",
+              "[exists](19)",
+              "[conditional expression](20)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 48,
+                  "endLine": 48,
+                  "startColumn": 34,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "57d7d28d9f74db6d9212a5a36c328536bac20989ac8068ce684c121ae9c30056",
+            "1": "be719357.ca952c94.a224ef38.06245546.fe5d5fc2.789cbeb9.d1171e40.96f2b075.be719357.4bb3fd0b.a224ef38.de031890.fe5d5fc2.ce109560.d1171e40.96f2b075"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 44,
+                            "startColumn": 59,
+                            "endColumn": 123
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "endLine": 44,
+                            "startColumn": 59,
+                            "endColumn": 123
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "endLine": 48,
+                            "startColumn": 69,
+                            "endColumn": 73
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/mapper/PerfumeMapper.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 60,
+                            "endLine": 60,
+                            "startColumn": 75,
+                            "endColumn": 93
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/mapper/PerfumeMapper.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 65,
+                            "endLine": 65,
+                            "startColumn": 83,
+                            "endColumn": 87
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 111,
+                            "endLine": 111,
+                            "startColumn": 49,
+                            "endColumn": 76
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 122,
+                            "endLine": 122,
+                            "startColumn": 39,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 122,
+                            "endLine": 122,
+                            "startColumn": 39,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 122,
+                            "endLine": 122,
+                            "startColumn": 20,
+                            "endColumn": 74
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 95,
+                            "endColumn": 111
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 90,
+                            "endColumn": 94
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 86,
+                            "endColumn": 112
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 86,
+                            "endColumn": 120
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 20,
+                            "endColumn": 122
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 127,
+                            "endLine": 127,
+                            "startColumn": 65,
+                            "endColumn": 82
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 127,
+                            "endLine": 127,
+                            "startColumn": 59,
+                            "endColumn": 82
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 127,
+                            "endLine": 127,
+                            "startColumn": 28,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 127,
+                            "endLine": 127,
+                            "startColumn": 17,
+                            "endColumn": 83
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 148,
+                            "endLine": 148,
+                            "startColumn": 41,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 148,
+                            "endLine": 148,
+                            "startColumn": 41,
+                            "endColumn": 56
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 20,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 148,
+                            "endLine": 148,
+                            "startColumn": 21,
+                            "endColumn": 58
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 864,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/PT",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "Unsanitized input from the HTTP request body flows into exists, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to bypass the logic of the application in the conditional expression.",
+            "markdown": "Unsanitized input from {0} {1} into {2}, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to bypass the logic of the application in the {3}.",
+            "arguments": [
+              "[the HTTP request body](0)",
+              "[flows](1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18)",
+              "[exists](19)",
+              "[conditional expression](20)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 56,
+                  "endLine": 56,
+                  "startColumn": 34,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "2b8f14949109ec2ee176128390b767d89097bfedb4f52dff4a9d9bed0648f884",
+            "1": "be719357.ca952c94.a224ef38.06245546.fe5d5fc2.789cbeb9.d1171e40.96f2b075.be719357.4bb3fd0b.a224ef38.de031890.fe5d5fc2.ce109560.d1171e40.96f2b075"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 52,
+                            "endLine": 52,
+                            "startColumn": 62,
+                            "endColumn": 126
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 52,
+                            "endLine": 52,
+                            "startColumn": 62,
+                            "endColumn": 126
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 2,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/controller/AdminController.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 56,
+                            "endLine": 56,
+                            "startColumn": 69,
+                            "endColumn": 73
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 3,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/mapper/PerfumeMapper.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 60,
+                            "endLine": 60,
+                            "startColumn": 75,
+                            "endColumn": 93
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 4,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/mapper/PerfumeMapper.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 65,
+                            "endLine": 65,
+                            "startColumn": 83,
+                            "endColumn": 87
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 5,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 111,
+                            "endLine": 111,
+                            "startColumn": 49,
+                            "endColumn": 76
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 6,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 122,
+                            "endLine": 122,
+                            "startColumn": 39,
+                            "endColumn": 52
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 7,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 122,
+                            "endLine": 122,
+                            "startColumn": 39,
+                            "endColumn": 72
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 8,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 122,
+                            "endLine": 122,
+                            "startColumn": 20,
+                            "endColumn": 74
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 9,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 95,
+                            "endColumn": 111
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 10,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 90,
+                            "endColumn": 94
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 11,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 86,
+                            "endColumn": 112
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 12,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 86,
+                            "endColumn": 120
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 13,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 123,
+                            "endLine": 123,
+                            "startColumn": 20,
+                            "endColumn": 122
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 14,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 127,
+                            "endLine": 127,
+                            "startColumn": 65,
+                            "endColumn": 82
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 15,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 127,
+                            "endLine": 127,
+                            "startColumn": 59,
+                            "endColumn": 82
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 16,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 127,
+                            "endLine": 127,
+                            "startColumn": 28,
+                            "endColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 17,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 127,
+                            "endLine": 127,
+                            "startColumn": 17,
+                            "endColumn": 83
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 18,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 148,
+                            "endLine": 148,
+                            "startColumn": 41,
+                            "endColumn": 49
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 19,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 148,
+                            "endLine": 148,
+                            "startColumn": 41,
+                            "endColumn": 56
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 20,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/service/Impl/PerfumeServiceImpl.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 148,
+                            "endLine": 148,
+                            "startColumn": 21,
+                            "endColumn": 58
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 864,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "multipleOccurrence"
+              },
+              {
+                "label": true,
+                "type": "hotFileSource"
+              },
+              {
+                "label": true,
+                "type": "fixExamples"
+              }
+            ],
+            "isAutofixable": false
+          }
+        },
+        {
+          "ruleId": "java/TooPermissiveCors",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "CORS policy \"*\" might be too permissive. This allows malicious code on other domains to communicate with the application, which is a security risk",
+            "markdown": "{0} {1} might be too permissive. This allows malicious code on other domains to communicate with the application, which is a security risk",
+            "arguments": [
+              "[CORS policy](0)",
+              "[\"*\"](1)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/configuration/WebSocketConfiguration.java",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 21,
+                  "endLine": 21,
+                  "startColumn": 9,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "fingerprints": {
+            "0": "aec2b16a2127c2d1a5399b820735ba7a4559e1f190a84be9692c604dada99687",
+            "1": "9a99886a.b1738d1b.9a23c4be.e22980a8.9f4dceef.b0ca612d.151cc078.54d46e25.9a99886a.b1738d1b.9a23c4be.e22980a8.9f4dceef.b0ca612d.151cc078.54d46e25"
+          },
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "id": 0,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/configuration/WebSocketConfiguration.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "endLine": 21,
+                            "startColumn": 9,
+                            "endColumn": 61
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "id": 1,
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "src/main/java/com/gmail/merikbest2015/ecommerce/configuration/WebSocketConfiguration.java",
+                            "uriBaseId": "%SRCROOT%"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "endLine": 21,
+                            "startColumn": 62,
+                            "endColumn": 65
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "priorityScore": 510,
+            "priorityScoreFactors": [
+              {
+                "label": true,
+                "type": "hotFileCodeFlow"
               },
               {
                 "label": true,
