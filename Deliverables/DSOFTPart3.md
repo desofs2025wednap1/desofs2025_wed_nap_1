@@ -23,6 +23,24 @@ For this phase of the project, the focus was on automating the development, test
     * **Dynamic Application Security Testing (DAST):** To test the running application for security flaws.
 * **Infrastructure and Configuration:** The sprint also included security configuration, installation, and an overall security assessment of the final application.
 
+### Automated Pipelines Analysis
+
+Our project now includes a comprehensive set of automated pipelines designed to ensure code quality, security, and integrity. These pipelines are managed through GitHub Actions and are defined in the `.github/workflows` directory.
+
+#### The Superpipeline
+
+The centerpiece of our automation is the **Superpipeline**, defined in `superpipeline.yml`. This pipeline consolidates multiple quality and security checks into a single, manually triggered workflow. It is composed of the following jobs:
+
+* **Quality-Assurance**: This job leverages the `super-linter` to perform static analysis on the codebase. It checks for code smells, style violations, and other quality issues across multiple programming languages.
+* **Unit-and-Integration-Tests**: This job is responsible for building the application and running our full suite of automated tests. It uses **Maven** to execute both unit and integration tests, ensuring that new changes do not break existing functionality.
+* **Security-Audit**: A crucial component of our DevSecOps approach, this job runs a battery of security scans to identify potential vulnerabilities:
+    * **Gitleaks**: Scans the repository for hardcoded secrets, such as API keys and passwords.
+    * **Snyk**: Performs both Static Application Security Testing (SAST) to find vulnerabilities in our source code and Software Composition Analysis (SCA) to identify security issues in our third-party dependencies.
+    * **OWASP ZAP**: Executes Dynamic Application Security Testing (DAST) by scanning the running application for common web application vulnerabilities.
+* **Build-and-Push-Docker-Image**: This job, currently commented out, is designed to build and push the application as a Docker image to a container registry, paving the way for automated deployments.
+
+By integrating these tools into a single superpipeline, we have created a robust and efficient workflow that automates the most critical aspects of the development lifecycle, from code quality and testing to security and deployment readiness. This ensures that every change is automatically vetted for quality and security, enabling us to deliver a more secure and reliable application.
+
 ---
 
 ### **ASVS Checklist Results**
