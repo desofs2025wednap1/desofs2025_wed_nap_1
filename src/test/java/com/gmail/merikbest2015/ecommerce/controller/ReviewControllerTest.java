@@ -2,15 +2,15 @@ package com.gmail.merikbest2015.ecommerce.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.merikbest2015.ecommerce.dto.review.ReviewRequest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.FILL_IN_THE_INPUT_FIELD;
@@ -19,13 +19,14 @@ import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.API_V1_R
 import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.PERFUME_ID;
 import static com.gmail.merikbest2015.ecommerce.util.TestConstants.FIRST_NAME;
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @TestPropertySource("/application-test.properties")
 @Sql(value = {"/sql/create-perfumes-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -61,7 +62,8 @@ public class ReviewControllerTest {
 
         mockMvc.perform(post(API_V1_REVIEW)
                         .content(mapper.writeValueAsString(reviewRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(1)))
                 .andExpect(jsonPath("$.author", equalTo(FIRST_NAME)))
@@ -79,7 +81,8 @@ public class ReviewControllerTest {
 
         mockMvc.perform(post(API_V1_REVIEW)
                         .content(mapper.writeValueAsString(reviewRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf()))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$", equalTo(PERFUME_NOT_FOUND)));
     }
@@ -90,7 +93,8 @@ public class ReviewControllerTest {
 
         mockMvc.perform(post(API_V1_REVIEW)
                         .content(mapper.writeValueAsString(reviewRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.authorError", is(FILL_IN_THE_INPUT_FIELD)))
                 .andExpect(jsonPath("$.messageError", is(FILL_IN_THE_INPUT_FIELD)));

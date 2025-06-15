@@ -2,16 +2,16 @@ package com.gmail.merikbest2015.ecommerce.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.merikbest2015.ecommerce.dto.RegistrationRequest;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.*;
@@ -20,12 +20,13 @@ import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.API_V1_R
 import static com.gmail.merikbest2015.ecommerce.util.TestConstants.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @TestPropertySource("/application-test.properties")
 @Sql(value = {"/sql/create-user-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -40,7 +41,7 @@ public class RegistrationControllerTest {
 
     private RegistrationRequest registrationRequest;
 
-    @Before
+    @BeforeEach
     public void init() {
         registrationRequest = new RegistrationRequest();
         registrationRequest.setEmail("testtest@test.com");
@@ -58,7 +59,8 @@ public class RegistrationControllerTest {
 
         mockMvc.perform(post(API_V1_REGISTRATION)
                         .content(mapper.writeValueAsString(registrationRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.password2Error", is(PASSWORD2_CHARACTER_LENGTH)));
     }
@@ -69,7 +71,8 @@ public class RegistrationControllerTest {
 
         mockMvc.perform(post(API_V1_REGISTRATION)
                         .content(mapper.writeValueAsString(registrationRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.passwordError", is(PASSWORDS_DO_NOT_MATCH)));
     }
@@ -86,7 +89,8 @@ public class RegistrationControllerTest {
 
         mockMvc.perform(post(API_V1_REGISTRATION)
                         .content(mapper.writeValueAsString(registrationRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.emailError").value(EMAIL_IN_USE));
     }
@@ -97,7 +101,8 @@ public class RegistrationControllerTest {
 
         mockMvc.perform(post(API_V1_REGISTRATION)
                         .content(mapper.writeValueAsString(registrationRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.captchaError").value("Fill captcha."));
     }
@@ -108,7 +113,8 @@ public class RegistrationControllerTest {
                         .param("password2", "")
                         .param("g-recaptcha-response", "")
                         .content(mapper.writeValueAsString(new RegistrationRequest()))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf()))
                 .andExpect(status().isBadRequest());
     }
 

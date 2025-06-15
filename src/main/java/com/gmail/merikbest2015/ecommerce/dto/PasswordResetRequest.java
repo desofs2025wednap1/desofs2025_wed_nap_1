@@ -1,8 +1,8 @@
 package com.gmail.merikbest2015.ecommerce.dto;
 
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import javax.validation.constraints.Size;
 
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.PASSWORD2_CHARACTER_LENGTH;
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.PASSWORD_CHARACTER_LENGTH;

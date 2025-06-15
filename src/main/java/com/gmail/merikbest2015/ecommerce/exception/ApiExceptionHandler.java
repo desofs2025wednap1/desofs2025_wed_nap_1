@@ -1,5 +1,7 @@
 package com.gmail.merikbest2015.ecommerce.exception;
 
+import com.gmail.merikbest2015.ecommerce.security.JwtAuthenticationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,5 +40,10 @@ public class ApiExceptionHandler {
     public ResponseEntity<Map<String, String>> handleInputFieldException(InputFieldException exception) {
         InputFieldException inputFieldException = new InputFieldException(exception.getBindingResult());
         return ResponseEntity.badRequest().body(inputFieldException.getErrorsMap());
+    }
+
+    @ExceptionHandler(JwtAuthenticationException.class)
+    public ResponseEntity<String> handleJwtAuthenticationException(JwtAuthenticationException exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exception.getMessage());
     }
 }

@@ -1,11 +1,9 @@
 package com.gmail.merikbest2015.ecommerce.configuration;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,11 +28,11 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public AmazonS3 s3Client() {
-        AWSCredentials credentials = new BasicAWSCredentials(awsAccessKey, awsAccessSecret);
-        return AmazonS3ClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                .withRegion(Regions.EU_CENTRAL_1)
+    public S3Client s3Client() { // Changed return type to S3Client
+        AwsBasicCredentials credentials = AwsBasicCredentials.create(awsAccessKey, awsAccessSecret); // Updated credentials creation
+        return S3Client.builder() // Updated to S3Client builder
+                .credentialsProvider(StaticCredentialsProvider.create(credentials)) // Updated credentials provider
+                .region(Region.EU_CENTRAL_1) // Updated region
                 .build();
     }
 

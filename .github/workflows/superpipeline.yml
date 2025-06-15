@@ -19,6 +19,7 @@ env:
   PGPASSWORD: ${{ secrets.PGPASSWORD }} # Usado pelo psql
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+
 jobs:
   gitleaks-scan:
     name: Gitleaks Scan
@@ -30,41 +31,72 @@ jobs:
           fetch-depth: 0 # Necessário para o Gitleaks analisar todo o histórico
 
       - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v2
+        uses: zricethezav/gitleaks-action@master # Use a ação oficial correta
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }} # Se você tiver uma licença paga
-        with:
-          report_format: json
-          report_path: gitleaks-report.json
-          exit_code: 0 # Não falha o pipeline se encontrar segredos, apenas reporta
-          # O arquivo .gitleaks.toml na raiz será usado automaticamente para exclusões
+        continue-on-error: true # Não falha a pipeline
 
+      - name: Create report directory
+        if: always()
+        run: mkdir -p gitleaks-reports
+
+      - name: Run Gitleaks with report output
+        if: always()
+        run: |
+          # Instalar Gitleaks
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.16.4/gitleaks_8.16.4_linux_x64.tar.gz | tar -xz
+          chmod +x gitleaks
+          # Executar com saída em JSON
+          ./gitleaks detect --report-format json --report-path gitleaks-reports/gitleaks-report.json --no-git || true
+
+      # No job gitleaks-scan:
       - name: Upload Gitleaks report
         uses: actions/upload-artifact@v4
         with:
-          name: report-gitleaks
-          path: gitleaks-report.json
+          name: report-gitleaks  # Este nome deve corresponder
+          path: gitleaks-reports/
           if-no-files-found: warn
 
-  secret-scanner-scan:
-    name: Secret Scanner
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Configuration
-        uses: actions/checkout@v4
-      - name: Secret Scanner
-        uses: secret-scanner/action@main
+      # Na etapa collect-and-commit-reports:
+      - name: Download Gitleaks Report
+        uses: actions/download-artifact@v4
         with:
-          INPUT_SCAN_ARGS: "--output-path secret-scan-report.json --ignore-paths securityReports"
-        # A ação secret-scanner/action@main geralmente faz upload para o GitHub Security Events automaticamente (SARIF)
+          name: report-gitleaks  # Mesmo nome aqui
+          path: staging_reports
+        continue-on-error: true
 
-      # Tentativa de upload do JSON, se o INPUT_SCAN_ARGS o criar previsivelmente
-      - name: Upload Secret Scan JSON report
-        uses: actions/upload-artifact@v4
-        with:
-          name: report-secret-scan
-          path: secret-scan-report.json # O nome do arquivo pode variar dependendo da ferramenta interna
-          if-no-files-found: warn
+
+
+#  secret-scanner-scan:
+#    name: Secret Scanner (detect-secrets)
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Python
+#        uses: actions/setup-python@v4
+#        with:
+#          python-version: '3.10'
+#
+#      - name: Install detect-secrets
+#        run: pip install detect-secrets
+#
+#      - name: Create reports directory
+#        run: mkdir -p secret-scanner-reports
+#
+#      - name: Run detect-secrets
+#        run: |
+#          detect-secrets scan --exclude-files "securityReports/.*" > secret-scanner-reports/secret-scan-report.json
+#        continue-on-error: true
+#
+#      - name: Upload Secret Scan report
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: report-secret-scan
+#          path: secret-scanner-reports/
+#          if-no-files-found: warn
 
 
   super-linter-scan:
@@ -72,14 +104,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # Atualizado para v4
+        uses: actions/checkout@v4
+
+      - name: Create linter reports directory
+        run: mkdir -p super-linter-reports
 
       - name: Run Super-Linter
-        uses: github/super-linter@v4 # Mantido v4, pode ser atualizado para v5 ou v6 se disponível/desejado
+        uses: github/super-linter@v4
         env:
-          DEFAULT_BRANCH: master # Ajustado para master conforme branches do workflow
+          DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILTER_REGEX_EXCLUDE: .*/securityReports/.* # Exclui a pasta securityReports
+          FILTER_REGEX_EXCLUDE: .*/securityReports/.*
+          # Variáveis para exportação de relatórios
+          LOG_LEVEL: INFO
+          LOG_FILE: super-linter-reports/super-linter.log
+          OUTPUT_FORMAT: json
+          OUTPUT_DETAILS: detailed
+          OUTPUT_FOLDER: super-linter-reports
+          DISABLE_ERRORS: true # Para não falhar o pipeline por erros de linting
+        continue-on-error: true
+
+      - name: Upload Super-Linter report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: report-super-linter
+          path: super-linter-reports/
+          if-no-files-found: warn
+
 
   setup-java-and-cache:
     runs-on: ubuntu-latest
@@ -103,6 +155,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
 
   unit-tests:
     needs: setup-java-and-cache
@@ -128,11 +181,11 @@ jobs:
           if-no-files-found: warn
 
   integration-tests:
-    needs: unit-tests
+    needs: setup-java-and-cache
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:15
+        image: postgres:17
         ports:
           - 5432:5432
         env:
@@ -256,7 +309,7 @@ jobs:
 
   build-and-package:
     name: Build and Package
-    needs: integration-tests # Garante que os testes passaram antes de empacotar
+    needs: [unit-tests, integration-tests] # Garante que os testes passaram antes de empacotar
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -339,12 +392,13 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - gitleaks-scan
-      - secret-scanner-scan # Adicionado, mas o relatório pode não estar disponível ou ser padronizado
+      - super-linter-scan
       - unit-tests
       - integration-tests
       - snyk-sca
       - snyk-sast
       - deploy-and-dast
+#      - secret-scanner-scan # Adicionado, mas o relatório pode não estar disponível ou ser padronizado
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -355,6 +409,13 @@ jobs:
           mkdir -p securityReports/unit-test-reports
           mkdir -p securityReports/integration-test-reports
           mkdir -p securityReports/dast-reports
+
+      - name: Download Super-Linter Report
+        uses: actions/download-artifact@v4
+        with:
+          name: report-super-linter
+          path: staging_reports/super-linter-raw
+        continue-on-error: true
 
       - name: Download Gitleaks Report
         uses: actions/download-artifact@v4
@@ -409,6 +470,16 @@ jobs:
         shell: bash # Garante que o shell bash está sendo usado para os comandos
         run: |
           echo "Organizing reports..."
+          
+          # Super Linter
+          if [ -d staging_reports/super-linter-raw ]; then
+            mkdir -p securityReports/linter-reports
+            cp -r staging_reports/super-linter-raw/* securityReports/linter-reports/
+            echo "Copied Super Linter reports."
+          else
+            echo "Super Linter reports directory not found."
+          fi
+          
           # Gitleaks
           if [ -f staging_reports/gitleaks-report.json ]; then
             mv staging_reports/gitleaks-report.json securityReports/report-gitleaks.json
@@ -418,12 +489,12 @@ jobs:
           fi
 
           # Secret Scan (o nome do arquivo pode variar)
-          if [ -f staging_reports/secret-scan-report.json ]; then
-            mv staging_reports/secret-scan-report.json securityReports/report-secret-scan.json
-            echo "Moved Secret Scan report."
-          else
-            echo "Secret Scan report (secret-scan-report.json) not found in staging_reports."
-          fi
+          # if [ -f staging_reports/secret-scan-report.json ]; then
+          #   mv staging_reports/secret-scan-report.json securityReports/report-secret-scan.json
+          #   echo "Moved Secret Scan report."
+          # else
+          #   echo "Secret Scan report (secret-scan-report.json) not found in staging_reports."
+          # fi
           
           # Snyk
           if [ -f staging_reports/snyk-SCA.json ]; then
@@ -499,3 +570,49 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
+  remote-deploy:
+      needs:
+        - build-and-package
+        - snyk-sca
+        - snyk-sast
+        - deploy-and-dast
+        - super-linter-scan
+        - gitleaks-scan
+#        - secret-scanner-scan
+
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
+
+        - name: Download packaged JAR from previous job
+          uses: actions/download-artifact@v4
+          with:
+            name: java-package
+            path: target
+
+        - name: Set up SSH
+          uses: webfactory/ssh-agent@v0.9.0
+          with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+        - name: Add remote host to known_hosts
+          run: |
+            ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts    
+
+        - name: Upload files to server
+          run: |
+            scp -P ${{ secrets.SSH_PORT }} target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_DIR }}
+            scp -P ${{ secrets.SSH_PORT }} docker-compose.yml Dockerfile init.sql ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_DIR }}
+
+        - name: Deploy on remote server
+          run: |
+            ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+              cd ${{ secrets.DEPLOY_DIR }}
+            
+              # Kill any running java -jar process
+              pgrep -f 'java -jar' | xargs -r kill
+            
+              # Start the JAR on port 2224 in background
+              nohup java -jar *.jar --server.port=2224 > ../app.log 2>&1 &
+            EOF

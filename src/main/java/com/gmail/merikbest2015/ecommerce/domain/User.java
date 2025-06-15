@@ -2,11 +2,11 @@ package com.gmail.merikbest2015.ecommerce.domain;
 
 import com.gmail.merikbest2015.ecommerce.enums.AuthProvider;
 import com.gmail.merikbest2015.ecommerce.enums.Role;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;

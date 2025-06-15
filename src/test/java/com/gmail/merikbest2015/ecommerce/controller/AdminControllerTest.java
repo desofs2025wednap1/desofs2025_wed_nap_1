@@ -1,28 +1,29 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
-import com.amazonaws.services.s3.AmazonS3;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
 import com.gmail.merikbest2015.ecommerce.dto.perfume.PerfumeRequest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito; // Adicionado
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3Utilities; // Adicionado
+import software.amazon.awssdk.services.s3.model.GetUrlRequest;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,24 +32,25 @@ import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.*;
 import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.*;
 import static com.gmail.merikbest2015.ecommerce.util.TestConstants.*;
 import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
-@WithUserDetails(ADMIN_EMAIL)
+//@WithUserDetails(ADMIN_EMAIL)
+@WithMockUser(username = ADMIN_EMAIL, authorities = "ADMIN")
 @TestPropertySource("/application-test.properties")
 @Sql(value = {"/sql/create-user-before.sql", "/sql/create-perfumes-before.sql", "/sql/create-orders-before.sql"},
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = {"/sql/create-orders-after.sql", "/sql/create-perfumes-after.sql", "/sql/create-user-after.sql"},
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class AdminControllerTest {
-    @MockBean
-    private AmazonS3 amazonS3;
+    @MockitoBean
+    private S3Client s3Client; // Changed from AmazonS3 to S3Client
     @Autowired
     private MockMvc mockMvc;
 
@@ -61,10 +63,13 @@ public class AdminControllerTest {
     private GraphQLRequest graphQLRequest;
     private PerfumeRequest perfumeRequest;
 
-    @Before
+    @BeforeEach
     public void init() throws MalformedURLException {
         URL fakeUrl = new URL("https://fake-s3-url.com/fake-image.jpg");
-        when(amazonS3.getUrl(anyString(), anyString())).thenReturn(fakeUrl);
+        // Updated to mock S3Client\'s utilities().getUrl() method using fully qualified name for any()
+        S3Utilities mockS3Utilities = Mockito.mock(S3Utilities.class);
+        when(s3Client.utilities()).thenReturn(mockS3Utilities);
+        when(mockS3Utilities.getUrl(org.mockito.ArgumentMatchers.any(GetUrlRequest.class))).thenReturn(fakeUrl);
         graphQLRequest = new GraphQLRequest();
         perfumeRequest = new PerfumeRequest();
         perfumeRequest.setPerfumer(PERFUMER_CHANEL);
@@ -83,14 +88,14 @@ public class AdminControllerTest {
     @Test
     @DisplayName("[200] POST /api/v1/admin/add - Add Perfume")
     public void addPerfume() throws Exception {
-        FileInputStream inputFile = new FileInputStream(new File(FILE_PATH));
+        FileInputStream inputFile = new FileInputStream(FILE_PATH);
         MockMultipartFile multipartFile = new MockMultipartFile("file", FILE_NAME, MediaType.MULTIPART_FORM_DATA_VALUE, inputFile);
         MockMultipartFile jsonFile = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
-        mockMvc.perform(multipart(API_V1_ADMIN + ADD)
+        this.mockMvc.perform(multipart(API_V1_ADMIN + ADD)
                         .file(multipartFile)
-                        .file(jsonFile))
+                        .file(jsonFile)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isOk());
     }
 
@@ -99,11 +104,11 @@ public class AdminControllerTest {
     public void addPerfume_ShouldInputFieldsAreEmpty() throws Exception {
         PerfumeRequest perfumeRequest = new PerfumeRequest();
         MockMultipartFile jsonFile = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
-        mockMvc.perform(multipart(API_V1_ADMIN + ADD)
+        this.mockMvc.perform(multipart(API_V1_ADMIN + ADD)
                         .file(jsonFile)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.perfumeTitleError", is(FILL_IN_THE_INPUT_FIELD)))
                 .andExpect(jsonPath("$.perfumerError", is(FILL_IN_THE_INPUT_FIELD)))
@@ -121,14 +126,14 @@ public class AdminControllerTest {
     @Test
     @DisplayName("[200] POST /api/v1/admin/edit - Edit Perfume")
     public void editPerfume() throws Exception {
-        FileInputStream inputFile = new FileInputStream(new File(FILE_PATH));
+        FileInputStream inputFile = new FileInputStream(FILE_PATH);
         MockMultipartFile multipartFile = new MockMultipartFile("file", FILE_NAME, MediaType.MULTIPART_FORM_DATA_VALUE, inputFile);
         MockMultipartFile jsonFileEdit = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         perfumeRequest.setType("test");
-        mockMvc.perform(multipart(API_V1_ADMIN + EDIT)
+        this.mockMvc.perform(multipart(API_V1_ADMIN + EDIT)
                         .file(multipartFile)
-                        .file(jsonFileEdit))
+                        .file(jsonFileEdit)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isOk());
     }
 
@@ -137,11 +142,11 @@ public class AdminControllerTest {
     public void editPerfume_ShouldInputFieldsAreEmpty() throws Exception {
         PerfumeRequest perfumeRequest = new PerfumeRequest();
         MockMultipartFile jsonFile = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
-        mockMvc.perform(multipart(API_V1_ADMIN + EDIT)
+        this.mockMvc.perform(multipart(API_V1_ADMIN + EDIT)
                         .file(jsonFile)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.perfumeTitleError", is(FILL_IN_THE_INPUT_FIELD)))
                 .andExpect(jsonPath("$.perfumerError", is(FILL_IN_THE_INPUT_FIELD)))
@@ -160,7 +165,8 @@ public class AdminControllerTest {
     @DisplayName("[200] DELETE /api/v1/admin/delete/46 - Delete Perfume")
     public void deletePerfume() throws Exception {
         mockMvc.perform(delete(API_V1_ADMIN + DELETE_BY_PERFUME_ID, 46)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is("Perfume deleted successfully")));
     }
@@ -169,7 +175,8 @@ public class AdminControllerTest {
     @DisplayName("[404] DELETE /api/v1/admin/delete/99 - Delete Perfume Should Not Found")
     public void deletePerfume_ShouldNotFound() throws Exception {
         mockMvc.perform(delete(API_V1_ADMIN + DELETE_BY_PERFUME_ID, 99)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$", is(PERFUME_NOT_FOUND)));
     }
@@ -214,7 +221,8 @@ public class AdminControllerTest {
     @DisplayName("[200] DELETE /api/v1/admin/order/delete/111 - Delete Order")
     public void deleteOrder() throws Exception {
         mockMvc.perform(delete(API_V1_ADMIN + ORDER_DELETE, 111)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is("Order deleted successfully")));
     }
@@ -223,7 +231,8 @@ public class AdminControllerTest {
     @DisplayName("[404] DELETE /api/v1/admin/order/delete/222 - Delete Order Should Not Found")
     public void deleteOrder_ShouldNotFound() throws Exception {
         mockMvc.perform(delete(API_V1_ADMIN + ORDER_DELETE, 222)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$", is(ORDER_NOT_FOUND)));
     }
@@ -265,7 +274,8 @@ public class AdminControllerTest {
 
         mockMvc.perform(post(API_V1_ADMIN + GRAPHQL_USER)
                         .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.user.id", equalTo(USER_ID)))
                 .andExpect(jsonPath("$.data.user.email", equalTo(USER_EMAIL)))
@@ -288,7 +298,8 @@ public class AdminControllerTest {
 
         mockMvc.perform(post(API_V1_ADMIN + GRAPHQL_USER_ALL)
                         .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.users[*].id").isNotEmpty())
                 .andExpect(jsonPath("$.data.users[*].email").isNotEmpty())
@@ -311,7 +322,8 @@ public class AdminControllerTest {
 
         mockMvc.perform(post(API_V1_ADMIN + GRAPHQL_ORDERS)
                         .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.orders[*].id").isNotEmpty())
                 .andExpect(jsonPath("$.data.orders[*].totalPrice").isNotEmpty())
@@ -333,7 +345,8 @@ public class AdminControllerTest {
 
         mockMvc.perform(post(API_V1_ADMIN + GRAPHQL_ORDER)
                         .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .with(csrf())) // Adicionando token CSRF
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.ordersByEmail[*].id").isNotEmpty())
                 .andExpect(jsonPath("$.data.ordersByEmail[*].totalPrice").isNotEmpty())

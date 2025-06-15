@@ -1,20 +1,13 @@
 package com.gmail.merikbest2015.ecommerce.domain;
 
-import static com.gmail.merikbest2015.ecommerce.util.TestConstants.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
-import com.gmail.merikbest2015.ecommerce.dto.perfume.PerfumeRequest;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PerfumeTest {
 

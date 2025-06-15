@@ -5,19 +5,18 @@ import com.gmail.merikbest2015.ecommerce.dto.auth.AuthenticationRequest;
 import com.gmail.merikbest2015.ecommerce.dto.auth.AuthenticationResponse;
 import com.gmail.merikbest2015.ecommerce.mapper.AuthenticationMapper;
 import com.gmail.merikbest2015.ecommerce.security.UserPrincipal;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 
-import javax.validation.Valid;
 
 import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,7 +42,9 @@ public class AuthenticationController {
     @GetMapping(RESET_CODE)
     public ResponseEntity<String> getEmailByPasswordResetCode(@PathVariable String code) {
         logger.info("Retrieving email by password reset code: {}", code);
-        return ResponseEntity.ok(authenticationMapper.getEmailByPasswordResetCode(code));
+        String emailFromMapper = authenticationMapper.getEmailByPasswordResetCode(code);
+        String escapedEmail = (emailFromMapper != null) ? HtmlUtils.htmlEscape(emailFromMapper) : null;
+        return ResponseEntity.ok(escapedEmail);
     }
 
     @PostMapping(RESET)

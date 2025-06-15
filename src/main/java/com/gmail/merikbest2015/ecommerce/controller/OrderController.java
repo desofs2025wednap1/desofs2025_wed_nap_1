@@ -9,7 +9,10 @@ import com.gmail.merikbest2015.ecommerce.mapper.OrderMapper;
 import com.gmail.merikbest2015.ecommerce.security.UserPrincipal;
 import com.gmail.merikbest2015.ecommerce.service.graphql.GraphQLProvider;
 import graphql.ExecutionResult;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +20,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,7 +48,7 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<List<OrderResponse>> getUserOrders(@AuthenticationPrincipal UserPrincipal user,
-                                                             @PageableDefault(size = 10) Pageable pageable) {
+                                                             @PageableDefault() Pageable pageable) {
         logger.info("Fetching orders for user: {}", user.getEmail());
         HeaderResponse<OrderResponse> response = orderMapper.getUserOrders(user.getEmail(), pageable);
         return ResponseEntity.ok().headers(response.getHeaders()).body(response.getItems());

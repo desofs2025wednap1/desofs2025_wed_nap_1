@@ -3,18 +3,18 @@ package com.gmail.merikbest2015.ecommerce.mapper;
 import com.gmail.merikbest2015.ecommerce.domain.Order;
 import com.gmail.merikbest2015.ecommerce.dto.order.OrderRequest;
 import com.gmail.merikbest2015.ecommerce.dto.order.OrderResponse;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.gmail.merikbest2015.ecommerce.util.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class OrderMapperTest {
 
     @Autowired
