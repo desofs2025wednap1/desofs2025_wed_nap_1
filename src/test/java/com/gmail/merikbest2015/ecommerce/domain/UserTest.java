@@ -5,9 +5,7 @@ import com.gmail.merikbest2015.ecommerce.enums.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,25 +48,21 @@ public class UserTest {
 
     @Test
     public void testInvalidEmailNull_ThrowsException() {
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> {
-            new User(
-                    null, "password", "John", "Doe", "City", "Address",
-                    "+15551234567", "12345", "activation", "reset", true,
-                    AuthProvider.LOCAL, roles
-            );
-        });
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> new User(
+                null, "password", "John", "Doe", "City", "Address",
+                "+15551234567", "12345", "activation", "reset", true,
+                AuthProvider.LOCAL, roles
+        ));
         assertEquals("Email must not be blank.", ex.getMessage());
     }
 
     @Test
     public void testInvalidEmailFormat_ThrowsException() {
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> {
-            new User(
-                    "bademail.com", "password", "John", "Doe", "City", "Address",
-                    "+15551234567", "12345", "activation", "reset", true,
-                    AuthProvider.LOCAL, roles
-            );
-        });
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> new User(
+                "bademail.com", "password", "John", "Doe", "City", "Address",
+                "+15551234567", "12345", "activation", "reset", true,
+                AuthProvider.LOCAL, roles
+        ));
         assertEquals("Email format is invalid.", ex.getMessage());
     }
 
@@ -84,13 +78,11 @@ public class UserTest {
 
     @Test
     public void testInvalidPhoneNumber_ThrowsException() {
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> {
-            new User(
-                    "test@example.com", "password", "John", "Doe", "City", "Address",
-                    "invalid-phone!", "12345", "activation", "reset", true,
-                    AuthProvider.LOCAL, roles
-            );
-        });
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> new User(
+                "test@example.com", "password", "John", "Doe", "City", "Address",
+                "invalid-phone!", "12345", "activation", "reset", true,
+                AuthProvider.LOCAL, roles
+        ));
         assertEquals("Phone number format is invalid.", ex.getMessage());
     }
 
@@ -106,13 +98,11 @@ public class UserTest {
 
     @Test
     public void testInvalidPostIndexTooLong_ThrowsException() {
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> {
-            new User(
-                    "test@example.com", "password", "John", "Doe", "City", "Address",
-                    "+15551234567", "12345678901", "activation", "reset", true,
-                    AuthProvider.LOCAL, roles
-            );
-        });
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> new User(
+                "test@example.com", "password", "John", "Doe", "City", "Address",
+                "+15551234567", "12345678901", "activation", "reset", true,
+                AuthProvider.LOCAL, roles
+        ));
         assertEquals("Post index is too long.", ex.getMessage());
     }
 }

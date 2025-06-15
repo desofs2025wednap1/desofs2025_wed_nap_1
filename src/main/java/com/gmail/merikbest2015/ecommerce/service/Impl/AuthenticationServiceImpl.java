@@ -29,6 +29,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.*;
 import org.slf4j.Logger;
@@ -86,10 +88,23 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String url = String.format(captchaUrl, secret, captcha);
         restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponse.class);
 
-        if (user.getPassword() != null && !user.getPassword().equals(password2)) {
-            logger.warn("Passwords do not match for registration attempt: '{}'", user.getEmail());
-            throw new PasswordException(PASSWORDS_DO_NOT_MATCH);
+        String plainPassword1 = user.getPassword();
+        if (plainPassword1 != null) {
+            boolean passwordsMatch;
+            if (password2 == null) {
+                passwordsMatch = false; // Mimics behavior of "string".equals(null)
+            } else {
+                passwordsMatch = MessageDigest.isEqual(
+                        plainPassword1.getBytes(StandardCharsets.UTF_8),
+                        password2.getBytes(StandardCharsets.UTF_8)
+                );
+            }
+            if (!passwordsMatch) {
+                logger.warn("Passwords do not match for registration attempt: '{}'", user.getEmail());
+                throw new PasswordException(PASSWORDS_DO_NOT_MATCH);
+            }
         }
+        // If plainPassword1 is null, no exception is thrown, matching original behavior.
 
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             logger.warn("Registration failed: email '{}' already in use", user.getEmail());

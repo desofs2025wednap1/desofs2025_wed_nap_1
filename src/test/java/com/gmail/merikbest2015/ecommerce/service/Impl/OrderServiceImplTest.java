@@ -7,17 +7,17 @@ import com.gmail.merikbest2015.ecommerce.repository.OrderItemRepository;
 import com.gmail.merikbest2015.ecommerce.repository.OrderRepository;
 import com.gmail.merikbest2015.ecommerce.repository.PerfumeRepository;
 import com.gmail.merikbest2015.ecommerce.service.email.MailSender;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.*;
 
@@ -27,22 +27,22 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class OrderServiceImplTest {
 
     @Autowired
     private OrderServiceImpl orderService;
 
-    @MockBean
+    @MockitoBean
     private OrderRepository orderRepository;
 
-    @MockBean
+    @MockitoBean
     private OrderItemRepository orderItemRepository;
 
-    @MockBean
+    @MockitoBean
     private PerfumeRepository perfumeRepository;
 
-    @MockBean
+    @MockitoBean
     private MailSender mailSender;
 
     @Test

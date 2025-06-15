@@ -3,13 +3,13 @@ package com.gmail.merikbest2015.ecommerce.controller;
 import com.gmail.merikbest2015.ecommerce.dto.review.ReviewRequest;
 import com.gmail.merikbest2015.ecommerce.dto.review.ReviewResponse;
 import com.gmail.merikbest2015.ecommerce.mapper.ReviewMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.API_V1_REVIEW;

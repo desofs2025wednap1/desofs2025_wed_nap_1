@@ -1,11 +1,11 @@
 package com.gmail.merikbest2015.ecommerce.dto.order;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.*;

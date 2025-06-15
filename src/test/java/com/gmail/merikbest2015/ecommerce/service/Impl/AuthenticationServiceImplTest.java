@@ -1,23 +1,22 @@
 package com.gmail.merikbest2015.ecommerce.service.Impl;
 
+import com.gmail.merikbest2015.ecommerce.domain.User;
 import com.gmail.merikbest2015.ecommerce.enums.AuthProvider;
 import com.gmail.merikbest2015.ecommerce.enums.Role;
-import com.gmail.merikbest2015.ecommerce.domain.User;
 import com.gmail.merikbest2015.ecommerce.repository.UserRepository;
 import com.gmail.merikbest2015.ecommerce.security.JwtProvider;
 import com.gmail.merikbest2015.ecommerce.security.oauth2.*;
 import com.gmail.merikbest2015.ecommerce.service.email.MailSender;
 import org.hamcrest.CoreMatchers;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,31 +24,26 @@ import java.util.Map;
 import java.util.Optional;
 
 import static com.gmail.merikbest2015.ecommerce.util.TestConstants.*;
-import static com.gmail.merikbest2015.ecommerce.util.TestConstants.USER_EMAIL;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class AuthenticationServiceImplTest {
 
     @Autowired
     private AuthenticationServiceImpl authenticationService;
 
-    @MockBean
-    private AuthenticationManager authenticationManager;
-
-    @MockBean
+    @MockitoBean
     private UserRepository userRepository;
 
-    @MockBean
+    @MockitoBean
     private JwtProvider jwtProvider;
 
-    @MockBean
+    @MockitoBean
     private MailSender mailSender;
 
-    @MockBean
+    @MockitoBean
     private PasswordEncoder passwordEncoder;
 
     @Value("${hostname}")
@@ -71,17 +65,19 @@ public class AuthenticationServiceImplTest {
         User user = new User();
         user.setId(123L);
         user.setEmail(USER_EMAIL);
-        user.setPassword(USER_PASSWORD);
+        user.setPassword(USER_PASSWORD); // This should be the encoded password
         user.setActive(true);
         user.setFirstName(FIRST_NAME);
         user.setRoles(Collections.singleton(Role.USER));
 
         when(userRepository.findByEmail(USER_EMAIL)).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(USER_PASSWORD, user.getPassword())).thenReturn(true);
         assertEquals(123L, user.getId());
         assertEquals(USER_EMAIL, user.getEmail());
         assertEquals(FIRST_NAME, user.getFirstName());
         authenticationService.login(USER_EMAIL, USER_PASSWORD);
-        verify(userRepository, times(1)).findByEmail(user.getEmail());
+        // Expect 2 calls to findByEmail due to AuthenticationManager and direct call
+        verify(userRepository, times(2)).findByEmail(user.getEmail());
         verify(jwtProvider, times(1)).createToken(user.getEmail(), user.getRoles().iterator().next().name());
     }
 

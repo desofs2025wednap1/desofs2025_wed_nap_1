@@ -4,20 +4,17 @@ import com.gmail.merikbest2015.ecommerce.domain.Perfume;
 import com.gmail.merikbest2015.ecommerce.dto.perfume.PerfumeSearchRequest;
 import com.gmail.merikbest2015.ecommerce.repository.PerfumeRepository;
 import com.gmail.merikbest2015.ecommerce.repository.projection.PerfumeProjection;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class PerfumeServiceImplTest {
 
     @Autowired
@@ -38,7 +35,7 @@ public class PerfumeServiceImplTest {
     @Autowired
     private SpelAwareProxyProjectionFactory factory;
 
-    @MockBean
+    @MockitoBean
     private PerfumeRepository perfumeRepository;
 
     @Test
@@ -96,7 +93,7 @@ public class PerfumeServiceImplTest {
         filter.setSortByPrice(false);
         perfumeService.findPerfumesByFilterParams(filter, pageable);
         assertEquals(2, perfumeList.getTotalElements());
-        assertEquals(perfumeList.getContent().get(0).getPerfumer(), PERFUMER_CHANEL);
+        assertEquals(PERFUMER_CHANEL, perfumeList.getContent().get(0).getPerfumer());
         verify(perfumeRepository, times(1)).findPerfumesByFilterParams(perfumers, genders, 1, 1000, false, pageable);
     }
 
@@ -112,8 +109,8 @@ public class PerfumeServiceImplTest {
 
         when(perfumeRepository.findByPerfumerOrderByPriceDesc(PERFUMER_CHANEL)).thenReturn(perfumeList);
         perfumeService.findByPerfumer(PERFUMER_CHANEL);
-        assertEquals(perfumeList.get(0).getPerfumer(), PERFUMER_CHANEL);
-        assertNotEquals(perfumeList.get(0).getPerfumer(), PERFUMER_CREED);
+        assertEquals(PERFUMER_CHANEL, perfumeList.get(0).getPerfumer());
+        assertNotEquals(PERFUMER_CREED, perfumeList.get(0).getPerfumer());
         verify(perfumeRepository, times(1)).findByPerfumerOrderByPriceDesc(PERFUMER_CHANEL);
     }
 
@@ -126,8 +123,8 @@ public class PerfumeServiceImplTest {
 
         when(perfumeRepository.findByPerfumeGenderOrderByPriceDesc(PERFUME_GENDER)).thenReturn(perfumeList);
         perfumeService.findByPerfumeGender(PERFUME_GENDER);
-        assertEquals(perfumeList.get(0).getPerfumeGender(), PERFUME_GENDER);
-        assertNotEquals(perfumeList.get(0).getPerfumeGender(), "male");
+        assertEquals(PERFUME_GENDER, perfumeList.get(0).getPerfumeGender());
+        assertNotEquals("male", perfumeList.get(0).getPerfumeGender());
         verify(perfumeRepository, times(1)).findByPerfumeGenderOrderByPriceDesc(PERFUME_GENDER);
     }
 
